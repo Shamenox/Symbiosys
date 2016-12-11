@@ -5,7 +5,7 @@
     <script>
         // Setup
         var ctx;
-        var scene = "menue";
+        var scene = "loading";
 		var scale = 1;
         var background;
         var cursorX
@@ -13,6 +13,7 @@
         var clothes = "main";
         var use = "false";
         var groundlevel = 220;
+		var status;
         var gravity = "true";
 		var esc = "false";
 
@@ -27,6 +28,8 @@
         function createImage(path) {
             var img = new Image();
             img.src = path;
+			status += 1;
+			console.log(status);
             return img;
         }
 
@@ -99,6 +102,7 @@
             image.closet = createImage("ress/kiiros closet sketch.png");
 			image.kiirosroom_door = createImage("ress/kiirosroom door overlay.png");
 			image.home_floor1 = createImage("ress/floor1.png");
+			image.room1 = createImage("ress/room1.png");
 
             console.log(image);
         }
@@ -158,14 +162,16 @@
             function draw() {
                 ctx.drawImage(background, 0, 0);
                 if (scene === "whitescreen") whitescreenF();
+				if (scene === "loading") loadingF();
                 if (scene === "menue") menueF();
 				if (scene === "kiiros room") kiirosroomF();
                 if (scene === "desktop") desktopF();
                 if (scene === "basestar") basestarF();
                 if (scene === "closet") closetF();
 				if (scene === "home_floor1") home_floor1F();
+				if (scene === "room1") room1F();
                 physik();
-                if (scene !== "menue") ctx.fillText("Version 0.21", 1140, 710);
+                if (scene !== "menue") ctx.fillText("Version 0.22", 1140, 710);
                 ctx.drawImage(player1.skin, player1.x, player1.y,220*scale,440*scale)
                 ctx.drawImage(image.cursor, cursorX - 8, cursorY - 36);
                 requestAnimationFrame(draw);
@@ -228,7 +234,7 @@
             player1.x += player1.vx;
             if (player1.vx === 0 && player1.dir === "right" && use === "false" && gravity === "true") player1.skin = player1.right;
             if (player1.vx === 0 && player1.dir === "left" && use === "false" && gravity === "true") player1.skin = player1.left;
-            if (player1.vx > 0) player1.dir = "right", player1.step += 1;
+            if (player1.vx > 0 && gravity === "true") player1.dir = "right", player1.step += 1;
             if (player1.vx < 0) player1.dir = "left", player1.step += 1;
             if (player1.step > 50) player1.step = 1;
             //Laufanimation
@@ -270,6 +276,17 @@
 
         // Raumdaten
 		
+		function loadingF(){
+			background = image.whitescreen;
+			if (player1.x > 1280) player1.x = 0;
+            if (player1.x < 0) player1.x = 1280;
+			ctx.font = "80px Calibri";
+			ctx.fillText("Loading... please wait",300,200);
+			if (status > 111111111111111111111111111111111111111111111111111111111111111111) {
+				status = 0;
+				scene = "menue";
+			}
+		}
 		function whitescreenF() {
             background = image.whitescreen;
             if (player1.x > 1280) player1.x = 0;
@@ -372,7 +389,7 @@
                 if (cursorX > 1250 && cursorX < 1280 && cursorY > 0 && cursorY < 30) scene = "desktop", player1x = -200, gravity = "true";
             }
 			if (esc === "true") scene = "desktop";
-        };
+        }
         function closetF() {
             theme2.play();
             player1.x = -200;
@@ -486,7 +503,34 @@
 					use = "false";
 				}
 			}
+			if (player1.x > 330 && player1.x < 530){
+				if (use === "false") ctx.fillText("Enter(E)",400,200);
+				if (use === "true") use = "entering";
+				if (use === "entering"){
+					scene = "room1";
+					player1.x = 0;
+					player1.y = 220;
+					use = "false";
+				}
+			}
 			if (player1.x > 1060) player1.x = 1060;
+		}
+		function room1F(){
+			background = image.room1;
+			scale = 1;
+			groundlevel = 220;
+			if (player1.x < 0) player1.x = 0;
+			if (player1.x < 20) {
+					if (false) ctx.fillText("I dont want to go outside right now.", 100, 220);
+					if (use === "false") ctx.fillText("Leave(E)",84,220);
+					if (use === "true") use = "leaving";
+					if (use === "leaving"){
+						scene = "home_floor1";
+						player1.x = 400;
+						use = "false";
+						}
+			}
+			if (player1.x > 1080) player1.x = 1080;
 		}
         // Scripted by Shamenox with a lot of help by Miterosan
     </script>
