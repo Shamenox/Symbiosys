@@ -103,7 +103,8 @@
             image.kiirosroom = createImage("ress/kiiros room sketch.png");
             image.closet = createImage("ress/kiiros closet sketch.png");
 			image.kiirosroom_door = createImage("ress/kiirosroom door overlay.png");
-			image.home_floor1 = createImage("ress/floor1.png");
+			image.home_floor1 = createImage("ress/home_ups1.png");
+			image.home_floor2 = createImage("ress/home_ups2.png");
 			image.room1 = createImage("ress/room1.png");
 			image.home_atrium = createImage("ress/atrium.png");
 			image.livingroom = createImage("ress/living room.png");
@@ -173,6 +174,7 @@
                 if (scene === "basestar") basestarF();
                 if (scene === "closet") closetF();
 				if (scene === "home_floor1") home_floor1F();
+				if (scene === "home_floor2") home_floor2F();
 				if (scene === "room1") room1F();
 				if (scene === "home_atrium") home_atriumF();
 				if (scene === "livingroom") livingroomF();
@@ -337,7 +339,7 @@
 				if (use === "true") use = "leaving";
 				if (use === "leaving"){
 					scene = "home_floor1";
-					player1.x = 900;
+					player1.x = 700;
 					use = "false";
 					}
 			}
@@ -500,16 +502,17 @@
             if (use === "slot5") setTimeout(normalize, 2000), ctx.fillText("There´s nothing in the closet...", 300, 40);
         }
 		function home_floor1F() {
-			groundlevel = 200;
-			scale = 1.05;
+			groundlevel = 180;
+			scale = 0.9;
 			theme2.play();
 			background = image.home_floor1;
-			if (player1.x < 80) player1.x = 80;
-			if (player1.x > 1060) player1.x = 1060;
-			if (player1.x > 800 && player1.x < 1000){
-				if (use === "false") ctx.fillText("Enter(E)",1000,200);
-				if (player1.crouch === "false") ctx.fillText("Downstairs(S)",1000,180);
+			if (player1.x < 0) player1.x = 1280, scene = "home_floor2";
+			if (player1.x > 260 && player1.x < 410){
+				if (player1.crouch === "false") ctx.fillText("Downstairs(S)",300,groundlevel);
 				if (player1.crouch === "true") scene = "home_atrium", player1.x = 180;
+			}
+			if (player1.x > 710 && player1.x < 850){
+				if (use === "false") ctx.fillText("Enter(E)",800,groundlevel);
 				if (use === "true") use = "entering";
 				if (use === "entering"){
 					scene = "kiiros room";
@@ -518,8 +521,31 @@
 					use = "false";
 				}
 			}
-			if (player1.x > 330 && player1.x < 530){
-				if (use === "false") ctx.fillText("Enter(E)",400,200);
+			if (player1.x > 10 && player1.x < 180){
+				if (use === "false") ctx.fillText("Enter(E)",120,groundlevel);
+				if (use === "true") use = "abandoned";
+				if (use === "entering"){
+					scene = "midoris room";
+					player1.x = 0;
+					player1.y = 220;
+					use = "false";
+				}
+				if (use === "abandoned"){
+					ctx.fillText("Midori seems to be absent right now...",100,groundlevel);
+					setTimeout(normalize,1000);
+				}
+			}
+			if (player1.x > 990) player1.x = 990;
+		}
+		function home_floor2F(){
+			console.log(player1.x);
+			background = image.home_floor2;
+			scale = 0.9;
+			groundlevel = 180;
+			theme2.play();
+			if (player1.x <100) player1.x = 100;
+			if (player1.x > 500 && player1.x < 650){
+				if (use === "false") ctx.fillText("Enter(E)",580,groundlevel);
 				if (use === "true") use = "entering";
 				if (use === "entering"){
 					scene = "room1";
@@ -528,8 +554,9 @@
 					use = "false";
 				}
 			}
-			if (player1.x > 1060) player1.x = 1060;
+			if (player1.x > 1180) player1.x = 0, scene = "home_floor1";
 		}
+			
 		function room1F(){
 			background = image.room1;
 			scale = 1;
@@ -541,8 +568,8 @@
 					if (use === "false") ctx.fillText("Leave(E)",84,220);
 					if (use === "true") use = "leaving";
 					if (use === "leaving"){
-						scene = "home_floor1";
-						player1.x = 400;
+						scene = "home_floor2";
+						player1.x = 520;
 						use = "false";
 						}
 			}
@@ -557,7 +584,7 @@
 			if (player1.x> 50 && player1.x< 200) {
 				if (player1.crouch !== "jump") ctx.fillText("Upstairs(W)",100,220);
 				if (player1.crouch === "jump") use = "stairs";
-				if (use === "stairs") scene = "home_floor1", player1.x = 1000, use = "false";
+				if (use === "stairs") scene = "home_floor1", player1.x = 300, use = "false";
 			}
 			if (player1.x > 320 && player1.x < 500){
 				if (use === "false") ctx.fillText("Enter(E)",400,220);
