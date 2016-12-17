@@ -7,13 +7,14 @@
         var ctx;
         var scene = "loading";
 		var scale = 1;
+		var state = 0;
+		var next = new Array(1);
         var background;
         var cursorX
         var cursorY
         var clothes = "main";
         var use = "false";
         var groundlevel = 220;
-		var status;
 		var l = 0;
         var gravity = "true";
 		var esc = "false";
@@ -29,8 +30,8 @@
         function createImage(path) {
             var img = new Image();
             img.src = path;
-			status += 1;
-			console.log(status);
+			state += 1;
+			console.log(state);
             return img;
         }
 
@@ -92,6 +93,8 @@
             image.kiiro0r = createImage("ress/standard/0r.png");
             image.kiiro0l_cestodian = createImage("ress/standard/0l.png");
             image.kiiro0r_cestodian = createImage("ress/standard/0r.png");
+			image.midori0l = createImage("ress/midori/0l.png");
+			image.midori0r = createImage("ress/midori/0r.png");
 			image.riyu0r_sketched = createImage("ress/riyu/0r.png");
             image.kiiroguitar = createImage("ress/kiiro guitar sprite.png");
             image.overlay_guitar = createImage("ress/emptyguitar overlay.png");
@@ -179,7 +182,7 @@
 				if (scene === "home_atrium") home_atriumF();
 				if (scene === "livingroom") livingroomF();
                 physik();
-                if (scene !== "menue") ctx.fillText("Version 0.23", 1140, 710);
+                if (scene !== "menue") ctx.fillText("Version 0.24", 1140, 710);
                 ctx.drawImage(player1.skin, player1.x, player1.y,220*scale,440*scale)
                 ctx.drawImage(image.cursor, cursorX - 8, cursorY - 36);
                 requestAnimationFrame(draw);
@@ -240,8 +243,10 @@
 				if (player1.crouch !== "true") player1.y = groundlevel; }
             player1.y -= player1.vy;
             player1.x += player1.vx;
-            if (player1.vx === 0 && player1.dir === "right" && use === "false" && gravity === "true") player1.skin = player1.right;
-            if (player1.vx === 0 && player1.dir === "left" && use === "false" && gravity === "true") player1.skin = player1.left;
+			if (player1.vx === 0 && gravity === "true" && use === "false" || player1.vx === 0 && gravity === "true" && use ==="talk"){
+				if (player1.dir === "right") player1.skin = player1.right;
+				if (player1.dir === "left") player1.skin = player1.left;
+			}
             if (player1.vx > 0 && gravity === "true") player1.dir = "right", player1.step += 1;
             if (player1.vx < 0) player1.dir = "left", player1.step += 1;
             if (player1.step > 50) player1.step = 1;
@@ -276,18 +281,24 @@
 
         function normalize() {
             use = "false";
+			state = 0;
+			for (var i = 0; i < next.length; i++){
+				next[i] = false;
+			}
         }
 		function fadeout() {
                 use = "black";
                 setTimeout(normalize, 500);
             }
-		function next(){
-				if (l===5) use = "false" ,l = 0;
-				console.log(use,l);
-				if (use === "talkA") l +=1;
-				setTimeout(next,2000);
-				if (use === "talkA") use = "talkB";
+		function delay(){
+				state += 1;
+				if (!next[state]) normalize(); 
 			}
+		function talk(text,turn){
+			if (turn === 1 && state === 0) state = 1;
+			if (state === turn) ctx.fillText(text,player1.x,groundlevel);
+			if (next[turn] !== true) setTimeout(delay,2000*turn), next[turn] = true;
+		}
 
         // Raumdaten
 		
@@ -297,8 +308,8 @@
             if (player1.x < 0) player1.x = 1280;
 			ctx.font = "80px Calibri";
 			ctx.fillText("Loading... please wait",300,200);
-			if (status > 111111111111111111111111111111111111111111111111111111111111111111) {
-				status = 0;
+			if (state > 74) {
+				state = 0;
 				scene = "menue";
 			}
 		}
@@ -506,6 +517,7 @@
 			scale = 0.9;
 			theme2.play();
 			background = image.home_floor1;
+			ctx.drawImage(image.midori0r,0,groundlevel,scale*220,scale*440);
 			if (player1.x < 0) player1.x = 1280, scene = "home_floor2";
 			if (player1.x > 260 && player1.x < 410){
 				if (player1.crouch === "false") ctx.fillText("Downstairs(S)",300,groundlevel);
@@ -523,7 +535,7 @@
 			}
 			if (player1.x > 10 && player1.x < 180){
 				if (use === "false") ctx.fillText("Enter(E)",120,groundlevel);
-				if (use === "true") use = "abandoned";
+				if (use === "true") use = "talk";
 				if (use === "entering"){
 					scene = "midoris room";
 					player1.x = 0;
@@ -534,11 +546,17 @@
 					ctx.fillText("Midori seems to be absent right now...",100,groundlevel);
 					setTimeout(normalize,1000);
 				}
+				if (use === "talk"){
+					talk("Midori: Hi Sisterheart",1);
+					talk("Kiiro: Hi Midori, im looking for something. May i take a look for it in your room?",2);
+					talk("Midori: No, you dont wanna go in there right now...",3);
+					talk("Kiiro: Why? Whats going on?",4);
+					talk("Midori: Im... busy. You just dont want to be in there right now, trust me!",5);
+				}
 			}
 			if (player1.x > 990) player1.x = 990;
 		}
 		function home_floor2F(){
-			console.log(player1.x);
 			background = image.home_floor2;
 			scale = 0.9;
 			groundlevel = 180;
@@ -606,17 +624,12 @@
 			if (player1.x <0) player1.x = 0;
 			if (player1.x >250 && player1.x < 470){
 				if (use === "false") ctx.fillText ("Talk(E)",300,220);
-				if (use === "true") use = "talkA", setTimeout(next,300);
-				if (use === "talkA" || use === "talkB") {
-					talk()
-					}
-				function talk(){
-					if (use === "talkB") use = "talkA";
-					if (l===1) ctx.fillText("Kiiro: Hi Riyu!",300,160);
-					if (l===2) ctx.fillText("Riyu: I was wondering if you would like to come over.",300,160);
-					if (l===3) ctx.fillText("Kiiro: Of course i do, but we´ll have to wait until the outside world is accessible...",300,160);
-					if (l===4) ctx.fillText("Riyu: Yeah... They should really hurry up!",300,160);
-					
+				if (use === "true") use = "talk";
+				if (use === "talk") {
+					talk("Kiiro: Hi Riyu!",1);
+					talk("Riyu: Hey Kiiro, i was wondering if you would like to come over",2);
+					talk("Kiiro: Of course, but we will have to wait until the outside world is finnished...",3);
+					talk("Riyu: Yeah, they should really hurry up...",4);
 				}	
 			}
 			if (player1.x > 1180) scene = "home_atrium", player1.x = 0;
