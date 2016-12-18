@@ -109,7 +109,7 @@
 			image.home_floor1 = createImage("ress/home_ups1.png");
 			image.home_floor2 = createImage("ress/home_ups2.png");
 			image.room1 = createImage("ress/room1.png");
-			image.home_atrium = createImage("ress/atrium.png");
+			image.home_floor3 = createImage("ress/home_dns1.png");
 			image.livingroom = createImage("ress/living room.png");
 
             console.log(image);
@@ -179,7 +179,7 @@
 				if (scene === "home_floor1") home_floor1F();
 				if (scene === "home_floor2") home_floor2F();
 				if (scene === "room1") room1F();
-				if (scene === "home_atrium") home_atriumF();
+				if (scene === "home_floor3") home_floor3F();
 				if (scene === "livingroom") livingroomF();
                 physik();
                 if (scene !== "menue") ctx.fillText("Version 0.24", 1140, 710);
@@ -521,7 +521,7 @@
 			if (player1.x < 0) player1.x = 1280, scene = "home_floor2";
 			if (player1.x > 260 && player1.x < 410){
 				if (player1.crouch === "false") ctx.fillText("Downstairs(S)",300,groundlevel);
-				if (player1.crouch === "true") scene = "home_atrium", player1.x = 180;
+				if (player1.crouch === "true") scene = "home_floor3", player1.x = 600;
 			}
 			if (player1.x > 710 && player1.x < 850){
 				if (use === "false") ctx.fillText("Enter(E)",800,groundlevel);
@@ -593,23 +593,23 @@
 			}
 			if (player1.x > 1080) player1.x = 1080;
 		}
-		function home_atriumF(){
-			background = image.home_atrium;
+		function home_floor3F(){
+			background = image.home_floor3;
 			scale = 1;
 			groundlevel = 220;
 			theme2.play();
 			if (player1.x< 0) scene = "livingroom", player1.x = 1100;
-			if (player1.x> 50 && player1.x< 200) {
-				if (player1.crouch !== "jump") ctx.fillText("Upstairs(W)",100,220);
+			if (player1.x> 460 && player1.x< 640) {
+				if (player1.crouch !== "jump") ctx.fillText("Upstairs(W)",500,220);
 				if (player1.crouch === "jump") use = "stairs";
 				if (use === "stairs") scene = "home_floor1", player1.x = 300, use = "false";
 			}
-			if (player1.x > 320 && player1.x < 500){
-				if (use === "false") ctx.fillText("Enter(E)",400,220);
+			if (player1.x > 720 && player1.x < 800){
+				if (use === "false") ctx.fillText("Enter(E)",800,220);
 				if (use === "true") use = "leaving";
 				if (use === "leaving"){
-					ctx.fillText("In progress...",400,220);
-					setTimeout(normalize,300);
+					ctx.fillText("Its locked?...",800,220);
+					setTimeout(normalize,1000);
 				}
 			}
 			if (player1.x > 1000) ctx.fillText("I dont want to go outside right now...",900,220);
@@ -632,7 +632,7 @@
 					talk("Riyu: Yeah, they should really hurry up...",4);
 				}	
 			}
-			if (player1.x > 1180) scene = "home_atrium", player1.x = 0;
+			if (player1.x > 1180) scene = "home_floor3", player1.x = 0;
 		}
         // Scripted by Shamenox with a lot of help by Miterosan
     </script>
