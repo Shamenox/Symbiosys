@@ -14,6 +14,7 @@ var l = 0;
 var gravity = "true";
 var esc = "false";
 var click = false;
+var nsfw = false;
 
 steps = new Audio("ress/audio/steps.mp3");
 guitar1 = new Audio("ress/audio/guitar1.mp3");
@@ -112,6 +113,8 @@ function loadimages() {
     image.home_floor2 = createImage("ress/home_ups2.png");
     image.room1 = createImage("ress/room1.png");
     image.home_floor3 = createImage("ress/home_dns1.png");
+	image.home_floor4 = createImage("ress/home_dns2.png");
+	image.home_floor5 = createImage("ress/home_dns3.png");
     image.livingroom = createImage("ress/living room.png");
 
     console.log(image);
@@ -182,12 +185,14 @@ window.onload = function() {
         if (scene === "home_floor2") home_floor2F();
         if (scene === "room1") room1F();
         if (scene === "home_floor3") home_floor3F();
+		if (scene === "home_floor4") home_floor4F();
+		if (scene === "home_floor5") home_floor5F();
         if (scene === "livingroom") livingroomF();
         physik();
         if (scene !== "menue") ctx.fillText("Version 0.241", 1140, 710);
         ctx.drawImage(player1.skin, player1.x, player1.y, 220 * scale, 440 * scale)
         ctx.drawImage(image.cursor, cursorX - 8, cursorY - 36);
-        console.log(click);
+        console.log(scene);
         requestAnimationFrame(draw);
     }
 
@@ -621,7 +626,7 @@ function home_floor3F() {
     scale = 1;
     groundlevel = 220;
     theme2.play();
-    if (player1.x < 0) scene = "livingroom", player1.x = 1100;
+    if (player1.x < 0) scene = "home_floor4", player1.x = 100;
     if (player1.x > 460 && player1.x < 640) {
         if (player1.crouch !== "jump") ctx.fillText("Upstairs(W)", 500, 220);
         if (player1.crouch === "jump") use = "stairs";
@@ -656,6 +661,47 @@ function livingroomF() {
             talk("Riyu: Yeah, they should really hurry up...", 4);
         }
     }
-    if (player1.x > 1180) scene = "home_floor3", player1.x = 0;
+    if (player1.x > 1180) scene = "home_floor4", player1.x = 200;
+}
+function home_floor4F(){
+	background = image.home_floor4;
+	scale = 1;
+	theme2.play();
+	groundlevel = 220;
+	if (player1.x<0) scene = "home_floor3", player1.x =200;
+	if (player1.x.between(200,400)) {
+        if (use === "false") ctx.fillText("Enter(E)", 800, 220);
+        if (use === "true") use = "leaving";
+        if (use === "leaving") {
+            player1.x = 1100;
+            scene = "livingroom";
+			use = "false";
+		}
+	}
+	if (player1.x.between(900,1100)) {
+        if (use === "false") ctx.fillText("Enter(E)", 800, 220);
+        if (use === "true") use = "leaving";
+        if (use === "leaving") {
+            ctx.fillText("Its locked?...", 800, 220);
+            setTimeout(normalize, 1000);
+       	}
+	}
+	if (player1.x>1280) scene = "home_floor5", player1.x =100;
+}
+function home_floor5F(){
+	background = image.home_floor5;
+	scale = 1;
+	theme2.play();
+	groundlevel = 220;
+	if (player1.x<0) scene = "home_floor4", player1.x = 1100;
+	if (player1.x.between(250,450)) {
+        if (use === "false") ctx.fillText("Enter(E)", 800, 220);
+        if (use === "true") use = "leaving";
+        if (use === "leaving") {
+            ctx.fillText("Its locked?...", 800, 220);
+            setTimeout(normalize, 1000);
+        }
+	}
+	if (player1.x>900 && scene === "home_floor5") scene = "home_floor3", player1.x = 100;
 }
 // Scripted by Shamenox with a lot of help by Miterosan
