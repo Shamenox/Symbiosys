@@ -5,8 +5,8 @@
 		var state = 0;
 		var next = new Array(1);
         var background;
-        var cursorX
-        var cursorY
+        var cursorX;
+        var cursorY;
         var clothes = "main";
         var use = "false";
         var groundlevel = 220;
@@ -14,101 +14,11 @@
         var gravity = "true";
 		var esc = "false";
 
-        steps = new Audio("ress/audio/steps.mp3");
-        guitar1 = new Audio("ress/audio/guitar1.mp3");
-        theme1s = new Audio("ress/audio/theme1s.mp3");
-        theme1 = new Audio("ress/audio/theme1l.mp3");
-		theme2 = new Audio("ress/audio/theme2.mp3");
 
         var image = {};
+        var audio = {};
+        loadAudio();
 
-        function createImage(path) {
-            var img = new Image();
-            img.src = path;
-			state += 1;
-			console.log(state);
-            return img;
-        }
-
-        function loadimages() {
-            image.menue = createImage("ress/menue.png");
-            image.cursor = createImage("ress/cursor.png");
-            image.blank = createImage("ress/blank.png");
-            image.whitescreen = createImage("ress/whitescreen.png");
-            image.blackscreen = createImage("ress/blackscreen.png");
-            image.lnk = createImage("ress/lnk.png");
-            image.bouttosleep = createImage("ress/bouttosleep.png");
-            image.kiiro1r_sketched = createImage("ress/sketched/1r.png");
-            image.kiiro2r_sketched = createImage("ress/sketched/2r.png");
-            image.kiiro3r_sketched = createImage("ress/sketched/3r.png");
-            image.kiiro4r_sketched = createImage("ress/sketched/4r.png");
-            image.kiiro5r_sketched = createImage("ress/sketched/5r.png");
-            image.kiiro6r_sketched = createImage("ress/sketched/6r.png");
-            image.kiiro7r_sketched = createImage("ress/sketched/7r.png");
-            image.kiiro8r_sketched = createImage("ress/sketched/8r.png");
-            image.kiiro9r_sketched = createImage("ress/sketched/9r.png");
-            image.kiiro10r_sketched = createImage("ress/sketched/10r.png");
-            image.kiiro1l_sketched = createImage("ress/sketched/1l.png");
-            image.kiiro2l_sketched = createImage("ress/sketched/2l.png");
-            image.kiiro3l_sketched = createImage("ress/sketched/3l.png");
-            image.kiiro4l_sketched = createImage("ress/sketched/4l.png");
-            image.kiiro5l_sketched = createImage("ress/sketched/5l.png");
-            image.kiiro6l_sketched = createImage("ress/sketched/1l.png");
-            image.kiiro7l_sketched = createImage("ress/sketched/2l.png");
-            image.kiiro8l_sketched = createImage("ress/sketched/3l.png");
-            image.kiiro9l_sketched = createImage("ress/sketched/4l.png");
-            image.kiiro10l_sketched = createImage("ress/sketched/5l.png");
-            image.kiiro0l_sketched = createImage("ress/sketched/0l.png");
-            image.kiiro0r_sketched = createImage("ress/sketched/0r.png");
-            image.kiiro0l_cestodian_sketched = createImage("ress/sketched/0l.png");
-            image.kiiro0r_cestodian_sketched = createImage("ress/sketched/0r.png");
-            image.kiiro1r = createImage("ress/standard/1r.png");
-            image.kiiro2r = createImage("ress/standard/2r.png");
-            image.kiiro3r = createImage("ress/standard/3r.png");
-            image.kiiro4r = createImage("ress/standard/4r.png");
-            image.kiiro5r = createImage("ress/standard/5r.png");
-            image.kiiro6r = createImage("ress/standard/6r.png");
-            image.kiiro7r = createImage("ress/standard/7r.png");
-            image.kiiro8r = createImage("ress/standard/8r.png");
-            image.kiiro9r = createImage("ress/standard/9r.png");
-            image.kiiro10r = createImage("ress/standard/10r.png");
-            image.kiiro1l = createImage("ress/standard/1l.png");
-            image.kiiro2l = createImage("ress/standard/2l.png");
-            image.kiiro3l = createImage("ress/standard/3l.png");
-            image.kiiro4l = createImage("ress/standard/4l.png");
-            image.kiiro5l = createImage("ress/standard/5l.png");
-            image.kiiro6l = createImage("ress/standard/6l.png");
-            image.kiiro7l = createImage("ress/standard/7l.png");
-            image.kiiro8l = createImage("ress/standard/8l.png");
-            image.kiiro9l = createImage("ress/standard/9l.png");
-            image.kiiro10l = createImage("ress/standard/10l.png");
-			image.kiirocr = createImage("ress/standard/cr.png");
-			image.kiirocl = createImage("ress/standard/cl.png");
-            image.kiiro0l = createImage("ress/standard/0l.png");
-            image.kiiro0r = createImage("ress/standard/0r.png");
-            image.kiiro0l_cestodian = createImage("ress/standard/0l.png");
-            image.kiiro0r_cestodian = createImage("ress/standard/0r.png");
-			image.midori0l = createImage("ress/midori/0l.png");
-			image.midori0r = createImage("ress/midori/0r.png");
-			image.riyu0r_sketched = createImage("ress/riyu/0r.png");
-            image.kiiroguitar = createImage("ress/kiiro guitar sprite.png");
-            image.overlay_guitar = createImage("ress/emptyguitar overlay.png");
-            image.desktop = createImage("ress/desktop.png");
-            image.toolbar = createImage("ress/toolbar.png");
-            image.fenster = createImage("ress/fenster.png");
-            image.basestar = createImage("ress/sprite_basestar.png");
-            image.space1 = createImage("ress/space1.png");
-            image.kiirosroom = createImage("ress/kiiros room sketch.png");
-            image.closet = createImage("ress/kiiros closet sketch.png");
-			image.kiirosroom_door = createImage("ress/kiirosroom door overlay.png");
-			image.home_floor1 = createImage("ress/home_ups1.png");
-			image.home_floor2 = createImage("ress/home_ups2.png");
-			image.room1 = createImage("ress/room1.png");
-			image.home_floor3 = createImage("ress/home_dns1.png");
-			image.livingroom = createImage("ress/living room.png");
-
-            console.log(image);
-        }
 
         var player1 = {};
 
@@ -192,11 +102,11 @@
                 if (w.keyCode === 83 && gravity === "true") player1.y = groundlevel+100, player1.crouch = "true";
                 if (w.keyCode === 65 && gravity === "true") {
                     player1.vx = -10*scale;
-                    if (player1.x > 0) steps.play();
+                    if (player1.x > 0) audio.steps.play();
                 }
                 if (w.keyCode === 68 && gravity === "true") {
                     player1.vx = +10*scale;
-                    if (player1.x > 0) steps.play();
+                    if (player1.x > 0) audio.steps.play();
                 }
                 if (w.keyCode === 87 && gravity === "space") player1.vy += 2;
                 if (w.keyCode === 83 && gravity === "space") player1.vy -= 2;
@@ -337,7 +247,7 @@
             if (player1.x > 1080) player1.x = 1080;
             if (player1.x < 0) player1.x = 0;
 			if (use !== "black" || use !== "aboutToSleep") background = image.kiirosroom;
-			if (use !== "guitar") theme2.play();
+			if (use !== "guitar") audio.theme2.play();
 			
 			if (player1.x < 20) {
 				if (false) ctx.fillText("I dont want to go outside right now.", 100, 220);
@@ -373,14 +283,14 @@
 			if (use === "false") ctx.fillText("Play(E)", 1050, 220);
             if (use === "true"){
                 use = "guitar";
-                guitar1.play();
+                audio.guitar1.play();
                 setTimeout(normalize, 17000);
 				}
             }
 			if (player1.x > 1050) ctx.fillText("Maybe I could go to the park...", 900, 220);
         }
 		function desktopF() {
-            theme2.play();
+            audio.theme2.play();
             background = image.desktop;
             ctx.drawImage(image.toolbar, 0, 0);
             player1.x = -200;
@@ -412,7 +322,7 @@
 			if (esc === "true") scene = "desktop";
         }
         function closetF() {
-            theme2.play();
+            audio.theme2.play();
             player1.x = -200;
             background = image.closet;
 			ctx.lineWidth = 4;
@@ -510,7 +420,7 @@
 		function home_floor1F() {
 			groundlevel = 180;
 			scale = 0.9;
-			theme2.play();
+			audio.theme2.play();
 			background = image.home_floor1;
 			ctx.drawImage(image.midori0r,0,groundlevel,scale*220,scale*440);
 			if (player1.x < 0) player1.x = 1280, scene = "home_floor2";
@@ -555,7 +465,7 @@
 			background = image.home_floor2;
 			scale = 0.9;
 			groundlevel = 180;
-			theme2.play();
+			audio.theme2.play();
 			if (player1.x <100) player1.x = 100;
 			if (player1.x > 500 && player1.x < 650){
 				if (use === "false") ctx.fillText("Enter(E)",580,groundlevel);
@@ -574,7 +484,7 @@
 			background = image.room1;
 			scale = 1;
 			groundlevel = 220;
-			theme2.play();
+			audio.theme2.play();
 			if (player1.x < 0) player1.x = 0;
 			if (player1.x < 20) {
 					if (false) ctx.fillText("I dont want to go outside right now.", 100, 220);
@@ -592,7 +502,7 @@
 			background = image.home_floor3;
 			scale = 1;
 			groundlevel = 220;
-			theme2.play();
+			audio.theme2.play();
 			if (player1.x< 0) scene = "livingroom", player1.x = 1100;
 			if (player1.x> 460 && player1.x< 640) {
 				if (player1.crouch !== "jump") ctx.fillText("Upstairs(W)",500,220);
@@ -614,7 +524,7 @@
 			background = image.livingroom;
 			scale = 1.25;
 			groundlevel = 160;
-			theme2.play();
+			audio.theme2.play();
 			ctx.drawImage(image.riyu0r_sketched,250,130);
 			if (player1.x <0) player1.x = 0;
 			if (player1.x >250 && player1.x < 470){
