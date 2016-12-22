@@ -31,6 +31,12 @@ function createImage(path) {
     return img;
 }
 
+Number.prototype.between = function(a, b) {
+  var min = Math.min.apply(Math, [a, b]),
+    max = Math.max.apply(Math, [a, b]);
+  return this > min && this < max;
+};
+
 function loadimages() {
     image.menue = createImage("ress/menue.png");
     image.cursor = createImage("ress/cursor.png");
@@ -251,34 +257,36 @@ function physik() {
         if (player1.dir === "right") player1.skin = player1.right;
         if (player1.dir === "left") player1.skin = player1.left;
     }
-    if (player1.vx > 0 && gravity === "true") player1.dir = "right", player1.step += 1;
-    if (player1.vx < 0) player1.dir = "left", player1.step += 1;
-    if (player1.step > 50) player1.step = 1;
-    //Laufanimation
-    if (player1.vx > 0 && player1.step < 6 && gravity === "true") player1.skin = player1.step1r;
-    if (player1.vx > 0 && player1.step < 11 && player1.step > 5 && gravity === "true") player1.skin = player1.step2r;
-    if (player1.vx > 0 && player1.step < 16 && player1.step > 10 && gravity === "true") player1.skin = player1.step3r;
-    if (player1.vx > 0 && player1.step < 21 && player1.step > 15 && gravity === "true") player1.skin = player1.step4r;
-    if (player1.vx > 0 && player1.step < 26 && player1.step > 20 && gravity === "true") player1.skin = player1.step5r;
-    if (player1.vx > 0 && player1.step < 31 && player1.step > 25 && gravity === "true") player1.skin = player1.step6r;
-    if (player1.vx > 0 && player1.step < 36 && player1.step > 30 && gravity === "true") player1.skin = player1.step7r;
-    if (player1.vx > 0 && player1.step < 41 && player1.step > 35 && gravity === "true") player1.skin = player1.step8r;
-    if (player1.vx > 0 && player1.step < 46 && player1.step > 40 && gravity === "true") player1.skin = player1.step9r;
-    if (player1.vx > 0 && player1.step > 45 && gravity === "true") player1.skin = player1.step10r;
-    if (player1.vx < 0 && player1.step < 6 && gravity === "true") player1.skin = player1.step1l;
-    if (player1.vx < 0 && player1.step < 11 && player1.step > 5 && gravity === "true") player1.skin = player1.step2l;
-    if (player1.vx < 0 && player1.step < 16 && player1.step > 10 && gravity === "true") player1.skin = player1.step3l;
-    if (player1.vx < 0 && player1.step < 21 && player1.step > 15 && gravity === "true") player1.skin = player1.step4l;
-    if (player1.vx < 0 && player1.step < 26 && player1.step > 20 && gravity === "true") player1.skin = player1.step5l;
-    if (player1.vx < 0 && player1.step < 31 && player1.step > 25 && gravity === "true") player1.skin = player1.step6l;
-    if (player1.vx < 0 && player1.step < 36 && player1.step > 30 && gravity === "true") player1.skin = player1.step7l;
-    if (player1.vx < 0 && player1.step < 41 && player1.step > 35 && gravity === "true") player1.skin = player1.step8l;
-    if (player1.vx < 0 && player1.step < 46 && player1.step > 40 && gravity === "true") player1.skin = player1.step9l;
-    if (player1.vx < 0 && player1.step > 45 && gravity === "true") player1.skin = player1.step10l;
-    //Sprung/Hockepose
-    if (player1.crouch === "true" && player1.dir === "right" || player1.crouch === "jump" && player1.dir === "right") player1.skin = player1.crouchr;
-    if (player1.crouch === "true" && player1.dir === "left" || player1.crouch === "jump" && player1.dir === "left") player1.skin = player1.crouchl;
-    //Bildverhalten
+	if (gravity === "true"){
+		if (player1.vx > 0) player1.dir = "right", player1.step += 1;
+		if (player1.vx < 0) player1.dir = "left", player1.step += 1;
+		if (player1.step > 50) player1.step = 1;
+		//Laufanimation
+		if (player1.vx > 0 && player1.step < 6) player1.skin = player1.step1r;
+		if (player1.vx > 0 && player1.step.between(5,10)) player1.skin = player1.step2r;
+		if (player1.vx > 0 && player1.step.between(10,15)) player1.skin = player1.step3r;
+		if (player1.vx > 0 && player1.step.between(15,20)) player1.skin = player1.step4r;
+		if (player1.vx > 0 && player1.step.between(20,25)) player1.skin = player1.step5r;
+		if (player1.vx > 0 && player1.step.between(25,30)) player1.skin = player1.step6r;
+		if (player1.vx > 0 && player1.step.between(30,35)) player1.skin = player1.step7r;
+		if (player1.vx > 0 && player1.step.between(35,40)) player1.skin = player1.step8r;
+		if (player1.vx > 0 && player1.step.between(40,45)) player1.skin = player1.step9r;
+		if (player1.vx > 0 && player1.step.between(50,51)) player1.skin = player1.step10r;
+		if (player1.vx < 0 && player1.step < 6) player1.skin = player1.step1l;
+		if (player1.vx < 0 && player1.step.between(5,10)) player1.skin = player1.step2l;
+		if (player1.vx < 0 && player1.step.between(10,15)) player1.skin = player1.step3l;
+		if (player1.vx < 0 && player1.step.between(15,20)) player1.skin = player1.step4l;
+		if (player1.vx < 0 && player1.step.between(20,25)) player1.skin = player1.step5l;
+		if (player1.vx < 0 && player1.step.between(25,30)) player1.skin = player1.step6l;
+		if (player1.vx < 0 && player1.step.between(30,35)) player1.skin = player1.step7l;
+		if (player1.vx < 0 && player1.step.between(35,40)) player1.skin = player1.step8l;
+		if (player1.vx < 0 && player1.step.between(40,45)) player1.skin = player1.step9l;
+		if (player1.vx < 0 && player1.step.between(50,51)) player1.skin = player1.step10l;
+		//Sprung/Hockepose
+		if (player1.crouch === "true" && player1.dir === "right" || player1.crouch === "jump" && player1.dir === "right") player1.skin = player1.crouchr;
+		if (player1.crouch === "true" && player1.dir === "left" || player1.crouch === "jump" && player1.dir === "left") player1.skin = player1.crouchl;
+		//Bildverhalten
+	}
     if (use === "black") background = image.blackscreen;
 
 }
