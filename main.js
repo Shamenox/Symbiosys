@@ -32,6 +32,15 @@ function createImage(path) {
     return img;
 }
 
+function createSprite(path,x,y){
+	var content = {
+		x : x,
+		y : y,
+	};
+	return content;
+}
+arm = createSprite("")
+
 Number.prototype.between = function(a, b) {
   var min = Math.min.apply(Math, [a, b]),
     max = Math.max.apply(Math, [a, b]);
@@ -119,6 +128,16 @@ function loadimages() {
 
     console.log(image);
 }
+function loadSprites();{
+	var xx1 = {};
+	xx1.head = createSprite("ress/nsfw/head.png",600,150);
+	xx1.body = createSprite("ress/nsfw/body.png",600,250);
+	xx1.breats = createSprite("ress/nsfw/breats.png",500,280);
+	xx1.leg_upper_l = createSprite("ress/upper leg l.png",500,500);
+	xx1.leg_upper_r = createSprite("ress/upper leg r.png",700,500);
+	xx1.leg_lower_l = createSprite("ress/lower leg l.png",400,600);
+	xx1.leg_lower_r = createSprite("ress/lower leg r.png",800,600);
+}
 
 var player1 = {};
 
@@ -188,6 +207,7 @@ window.onload = function() {
 		if (scene === "home_floor4") home_floor4F();
 		if (scene === "home_floor5") home_floor5F();
         if (scene === "livingroom") livingroomF();
+		if (scene === "xx1") xx1F();
         physik();
         if (scene !== "menue") ctx.fillText("Version 0.241", 1140, 710);
         ctx.drawImage(player1.skin, player1.x, player1.y, 220 * scale, 440 * scale)
@@ -703,5 +723,18 @@ function home_floor5F(){
         }
 	}
 	if (player1.x>900 && scene === "home_floor5") scene = "home_floor3", player1.x = 100;
+}
+function xx1F(){
+	background = image.whitescreen;
+	player1.skin = image.blank;
+	use = "love";
+	gravity = "octopode";
+	function frame(action){
+		if (action === "intro")
+		state +=1;
+		if (state>10) state = 0;
+		setTimeout(frame,100)
+	}
+	
 }
 // Scripted by Shamenox with a lot of help by Miterosan
