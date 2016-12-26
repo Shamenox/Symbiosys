@@ -13,7 +13,7 @@ var groundlevel = 220;
 var gravity = "true";
 var esc = "false";
 var click = false;
-var walking = false;
+var isWalking = false;
 var nsfw = false;
 
 steps = new Audio("ress/audio/steps.mp3");
@@ -287,18 +287,18 @@ console.log(player1.step);
 		if (player1.y < groundlevel) player1.vy -= 4, player1.crouch = "jump";
 		if (player1.vx > 0){
 			player1.dir = "right";
-			if (!walking) {
+			if (!isWalking) {
 			player1.step +=1;
 			setTimeout(steppon,100);
-			walking = true;
+			isWalking = true;
 			}
 		}
 		if (player1.vx < 0){
 			player1.dir = "left";
-			if (!walking) {
+			if (!isWalking) {
 			player1.step +=1;
 			setTimeout(steppon,100);
-			walking = true;
+			isWalking = true;
 			}
 		}
 		if (player1.vx === 0) player1.step = 0;
@@ -309,7 +309,7 @@ console.log(player1.step);
 }
 
 function steppon(){
-	walking = false;
+	isWalking = false;
 }
 function normalize() {
     use = "false";
