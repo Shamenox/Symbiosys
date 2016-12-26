@@ -3,7 +3,7 @@ var ctx;
 var scene = "loading";
 var scale = 1;
 var state = 0;
-var next = new Array(1);
+var next = new Array();
 var background;
 var cursorX
 var cursorY
@@ -18,9 +18,13 @@ var nsfw = false;
 
 steps = new Audio("ress/audio/steps.mp3");
 guitar1 = new Audio("ress/audio/guitar1.mp3");
-theme1s = new Audio("ress/audio/theme1s.mp3");
-theme1 = new Audio("ress/audio/theme1l.mp3");
-theme2 = new Audio("ress/audio/theme2.mp3");
+theme1 = new Audio("ress/audio/theme1.mp3");
+
+Number.prototype.between = function(a, b) {
+  var min = Math.min.apply(Math, [a, b]),
+    max = Math.max.apply(Math, [a, b]);
+  return this > min && this < max;
+};
 
 var image = {};
 
@@ -40,12 +44,6 @@ function createSprite(path,x,y){
 	return content;
 }
 arm = createSprite("")
-
-Number.prototype.between = function(a, b) {
-  var min = Math.min.apply(Math, [a, b]),
-    max = Math.max.apply(Math, [a, b]);
-  return this > min && this < max;
-};
 
 function loadimages() {
     image.menue = createImage("ress/menue.png");
@@ -128,7 +126,7 @@ function loadimages() {
 
     console.log(image);
 }
-function loadSprites();{
+function loadSprites(){
 	var xx1 = {};
 	xx1.head = createSprite("ress/nsfw/head.png",600,150);
 	xx1.body = createSprite("ress/nsfw/body.png",600,250);
@@ -139,36 +137,39 @@ function loadSprites();{
 	xx1.leg_lower_r = createSprite("ress/lower leg r.png",800,600);
 }
 
-var player1 = {};
+function setup_skins(){
+var skin = [[]];
+	skin[0][0] = image.kiiro0r;
+    skin[0][1] = image.kiiro1r;
+    skin[0][2] = image.kiiro2r;
+    skin[0][3] = image.kiiro3r;
+    skin[0][4] = image.kiiro4r;
+    skin[0][5] = image.kiiro5r;
+    skin[0][6] = image.kiiro6r;
+    skin[0][7] = image.kiiro7r;
+    skin[0][8] = image.kiiro8r;
+    skin[0][9] = image.kiiro9r;
+    skin[0][10] = image.kiiro10r;
+	skin[0][11] = image.kiirocr;
+	skin[1][0] = image.kiiro0l;
+    skin[1][1] = image.kiiro1l;
+    skin[1][2] = image.kiiro2l;
+    skin[1][3] = image.kiiro3l;
+    skin[1][4] = image.kiiro4l;
+    skin[1][5] = image.kiiro5l;
+    skin[1][6] = image.kiiro6l;
+    skin[1][7] = image.kiiro7l;
+    skin[1][8] = image.kiiro8l;
+    skin[1][9] = image.kiiro9l;
+    skin[1][10] = image.kiiro10l;
+    skin[1][11] = image.kiirocl;
+}
 
 function setup_player1() {
-    player1.skin = image.kiiro0l;
-    player1.right = image.kiiro0r;
-    player1.left = image.kiiro0l;
-    player1.dir = "left";
-    player1.step = 1;
-    player1.step1r = image.kiiro1r;
-    player1.step2r = image.kiiro2r;
-    player1.step3r = image.kiiro3r;
-    player1.step4r = image.kiiro4r;
-    player1.step5r = image.kiiro5r;
-    player1.step6r = image.kiiro6r;
-    player1.step7r = image.kiiro7r;
-    player1.step8r = image.kiiro8r;
-    player1.step9r = image.kiiro9r;
-    player1.step10r = image.kiiro10r;
-    player1.step1l = image.kiiro1l;
-    player1.step2l = image.kiiro2l;
-    player1.step3l = image.kiiro3l;
-    player1.step4l = image.kiiro4l;
-    player1.step5l = image.kiiro5l;
-    player1.step6l = image.kiiro6l;
-    player1.step7l = image.kiiro7l;
-    player1.step8l = image.kiiro8l;
-    player1.step9l = image.kiiro9l;
-    player1.step10l = image.kiiro10l;
-    player1.crouchr = image.kiirocr;
-    player1.crouchl = image.kiirocl;
+	var player1 = {}
+	player1.skin = skin[0][0];
+	player1.step = 0;
+	player1.dir = 0;	
     player1.crouch = "false";
     player1.y = 200;
     player1.x = 400;
@@ -182,6 +183,7 @@ window.onload = function() {
     var canvas = document.getElementById("Canvas");
     ctx = canvas.getContext("2d");
     loadimages();
+	setup_skins();
     setup_player1();
     background = new Image();
     background.src = "ress/whitescreen.png";
@@ -383,7 +385,7 @@ function kiirosroomF() {
     if (player1.x > 1080) player1.x = 1080;
     if (player1.x < 0) player1.x = 0;
     if (use !== "black" || use !== "aboutToSleep") background = image.kiirosroom;
-    if (use !== "guitar") theme2.play();
+    if (use !== "guitar") theme1.play();
 
     if (player1.x < 20) {
         if (false) ctx.fillText("I dont want to go outside right now.", 100, 220);
@@ -428,7 +430,7 @@ function kiirosroomF() {
 }
 
 function desktopF() {
-    theme2.play();
+    theme1.play();
     background = image.desktop;
     ctx.drawImage(image.toolbar, 0, 0);
     player1.x = -200;
@@ -462,7 +464,7 @@ function basestarF() {
 }
 
 function closetF() {
-    theme2.play();
+    theme1.play();
     player1.x = -200;
     background = image.closet;
     ctx.lineWidth = 4;
@@ -561,7 +563,7 @@ function closetF() {
 function home_floor1F() {
     groundlevel = 180;
     scale = 0.9;
-    theme2.play();
+    theme1.play();
     background = image.home_floor1;
     ctx.drawImage(image.midori0r, 0, groundlevel, scale * 220, scale * 440);
     if (player1.x < 0) player1.x = 1280, scene = "home_floor2";
@@ -607,7 +609,7 @@ function home_floor2F() {
     background = image.home_floor2;
     scale = 0.9;
     groundlevel = 180;
-    theme2.play();
+    theme1.play();
     if (player1.x < 100) player1.x = 100;
     if (player1.x > 500 && player1.x < 650) {
         if (use === "false") ctx.fillText("Enter(E)", 580, groundlevel);
@@ -626,7 +628,7 @@ function room1F() {
     background = image.room1;
     scale = 1;
     groundlevel = 220;
-    theme2.play();
+    theme1.play();
     if (player1.x < 0) player1.x = 0;
     if (player1.x < 20) {
         if (false) ctx.fillText("I dont want to go outside right now.", 100, 220);
@@ -645,7 +647,7 @@ function home_floor3F() {
     background = image.home_floor3;
     scale = 1;
     groundlevel = 220;
-    theme2.play();
+    theme1.play();
     if (player1.x < 0) scene = "home_floor4", player1.x = 100;
     if (player1.x > 460 && player1.x < 640) {
         if (player1.crouch !== "jump") ctx.fillText("Upstairs(W)", 500, 220);
@@ -668,7 +670,7 @@ function livingroomF() {
     background = image.livingroom;
     scale = 1.25;
     groundlevel = 160;
-    theme2.play();
+    theme1.play();
     ctx.drawImage(image.riyu0r_sketched, 250, 130);
     if (player1.x < 0) player1.x = 0;
     if (player1.x > 250 && player1.x < 470) {
@@ -686,7 +688,7 @@ function livingroomF() {
 function home_floor4F(){
 	background = image.home_floor4;
 	scale = 1;
-	theme2.play();
+	theme1.play();
 	groundlevel = 220;
 	if (player1.x<0) scene = "home_floor3", player1.x =200;
 	if (player1.x.between(200,400)) {
@@ -711,7 +713,7 @@ function home_floor4F(){
 function home_floor5F(){
 	background = image.home_floor5;
 	scale = 1;
-	theme2.play();
+	theme1.play();
 	groundlevel = 220;
 	if (player1.x<0) scene = "home_floor4", player1.x = 1100;
 	if (player1.x.between(250,450)) {
