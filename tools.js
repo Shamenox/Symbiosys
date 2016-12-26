@@ -3,7 +3,28 @@ Number.prototype.between = function(a, b) {
     max = Math.max.apply(Math, [a, b]);
   return this > min && this < max;
 };
+function createImage(path) {
+    var img = new Image();
+    img.src = path;
+		state +=1;
+		console.log(state);
+    return img;
+}
 
+function createSprite(path,x,y){
+    var content = {
+        x: x,
+        y: y,
+    };
+    return content;
+}
+function createSkin(){
+	var neuerskin = {
+		r : [],
+		l : []
+	}
+	return neuerskin;
+}
 //this is objeckt stufffff
 var Animation = function(){
   this.isRunning = false;

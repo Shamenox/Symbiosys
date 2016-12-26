@@ -1,25 +1,11 @@
 
-function loadMusic(){
-    music.teps = new Audio("ress/audio/steps.mp3");
-    music.guitar1 = new Audio("ress/audio/guitar1.mp3");
-    music.theme1 = new Audio("ress/audio/theme1.mp3");
+function loadAudio(){
+    audio.steps = new Audio("ress/audio/steps.mp3");
+    audio.guitar1 = new Audio("ress/audio/guitar1.mp3");
+    audio.theme1 = new Audio("ress/audio/theme1.mp3");
 }
 
-function createImage(path) {
-    var img = new Image();
-    img.src = path;
-    return img;
-}
-
-function createSprite(path,x,y){
-    var content = {
-        x: x,
-        y: y,
-    };
-    return content;
-}
-
-function loadimages() {
+function loadImages() {
     image.menue = createImage("ress/menue.png");
     image.cursor = createImage("ress/cursor.png");
     image.blank = createImage("ress/blank.png");
