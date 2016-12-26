@@ -3,14 +3,14 @@ var ctx;
 var scene = "loading";
 var scale = 1;
 var state = 0;
-var next = new Array();
+var next = [];
 var background;
-var cursorX
-var cursorY
+var cursorX;
+var cursorY;
 var clothes = "main";
 var use = "false";
 var groundlevel = 220;
-var l = 0;
+var l = 0; //l = 0 .... bitte benenn das besser >.<
 var gravity = "true";
 var esc = "false";
 var click = false;
@@ -19,12 +19,6 @@ var nsfw = false;
 steps = new Audio("ress/audio/steps.mp3");
 guitar1 = new Audio("ress/audio/guitar1.mp3");
 theme1 = new Audio("ress/audio/theme1.mp3");
-
-Number.prototype.between = function(a, b) {
-  var min = Math.min.apply(Math, [a, b]),
-    max = Math.max.apply(Math, [a, b]);
-  return this > min && this < max;
-};
 
 var image = {};
 
@@ -43,7 +37,7 @@ function createSprite(path,x,y){
 	};
 	return content;
 }
-arm = createSprite("")
+arm = createSprite(""); //bitte pack überall vernümftig simelkolions hin >.< ... damit gibt es nählich noch fiese Fallen mit
 
 function loadimages() {
     image.menue = createImage("ress/menue.png");
@@ -218,7 +212,7 @@ window.onload = function() {
         requestAnimationFrame(draw);
     }
 
-    draw();
+    draw(); 
 
 
     // Eingabeverwaltung
