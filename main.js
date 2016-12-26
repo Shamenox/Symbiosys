@@ -3,7 +3,7 @@ var ctx;
 var scene = "loading";
 var scale = 1;
 var state = 0;
-var next = new Array();
+var next = [];
 var background;
 var cursorX
 var cursorY
@@ -19,12 +19,6 @@ var nsfw = false;
 steps = new Audio("ress/audio/steps.mp3");
 guitar1 = new Audio("ress/audio/guitar1.mp3");
 theme1 = new Audio("ress/audio/theme1.mp3");
-
-Number.prototype.between = function(a, b) {
-  var min = Math.min.apply(Math, [a, b]),
-    max = Math.max.apply(Math, [a, b]);
-  return this > min && this < max;
-};
 
 var image = {};
 
@@ -43,7 +37,6 @@ function createSprite(path,x,y){
 	};
 	return content;
 }
-arm = createSprite("")
 
 function loadimages() {
     image.menue = createImage("ress/menue.png");
@@ -136,40 +129,32 @@ function loadSprites(){
 	xx1.leg_lower_l = createSprite("ress/lower leg l.png",400,600);
 	xx1.leg_lower_r = createSprite("ress/lower leg r.png",800,600);
 }
-
+function createSkin(){
+	var neuerSkin = {
+		r : [];
+		l : [];
+		};
+	return neuerSkin;
+}
 function setup_skins(){
-var skin = [[]];
-	skin[0][0] = image.kiiro0r;
-    skin[0][1] = image.kiiro1r;
-    skin[0][2] = image.kiiro2r;
-    skin[0][3] = image.kiiro3r;
-    skin[0][4] = image.kiiro4r;
-    skin[0][5] = image.kiiro5r;
-    skin[0][6] = image.kiiro6r;
-    skin[0][7] = image.kiiro7r;
-    skin[0][8] = image.kiiro8r;
-    skin[0][9] = image.kiiro9r;
-    skin[0][10] = image.kiiro10r;
-	skin[0][11] = image.kiirocr;
-	skin[1][0] = image.kiiro0l;
-    skin[1][1] = image.kiiro1l;
-    skin[1][2] = image.kiiro2l;
-    skin[1][3] = image.kiiro3l;
-    skin[1][4] = image.kiiro4l;
-    skin[1][5] = image.kiiro5l;
-    skin[1][6] = image.kiiro6l;
-    skin[1][7] = image.kiiro7l;
-    skin[1][8] = image.kiiro8l;
-    skin[1][9] = image.kiiro9l;
-    skin[1][10] = image.kiiro10l;
-    skin[1][11] = image.kiirocl;
+var skin = [];
+	standartSkin = createSkin();
+	for (var i = 0;i <11 ; i++){
+		standartSkin.r[i] = image["kiiro"+i+"r"];
+	}
+	standartSkin.r[crouch] = image.kiirocr;
+	for (var i = 0;i <11 ; i++){
+		standartSkin.l[i] = image["kiiro"+i+"l"];
+	}
+	standartSkin.l[crouch] = image.kiirocr;
+	skin[main] = standartSkin;
 }
 
 function setup_player1() {
 	var player1 = {}
 	player1.skin = skin[0][0];
 	player1.step = 0;
-	player1.dir = 0;	
+	player1.dir = "right";	
     player1.crouch = "false";
     player1.y = 200;
     player1.x = 400;
