@@ -13,6 +13,7 @@ var groundlevel = 220;
 var gravity = "true";
 var esc = "false";
 var click = false;
+var walking = false;
 var nsfw = false;
 
 steps = new Audio("ress/audio/steps.mp3");
@@ -132,36 +133,35 @@ function createSkin(){
 	var neuerSkin = {
 		r : [],
 		l : [],
-		};
+	};
 	return neuerSkin;
 }
-function setup_skins(){
 	var skin = [];
+function setup_skins(){
 	var standartSkin = createSkin();
 	for (var i = 0;i <11 ; i++){
 		standartSkin.r[i] = image["kiiro"+i+"r"];
 	}
-	standartSkin.r["crouch"] = image.kiirocr;
+	standartSkin.r[11] = image.kiirocr;
 	for (var i = 0;i <11 ; i++){
 		standartSkin.l[i] = image["kiiro"+i+"l"];
 	}
-	standartSkin.l["crouch"] = image.kiirocr;
+	standartSkin.l[11] = image.kiirocl;
 	skin["main"] = standartSkin;
 	
 	var sketchedSkin = createSkin();
 	for (var i = 0;i <11 ; i++){
 		sketchedSkin.r[i] = image["kiiro_sketched"+i+"r"];
 	}
-	sketchedSkin.r["crouch"] = image.kiirocr_sketched;
+	sketchedSkin.r[11] = image.kiirocr_sketched;
 	for (var i = 0;i <11 ; i++){
 		sketchedSkin.l[i] = image["kiiro_sketched"+i+"l"];
 	}
-	sketchedSkin.l["crouch"] = image.kiirocr_sketched;
+	sketchedSkin.l[11] = image.kiirocr_sketched;
 	skin["sketched"] = sketchedSkin;
 }
-
+var player1 = {}
 function setup_player1() {
-	var player1 = {}
 	player1.skin = skin["main"].r[0];
 	player1.step = 0;
 	player1.dir = "right";	
@@ -228,6 +228,7 @@ window.onload = function() {
 				player1.vx = +10 * scale;
 				if (player1.x > 0) steps.play();
 			}
+			if (w.keyCode === 69) use = "true";
 		}
 		if (gravity === "space"){
 			if (w.keyCode === 87) player1.vy += 2;
@@ -270,9 +271,14 @@ window.onload = function() {
 
 // Eingabeverarbeitung
 function physik() {
+console.log(player1.step);
     player1.y -= player1.vy;
     player1.x += player1.vx;
 	if (gravity === "true"){
+		if (player1.step > 10 && player1.crouch === "false") player1.step = 1;
+		if (player1.crouch !== "false" ) player1.step = 11;
+		if (player1.dir === "right") player1.skin = skin[clothes].r[player1.step];
+		if (player1.dir === "left") player1.skin = skin[clothes].l[player1.step];
 		if (player1.y > groundlevel) {
 			if (player1.crouch === "jump") player1.crouch = "false";
 			player1.vy = 0;
@@ -281,26 +287,30 @@ function physik() {
 		if (player1.y < groundlevel) player1.vy -= 4, player1.crouch = "jump";
 		if (player1.vx > 0){
 			player1.dir = "right";
-			player1.step += 1;
-			player1.skin = skin[clothes].r[(player1.step/10).round];
-			if (player1.step > 50) player1.step = 0;
+			if (!walking) {
+			player1.step +=1;
+			setTimeout(steppon,100);
+			walking = true;
+			}
 		}
 		if (player1.vx < 0){
 			player1.dir = "left";
-			player1.step += 1;
-			player1.skin = skin[clothes].l[(player1.step/10).round];
-			if (player1.step > 50) player1.step = 0;
+			if (!walking) {
+			player1.step +=1;
+			setTimeout(steppon,100);
+			walking = true;
+			}
 		}
-		if (player1.vx === 0 && skin.contains(player1.skin)) {
-			if (player1.dir === "right") player1.skin = skin[clothes].r[0];
-			if (player1.dir === "left") player1.skin = skin[clothes].l[0];
-		}
+		if (player1.vx === 0) player1.step = 0;
 		
 	}
     if (use === "black") background = image.blackscreen;
 
 }
 
+function steppon(){
+	walking = false;
+}
 function normalize() {
     use = "false";
     state = 0;
