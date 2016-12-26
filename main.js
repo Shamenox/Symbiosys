@@ -130,38 +130,39 @@ function loadSprites(){
 }
 function createSkin(){
 	var neuerSkin = {
-		r : [];
-		l : [];
+		r : [],
+		l : [],
 		};
 	return neuerSkin;
 }
 function setup_skins(){
-var skin = [];
-	standartSkin = createSkin();
+	var skin = [];
+	var standartSkin = createSkin();
 	for (var i = 0;i <11 ; i++){
 		standartSkin.r[i] = image["kiiro"+i+"r"];
 	}
-	standartSkin.r[crouch] = image.kiirocr;
+	standartSkin.r["crouch"] = image.kiirocr;
 	for (var i = 0;i <11 ; i++){
 		standartSkin.l[i] = image["kiiro"+i+"l"];
 	}
-	standartSkin.l[crouch] = image.kiirocr;
-	skin[main] = standartSkin;
-	sketchedSkin = createSkin();
+	standartSkin.l["crouch"] = image.kiirocr;
+	skin["main"] = standartSkin;
+	
+	var sketchedSkin = createSkin();
 	for (var i = 0;i <11 ; i++){
 		sketchedSkin.r[i] = image["kiiro_sketched"+i+"r"];
 	}
-	sketchedSkin.r[crouch] = image.kiirocr_sketched;
+	sketchedSkin.r["crouch"] = image.kiirocr_sketched;
 	for (var i = 0;i <11 ; i++){
 		sketchedSkin.l[i] = image["kiiro_sketched"+i+"l"];
 	}
-	sketchedSkin.l[crouch] = image.kiirocr_sketched;
-	skin[sketched] = sketchedSkin;
+	sketchedSkin.l["crouch"] = image.kiirocr_sketched;
+	skin["sketched"] = sketchedSkin;
 }
 
 function setup_player1() {
 	var player1 = {}
-	player1.skin = skin[0][0];
+	player1.skin = skin["main"].r[0];
 	player1.step = 0;
 	player1.dir = "right";	
     player1.crouch = "false";
@@ -208,7 +209,6 @@ window.onload = function() {
         if (scene !== "menue") ctx.fillText("Version 0.241", 1140, 710);
         ctx.drawImage(player1.skin, player1.x, player1.y, 220 * scale, 440 * scale)
         ctx.drawImage(image.cursor, cursorX - 8, cursorY - 36);
-        console.log(scene);
         requestAnimationFrame(draw);
     }
 
@@ -217,30 +217,36 @@ window.onload = function() {
 
     // Eingabeverwaltung
     addEventListener("keydown", function(w) {
-        if (w.keyCode === 87 && player1.y === groundlevel && gravity === "true") player1.vy = 30 * scale, player1.y -= 40;
-        if (w.keyCode === 83 && gravity === "true") player1.y = groundlevel + 100, player1.crouch = "true";
-        if (w.keyCode === 65 && gravity === "true") {
-            player1.vx = -10 * scale;
-            if (player1.x > 0) steps.play();
-        }
-        if (w.keyCode === 68 && gravity === "true") {
-            player1.vx = +10 * scale;
-            if (player1.x > 0) steps.play();
-        }
-        if (w.keyCode === 87 && gravity === "space") player1.vy += 2;
-        if (w.keyCode === 83 && gravity === "space") player1.vy -= 2;
-        if (w.keyCode === 65 && gravity === "space") player1.vx -= 2;
-        if (w.keyCode === 68 && gravity === "space") player1.vx += 2;
-        if (w.keyCode === 69) use = "true";
-        if (w.keycode === 27) esc = "true";
-    }, false);
+		if (gravity === "true"){
+			if (w.keyCode === 87 && player1.y === groundlevel) player1.vy = 30 * scale, player1.y -= 40;
+			if (w.keyCode === 83) player1.y = groundlevel + 100, player1.crouch = "true";
+			if (w.keyCode === 65 ) {
+				player1.vx = -10 * scale;
+				if (player1.x > 0) steps.play();
+			}
+			if (w.keyCode === 68) {
+				player1.vx = +10 * scale;
+				if (player1.x > 0) steps.play();
+			}
+		}
+		if (gravity === "space"){
+			if (w.keyCode === 87) player1.vy += 2;
+			if (w.keyCode === 83) player1.vy -= 2;
+			if (w.keyCode === 65) player1.vx -= 2;
+			if (w.keyCode === 68) player1.vx += 2;
+			if (w.keyCode === 69) use = "true";
+			if (w.keycode === 27) esc = "true";
+		}
+	}, false);
     addEventListener("keyup", function(w) {
-        if (w.keyCode === 83 && gravity === "true") player1.crouch = "false";
-        if (w.keyCode === 65 && gravity === "true") player1.vx = 0;
-        if (w.keyCode === 68 && gravity === "true") player1.vx = 0;
-        if (w.keyCode === 69 && use === "true") use = "false";
-        if (w.keycode === 27) esc = "false";
-    }, false);
+		if (gravity === "true"){
+			if (w.keyCode === 83) player1.crouch = "false";
+			if (w.keyCode === 65) player1.vx = 0;
+			if (w.keyCode === 68) player1.vx = 0;
+			if (w.keyCode === 69 && use === "true") use = "false";
+			if (w.keycode === 27) esc = "false";
+		}
+	}, false);
 
     document.onmousedown = function(trigger) {
         click = true;
@@ -252,11 +258,9 @@ window.onload = function() {
         cursorX = m.pageX - document.getElementById("Canvas").offsetLeft;
         cursorY = m.pageY - document.getElementById("Canvas").offsetTop;
     }
-
     function mausX() {
         return cursorX;
     }
-
     function mausY() {
         return cursorY;
     }
@@ -266,47 +270,32 @@ window.onload = function() {
 
 // Eingabeverarbeitung
 function physik() {
-    if (player1.y < groundlevel && gravity === "true") player1.vy -= 4, player1.crouch = "jump";
-    if (player1.y > groundlevel && gravity === "true") {
-        if (player1.crouch === "jump") player1.crouch = "false";
-        player1.vy = 0;
-        if (player1.crouch !== "true") player1.y = groundlevel;
-    }
     player1.y -= player1.vy;
     player1.x += player1.vx;
-    if (player1.vx === 0 && gravity === "true" && use === "false" || player1.vx === 0 && gravity === "true" && use === "talk") {
-        if (player1.dir === "right") player1.skin = player1.right;
-        if (player1.dir === "left") player1.skin = player1.left;
-    }
 	if (gravity === "true"){
-		if (player1.vx > 0) player1.dir = "right", player1.step += 1;
-		if (player1.vx < 0) player1.dir = "left", player1.step += 1;
-		if (player1.step > 50) player1.step = 1;
-		//Laufanimation
-		if (player1.vx > 0 && player1.step < 6) player1.skin = player1.step1r;
-		if (player1.vx > 0 && player1.step.between(5,10)) player1.skin = player1.step2r;
-		if (player1.vx > 0 && player1.step.between(10,15)) player1.skin = player1.step3r;
-		if (player1.vx > 0 && player1.step.between(15,20)) player1.skin = player1.step4r;
-		if (player1.vx > 0 && player1.step.between(20,25)) player1.skin = player1.step5r;
-		if (player1.vx > 0 && player1.step.between(25,30)) player1.skin = player1.step6r;
-		if (player1.vx > 0 && player1.step.between(30,35)) player1.skin = player1.step7r;
-		if (player1.vx > 0 && player1.step.between(35,40)) player1.skin = player1.step8r;
-		if (player1.vx > 0 && player1.step.between(40,45)) player1.skin = player1.step9r;
-		if (player1.vx > 0 && player1.step.between(50,51)) player1.skin = player1.step10r;
-		if (player1.vx < 0 && player1.step < 6) player1.skin = player1.step1l;
-		if (player1.vx < 0 && player1.step.between(5,10)) player1.skin = player1.step2l;
-		if (player1.vx < 0 && player1.step.between(10,15)) player1.skin = player1.step3l;
-		if (player1.vx < 0 && player1.step.between(15,20)) player1.skin = player1.step4l;
-		if (player1.vx < 0 && player1.step.between(20,25)) player1.skin = player1.step5l;
-		if (player1.vx < 0 && player1.step.between(25,30)) player1.skin = player1.step6l;
-		if (player1.vx < 0 && player1.step.between(30,35)) player1.skin = player1.step7l;
-		if (player1.vx < 0 && player1.step.between(35,40)) player1.skin = player1.step8l;
-		if (player1.vx < 0 && player1.step.between(40,45)) player1.skin = player1.step9l;
-		if (player1.vx < 0 && player1.step.between(50,51)) player1.skin = player1.step10l;
-		//Sprung/Hockepose
-		if (player1.crouch === "true" && player1.dir === "right" || player1.crouch === "jump" && player1.dir === "right") player1.skin = player1.crouchr;
-		if (player1.crouch === "true" && player1.dir === "left" || player1.crouch === "jump" && player1.dir === "left") player1.skin = player1.crouchl;
-		//Bildverhalten
+		if (player1.y > groundlevel) {
+			if (player1.crouch === "jump") player1.crouch = "false";
+			player1.vy = 0;
+        if (player1.crouch !== "true") player1.y = groundlevel;
+    }
+		if (player1.y < groundlevel) player1.vy -= 4, player1.crouch = "jump";
+		if (player1.vx > 0){
+			player1.dir = "right";
+			player1.step += 1;
+			player1.skin = skin[clothes].r[(player1.step/10).round];
+			if (player1.step > 50) player1.step = 0;
+		}
+		if (player1.vx < 0){
+			player1.dir = "left";
+			player1.step += 1;
+			player1.skin = skin[clothes].l[(player1.step/10).round];
+			if (player1.step > 50) player1.step = 0;
+		}
+		if (player1.vx === 0 && skin.contains(player1.skin)) {
+			if (player1.dir === "right") player1.skin = skin[clothes].r[0];
+			if (player1.dir === "left") player1.skin = skin[clothes].l[0];
+		}
+		
 	}
     if (use === "black") background = image.blackscreen;
 
@@ -486,31 +475,6 @@ function closetF() {
         setTimeout(normalize, 2000);
         if (clothes === "main") ctx.fillText("Im already wearing that.", 300, 40)
         if (clothes !== "main") {
-            player1.skin = image.kiiro0r;
-            player1.right = image.kiiro0r;
-            player1.left = image.kiiro0l;
-            player1.step1r = image.kiiro1r;
-            player1.step2r = image.kiiro2r;
-            player1.step3r = image.kiiro3r;
-            player1.step4r = image.kiiro4r;
-            player1.step5r = image.kiiro5r;
-            player1.step6r = image.kiiro6r;
-            player1.step7r = image.kiiro7r;
-            player1.step8r = image.kiiro8r;
-            player1.step9r = image.kiiro9r;
-            player1.step10r = image.kiiro10r;
-            player1.step1l = image.kiiro1l;
-            player1.step2l = image.kiiro2l;
-            player1.step3l = image.kiiro3l;
-            player1.step4l = image.kiiro4l;
-            player1.step5l = image.kiiro5l;
-            player1.step6l = image.kiiro6l;
-            player1.step7l = image.kiiro7l;
-            player1.step8l = image.kiiro8l;
-            player1.step9l = image.kiiro9l;
-            player1.step10l = image.kiiro10l;
-            player1.crouchr = image.kiirocr;
-            player1.crouchl = image.kiirocl;
             clothes = "main";
         }
     }
