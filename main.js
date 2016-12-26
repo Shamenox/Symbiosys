@@ -5,12 +5,11 @@ var scale = 1;
 var state = 0;
 var next = [];
 var background;
-var cursorX
-var cursorY
+var cursorX;
+var cursorY;
 var clothes = "main";
 var use = "false";
 var groundlevel = 220;
-var l = 0;
 var gravity = "true";
 var esc = "false";
 var click = false;
@@ -148,6 +147,16 @@ var skin = [];
 	}
 	standartSkin.l[crouch] = image.kiirocr;
 	skin[main] = standartSkin;
+	sketchedSkin = createSkin();
+	for (var i = 0;i <11 ; i++){
+		sketchedSkin.r[i] = image["kiiro_sketched"+i+"r"];
+	}
+	sketchedSkin.r[crouch] = image.kiirocr_sketched;
+	for (var i = 0;i <11 ; i++){
+		sketchedSkin.l[i] = image["kiiro_sketched"+i+"l"];
+	}
+	sketchedSkin.l[crouch] = image.kiirocr_sketched;
+	skin[sketched] = sketchedSkin;
 }
 
 function setup_player1() {
@@ -203,7 +212,7 @@ window.onload = function() {
         requestAnimationFrame(draw);
     }
 
-    draw();
+    draw(); 
 
 
     // Eingabeverwaltung
