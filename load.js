@@ -57,8 +57,6 @@ function loadImages() {
     image.kiiro8l = createImage("ress/standard/8l.png");
     image.kiiro9l = createImage("ress/standard/9l.png");
     image.kiiro10l = createImage("ress/standard/10l.png");
-    image.kiirocr = createImage("ress/standard/cr.png");
-    image.kiirocl = createImage("ress/standard/cl.png");
     image.kiiro0l = createImage("ress/standard/0l.png");
     image.kiiro0r = createImage("ress/standard/0r.png");
     image.kiiro0l_cestodian = createImage("ress/standard/0l.png");
