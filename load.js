@@ -13,6 +13,8 @@ function loadImages() {
     image.blackscreen = createImage("ress/blackscreen.png");
     image.lnk = createImage("ress/lnk.png");
     image.bouttosleep = createImage("ress/bouttosleep.png");
+	image.kiiro0l_sketched = createImage("ress/sketched/0l.png");
+    image.kiiro0r_sketched = createImage("ress/sketched/0r.png");
     image.kiiro1r_sketched = createImage("ress/sketched/1r.png");
     image.kiiro2r_sketched = createImage("ress/sketched/2r.png");
     image.kiiro3r_sketched = createImage("ress/sketched/3r.png");
@@ -33,10 +35,12 @@ function loadImages() {
     image.kiiro8l_sketched = createImage("ress/sketched/3l.png");
     image.kiiro9l_sketched = createImage("ress/sketched/4l.png");
     image.kiiro10l_sketched = createImage("ress/sketched/5l.png");
-    image.kiiro0l_sketched = createImage("ress/sketched/0l.png");
-    image.kiiro0r_sketched = createImage("ress/sketched/0r.png");
+    image.kiirocl_sketched = createImage("ress/sketched/1l.png");
+    image.kiirocr_sketched = createImage("ress/sketched/1r.png");
     image.kiiro0l_cestodian_sketched = createImage("ress/sketched/0l.png");
     image.kiiro0r_cestodian_sketched = createImage("ress/sketched/0r.png");
+	image.kiiro0l = createImage("ress/standard/0l.png");
+    image.kiiro0r = createImage("ress/standard/0r.png");
     image.kiiro1r = createImage("ress/standard/1r.png");
     image.kiiro2r = createImage("ress/standard/2r.png");
     image.kiiro3r = createImage("ress/standard/3r.png");
@@ -57,8 +61,8 @@ function loadImages() {
     image.kiiro8l = createImage("ress/standard/8l.png");
     image.kiiro9l = createImage("ress/standard/9l.png");
     image.kiiro10l = createImage("ress/standard/10l.png");
-    image.kiiro0l = createImage("ress/standard/0l.png");
-    image.kiiro0r = createImage("ress/standard/0r.png");
+    image.kiirocl = createImage("ress/standard/cl.png");
+    image.kiirocr = createImage("ress/standard/cr.png");
     image.kiiro0l_cestodian = createImage("ress/standard/0l.png");
     image.kiiro0r_cestodian = createImage("ress/standard/0r.png");
     image.midori0l = createImage("ress/midori/0l.png");

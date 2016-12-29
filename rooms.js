@@ -1,4 +1,4 @@
-// Raumdaten
+function setup_rooms(){
 room.loading = function() {
     background = image.whitescreen;
     if (player1.x > 1280) player1.x = 0;
@@ -10,7 +10,6 @@ room.loading = function() {
         scene = "menue";
     }
 }
-
 room.whitescreen = function() {
     background = image.whitescreen;
     if (player1.x > 1280) player1.x = 0;
@@ -145,6 +144,7 @@ room.closet = function() {
     Game.ctx.stroke();
 
     if (use === "slot1") {
+	console.log(player1.step, clothes, player1.crouch, player1.skin);
         setTimeout(normalize, 2000);
         if (clothes === "main") Game.ctx.fillText("Im already wearing that.", 300, 40)
         if (clothes !== "main") {
@@ -344,4 +344,5 @@ room.XX1 = function(){
 		setTimeout(frame,100)
 	}
 	
+}
 }

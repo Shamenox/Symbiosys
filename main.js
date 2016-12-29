@@ -26,22 +26,22 @@ function setup_skins(){
 		for (var i = 0;i <11 ; i++){
 			standartSkin.r[i] = image["kiiro"+i+"r"];
 		}
-		standartSkin.r[11] = image.kiiro0r;
+		standartSkin.r[11] = image.kiirocr;
 		for (var i = 0;i <11 ; i++){
 			standartSkin.l[i] = image["kiiro"+i+"l"];
 		}
-		standartSkin.l[11] = image.kiiro0l;
+		standartSkin.l[11] = image.kiirocl;
 	skin["main"] = standartSkin;
 	
 	var sketchedSkin = createSkin();
 		for (var i = 0;i <11 ; i++){
 			sketchedSkin.r[i] = image["kiiro"+i+"r_sketched"];
 		}
-		sketchedSkin.r[11] = image.kiiro0r_sketched;
+		sketchedSkin.r[11] = image.kiirocr_sketched;
 		for (var i = 0;i <11 ; i++){
 			sketchedSkin.l[i] = image["kiiro"+i+"l_sketched"];
 		}
-		sketchedSkin.l[11] = image.kiiro0l_sketched;
+		sketchedSkin.l[11] = image.kiirocl_sketched;
 	skin["sketched"] = sketchedSkin;
 	
 	var blankSkin = createSkin();
@@ -72,6 +72,7 @@ window.onload = function() {
 	loadAudio();
 	setup_skins();
     setup_player1();
+	setup_rooms();
 
     // Tatsächliche Abbildung
     function draw() {
@@ -91,7 +92,7 @@ window.onload = function() {
     addEventListener("keydown", function(w) {
 		if (gravity === "true"){
 			if (w.keyCode === 87 && player1.y === groundlevel) player1.vy = 30 * scale, player1.y -= 40;
-			if (w.keyCode === 83) player1.y = groundlevel + 100, player1.crouch = "true";
+			if (w.keyCode === 83) player1.crouch = "true";
 			if (w.keyCode === 65 ) {
 				player1.vx = -10 * scale;
 				if (player1.x > 0) audio.steps.play();
