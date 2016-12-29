@@ -35,7 +35,7 @@ function normalize() {
     use = "false";
     state = 0;
 	console.log(clothes);
-	clothes = next[clothes];
+	clothes = next["clothes"];
     for (var i = 0; i < next.length; i++) {
         next[i] = false;
     }
