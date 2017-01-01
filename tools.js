@@ -18,13 +18,34 @@ function createSprite(path,x,y){
     };
     return content;
 }
-function createSkin(){
+
+function createSkin(declaration){
 	var neuerskin = {
 		r : [],
 		l : []
 	}
-	return neuerskin;
+	if (declaration === "blank"){
+		for (var i = 0;i <12 ; i++){
+			neuerskin.r[i] = image.blank;
+		}
+		for (var i = 0;i <12 ; i++){
+			neuerskin.l[i] = image.blank;
+		}
+	skin["blank"] = neuerskin;
+	return;
+	}
+	for (var i = 0;i <11 ; i++){
+			neuerskin.r[i] = image[declaration+i+"r"];
+		}
+		neuerskin.r[11] = image[declaration+"cr"];
+	for (var i = 0;i <11 ; i++){
+			neuerskin.l[i] = image[declaration+i+"l"];
+		}
+		neuerskin.l[11] = image[declaration+"cl"];
+	skin[declaration] = neuerskin;
+	console.log(skin[declaration]);
 }
+	
 //this is objeckt stufffff
 var Animation = function(){
   this.isRunning = false;

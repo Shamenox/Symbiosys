@@ -31,11 +31,10 @@ function steppon(){
 	next["walking"] = false;
 }
 
-function normalize() {
+function normalize(target) {
     use = "false";
     state = 0;
-	console.log(clothes);
-	clothes = next["clothes"];
+	if (target === "skin") clothes = next["clothes"];
     for (var i = 0; i < next.length; i++) {
         next[i] = false;
     }
@@ -43,7 +42,14 @@ function normalize() {
 
 function fadeout() {
     use = "black";
-    setTimeout(normalize, 500);
+    changeSkin("blank");
+    setTimeout(normalize("skin"), 500);
+}
+
+function changeSkin(to){
+	if (!next["saveclothes"]) next["clothes"] = clothes, next["saveclothes"] = true; 
+	clothes = to;
+	console.log(clothes);
 }
 
 function delay() {

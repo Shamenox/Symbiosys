@@ -66,21 +66,23 @@ room.kiirosroom = function() {
             setTimeout(fadeout, 2000);
         }
         if (use === "sleep") {
+			changeSkin("blank");
             background = image.bouttosleep;
             Game.ctx.fillText("Im so tired... Time to get some sleep.", 880, 220);
-			if (!next["sleep"]) next["clothes"] = clothes, next["sleep"] = true; 
-            clothes = "blank";
         }
     }
-    if (use === "guitar") player1.skin = image.kiiroguitar, Game.ctx.drawImage(image.overlay_guitar, 1092, 75);
     if (player1.x > 940 && player1.x < 1050) {
         if (use === "false")Game.ctx.fillText("Play(E)", 1050, 220);
         if (use === "true") {
             use = "guitar";
             audio.guitar1.play();
-            setTimeout(normalize, 17000);
+            setTimeout(normalize("skin"), 17000);
         }
     }
+	if (use === "guitar") {
+		changeSkin("kiiro_guitar");
+		Game.ctx.drawImage(image.overlay_guitar, 1092, 75);
+	}
     if (player1.x > 1050)Game.ctx.fillText("Maybe I could go to the park...", 900, 220);
 }
 
@@ -146,16 +148,16 @@ room.closet = function() {
     if (use === "slot1") {
 	console.log(player1.step, clothes, player1.crouch, player1.skin);
         setTimeout(normalize, 2000);
-        if (clothes === "main") Game.ctx.fillText("Im already wearing that.", 300, 40)
-        if (clothes !== "main") {
-            clothes = "main";
+        if (clothes === "kiiro_main") Game.ctx.fillText("Im already wearing that.", 300, 40)
+        if (clothes !== "kiiro_main") {
+            clothes = "kiiro_main";
         }
     }
     if (use === "slot6") {
         setTimeout(normalize, 2000);
-        if (clothes === "sketched") Game.ctx.fillText("Im already wearing that.", 300, 40)
-        if (clothes !== "sketched") {
-            clothes = "sketched";
+        if (clothes === "kiiro_sketched") Game.ctx.fillText("Im already wearing that.", 300, 40)
+        if (clothes !== "kiiro_sketched") {
+            clothes = "kiiro_sketched";
         }
     }
 

@@ -5,7 +5,7 @@ var audio = {};
 var image = {};
 var player1 = {};
 var room = {};
-var skin = [];
+var skin = {};
 var scene = "loading";
 var scale = 1;
 var state = 0;
@@ -13,7 +13,7 @@ var next = [];
 var background = new Image();
 var cursorX;
 var cursorY;
-var clothes = "main";
+var clothes = "kiiro_main";
 var use = "false";
 var groundlevel = 220;
 var gravity = "true";
@@ -22,39 +22,13 @@ var click = false;
 var nsfw = false;
 
 function setup_skins(){
-	var standartSkin = createSkin();
-		for (var i = 0;i <11 ; i++){
-			standartSkin.r[i] = image["kiiro"+i+"r"];
-		}
-		standartSkin.r[11] = image.kiirocr;
-		for (var i = 0;i <11 ; i++){
-			standartSkin.l[i] = image["kiiro"+i+"l"];
-		}
-		standartSkin.l[11] = image.kiirocl;
-	skin["main"] = standartSkin;
-	
-	var sketchedSkin = createSkin();
-		for (var i = 0;i <11 ; i++){
-			sketchedSkin.r[i] = image["kiiro"+i+"r_sketched"];
-		}
-		sketchedSkin.r[11] = image.kiirocr_sketched;
-		for (var i = 0;i <11 ; i++){
-			sketchedSkin.l[i] = image["kiiro"+i+"l_sketched"];
-		}
-		sketchedSkin.l[11] = image.kiirocl_sketched;
-	skin["sketched"] = sketchedSkin;
-	
-	var blankSkin = createSkin();
-		for (var i = 0;i <12 ; i++){
-			blankSkin.r[i] = image.blank;
-		}
-		for (var i = 0;i <12 ; i++){
-			blankSkin.l[i] = image.blank;
-		}
-	skin["blank"] = blankSkin;
+	createSkin("kiiro_main");
+	createSkin("kiiro_sketched");
+	createSkin("blank");
+	createSkin("kiiro_guitar");
 }
 function setup_player1() {
-	player1.skin = skin["main"].r[0];
+	player1.skin = skin[clothes].r[0];
 	player1.step = 0;
 	player1.dir = "right";	
     player1.crouch = "false";
@@ -84,7 +58,6 @@ window.onload = function() {
 		Game.ctx.drawImage(image.cursor, cursorX - 8, cursorY - 36);
         requestAnimationFrame(draw);
     }
-
     draw(); 
 
 
