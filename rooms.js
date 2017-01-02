@@ -76,7 +76,7 @@ room.kiirosroom = function() {
         if (use === "true") {
             use = "guitar";
             audio.guitar1.play();
-            setTimeout(normalize("skin"), 17000);
+            setTimeout(normalize, 17000,"skin");
         }
     }
 	if (use === "guitar") {
@@ -87,7 +87,7 @@ room.kiirosroom = function() {
 }
 
 room.desktop = function() {
-    theme1.play();
+    audio.theme1.play();
     background = image.desktop;
    Game.ctx.drawImage(image.toolbar, 0, 0);
     player1.x = -200;
@@ -114,8 +114,8 @@ room.basestar = function() {
    Game.ctx.drawImage(image.fenster, 0, 0);
    Game.ctx.fillText("Basestar Simulator.exe", 10, 28);
     if (click === true) {
-        if (cursorX > 30 && cursorX < 90 && cursorY > 660 && cursorY < 710) scene = "kiirosroom", player1x = 350, gravity = "true";
-        if (cursorX > 1250 && cursorX < 1280 && cursorY > 0 && cursorY < 30) scene = "desktop", player1x = -200, gravity = "true";
+        if (cursorX.between(30,90) && cursorY.between(660,710)) scene = "kiirosroom", player1.x = 350, player1.vx = 0, gravity = "true";
+        if (cursorX.between(1250,1280)&& cursorY.between(0,30)) scene = "desktop", player1.x = -200, player1.vx = 0, gravity = "true";
     }
     if (esc === "true") scene = "desktop";
 }

@@ -24,6 +24,7 @@ function physik() {
 		if (player1.dir === "left") player1.skin = skin[clothes].l[player1.step];
 		
 	}
+	console.log(use);
     if (use === "black") background = image.blackscreen;
 }
 
@@ -42,8 +43,9 @@ function normalize(target) {
 
 function fadeout() {
     use = "black";
+	console.log(use);
     changeSkin("blank");
-    setTimeout(normalize("skin"), 500);
+    setTimeout(normalize, 500,"skin");
 }
 
 function changeSkin(to){
