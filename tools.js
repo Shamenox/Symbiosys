@@ -45,7 +45,33 @@ function createSkin(declaration){
 	skin[declaration] = neuerskin;
 	console.log(skin[declaration]);
 }
-	
+
+function createRoom(declaration){
+	var neuerraum = {
+		scale : 1
+		groundlevel: 220
+		background : image.whitecreen
+		edgeR : 1280
+		edgeL : 0
+		theme : audio.theme1
+		font : "24px Calibri"
+		fillStyle : "black"
+		strokeStyle : "black"
+		}
+	neuerraum.specs = function(){}
+	neuerraum.act = function(){
+		scale = room[scene].scale;
+		groundlevel = room[scéne].groundlevel;
+		background = room[scene].background;
+		room[scene].theme.play();
+		Game.ctx.font = room[scene].font;
+		Game.ctx.fillStyle = room[scene].fillStyle;
+		Game.ctx.strokeStyle = room[scene].strokeStyle;
+		neuerraum.specs();
+	}
+	room[declaration] = neuerraum;
+}
+
 //this is objeckt stufffff
 var Animation = function(){
   this.isRunning = false;
@@ -79,7 +105,8 @@ var Animation = function(){
   this.reset = (function() { //does not stop the animation
     this.step = 0;
   }).bind(this);
-};
+}
+
 
 
 

@@ -51,7 +51,7 @@ window.onload = function() {
     // Tatsächliche Abbildung
     function draw() {
 		Game.ctx.drawImage(background, 0, 0);
-        room[scene]();
+        room[scene].act();
         physik();
         if (scene !== "menue") Game.ctx.fillText("Version 0.251", 1140, 710);
 		Game.ctx.drawImage(player1.skin, player1.x, player1.y, 220 * scale, 440 * scale)
@@ -66,13 +66,13 @@ window.onload = function() {
 		if (gravity === "true"){
 			if (w.keyCode === 87 && player1.y === groundlevel) player1.vy = 30 * scale, player1.y -= 40;
 			if (w.keyCode === 83) player1.crouch = "true";
-			if (w.keyCode === 65 ) {
+			if (w.keyCode === 65 && player1.x > room[scene].edgeL) {
 				player1.vx = -10 * scale;
-				if (player1.x > 0) audio.steps.play();
+				audio.steps.play();
 			}
-			if (w.keyCode === 68) {
+			if (w.keyCode === 68 && player1.x < room[scene].edgeR) {
 				player1.vx = +10 * scale;
-				if (player1.x > 0) audio.steps.play();
+				audio.steps.play();
 			}
 			if (w.keyCode === 69) use = "true";
 		}

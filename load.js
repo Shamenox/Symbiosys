@@ -4,7 +4,6 @@ function loadAudio(){
     audio.guitar1 = new Audio("ress/audio/guitar1.mp3");
     audio.theme1 = new Audio("ress/audio/theme1.mp3");
 }
-
 function loadImages() {
     image.menue = createImage("ress/menue.png");
     image.cursor = createImage("ress/cursor.png");

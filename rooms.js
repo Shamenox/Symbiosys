@@ -1,5 +1,6 @@
 function setup_rooms(){
-room.loading = function() {
+createRoom(loading);
+room.loading.specs = function() {
     background = image.whitescreen;
     if (player1.x > 1280) player1.x = 0;
     if (player1.x < 0) player1.x = 1280;
@@ -10,7 +11,9 @@ room.loading = function() {
         scene = "menue";
     }
 }
-room.whitescreen = function() {
+
+createRoom(whitescreen);
+room.whitescreen.specs = function() {
     background = image.whitescreen;
     if (player1.x > 1280) player1.x = 0;
     if (player1.x < 0) player1.x = 1280;
@@ -18,7 +21,8 @@ room.whitescreen = function() {
     if (player1.y < 0) player1.y = 720;
 }
 
-room.menue = function() {
+createRoom(menue);
+room.menue.specs = function() {
     background = image.menue;
    Game.ctx.font = "240px Calibri";
    Game.ctx.beginPath();
@@ -30,7 +34,8 @@ room.menue = function() {
     if (click === true) scene = "kiirosroom"
 }
 
-room.kiirosroom = function() {
+createRoom(kiirosroom);
+room.kiirosroom.specs = function() {
    Game.ctx.strokeStyle = 'black';
    Game.ctx.fillStyle = "black";
    Game.ctx.font = "24px Calibri";
@@ -86,7 +91,8 @@ room.kiirosroom = function() {
     if (player1.x > 1050)Game.ctx.fillText("Maybe I could go to the park...", 900, 220);
 }
 
-room.desktop = function() {
+createRoom(desktop);
+room.desktop.specs = function() {
     audio.theme1.play();
     background = image.desktop;
    Game.ctx.drawImage(image.toolbar, 0, 0);
@@ -101,7 +107,8 @@ room.desktop = function() {
     }
 }
 
-room.basestar = function() {
+createRoom(basestar);
+room.basestar.specs = function() {
     groundlevel = 2000;
     gravity = "space";
     player1.skin = image.basestar;
@@ -120,7 +127,8 @@ room.basestar = function() {
     if (esc === "true") scene = "desktop";
 }
 
-room.closet = function() {
+createRoom(closet);
+room.closet.specs = function() {
     audio.theme1.play();
     player1.x = -200;
     background = image.closet;
@@ -168,7 +176,8 @@ room.closet = function() {
     if (use === "slot5") setTimeout(normalize, 2000), Game.ctx.fillText("There´s nothing in the closet...", 300, 40);
 }
 
-room.home_floor1 = function() {
+createRoom(home_floor1);
+room.home_floor1.specs = function() {
     groundlevel = 180;
     scale = 0.9;
     audio.theme1.play();
@@ -213,7 +222,8 @@ room.home_floor1 = function() {
     if (player1.x > 990) player1.x = 990;
 }
 
-room.home_floor2 = function() {
+createRoom(home_floor2);
+room.home_floor2.specs = function() {
     background = image.home_floor2;
     scale = 0.9;
     groundlevel = 180;
@@ -232,7 +242,8 @@ room.home_floor2 = function() {
     if (player1.x > 1180) player1.x = 0, scene = "home_floor1";
 }
 
-room.room1 = function() {
+createRoom(room1);
+room.room1.specs = function() {
     background = image.room1;
     scale = 1;
     groundlevel = 220;
@@ -251,7 +262,8 @@ room.room1 = function() {
     if (player1.x > 1080) player1.x = 1080;
 }
 
-room.home_floor3 = function() {
+createRoom(home_floor3);
+room.home_floor3.specs = function() {
     background = image.home_floor3;
     scale = 1;
     groundlevel = 220;
@@ -274,7 +286,8 @@ room.home_floor3 = function() {
     if (player1.x > 1080) player1.x = 1080;
 }
 
-room.livingroom = function() {
+createRoom(livingroom);
+room.livingroom.specs = function() {
     background = image.livingroom;
     scale = 1.25;
     groundlevel = 160;
@@ -293,7 +306,9 @@ room.livingroom = function() {
     }
     if (player1.x > 1180) scene = "home_floor4", player1.x = 200;
 }
-room.home_floor4 = function(){
+
+createRoom(home_floor4);
+room.home_floor4.specs = function(){
 	background = image.home_floor4;
 	scale = 1;
 	audio.theme1.play();
@@ -318,7 +333,9 @@ room.home_floor4 = function(){
 	}
 	if (player1.x>1280) scene = "home_floor5", player1.x =100;
 }
-room.home_floor5 = function(){
+
+createRoom(home_floor5);
+room.home_floor5.specs = function(){
 	background = image.home_floor5;
 	scale = 1;
 	audio.theme1.play();
@@ -334,7 +351,9 @@ room.home_floor5 = function(){
 	}
 	if (player1.x>900 && scene === "home_floor5") scene = "home_floor3", player1.x = 100;
 }
-room.XX1 = function(){
+
+createRoom(XX1);
+room.XX1.specs = function(){
 	background = image.whitescreen;
 	player1.skin = image.blank;
 	use = "love";
