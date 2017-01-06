@@ -1,6 +1,5 @@
-function setup_rooms(){
-createRoom(loading);
-room.loading.specs = function() {
+function setup_scenes(){
+scene.loading = function() {
     background = image.whitescreen;
     if (player1.x > 1280) player1.x = 0;
     if (player1.x < 0) player1.x = 1280;
@@ -8,12 +7,11 @@ room.loading.specs = function() {
    Game.ctx.fillText("Loading... please wait", 300, 200);
     if (state > 74) {
         state = 0;
-        scene = "menue";
+        scene.at = "menue";
     }
 }
 
-createRoom(whitescreen);
-room.whitescreen.specs = function() {
+scene.whitescreen = function() {
     background = image.whitescreen;
     if (player1.x > 1280) player1.x = 0;
     if (player1.x < 0) player1.x = 1280;
@@ -21,24 +19,22 @@ room.whitescreen.specs = function() {
     if (player1.y < 0) player1.y = 720;
 }
 
-createRoom(menue);
-room.menue.specs = function() {
+scene.menue = function() {
     background = image.menue;
-   Game.ctx.font = "240px Calibri";
-   Game.ctx.beginPath();
-   Game.ctx.rect(20, 20, 1240, 680);
-   Game.ctx.lineWidth = 7;
-   Game.ctx.strokeStyle = 'black';
-   Game.ctx.stroke();
-   Game.ctx.fillText("Start", 440, 200);
-    if (click === true) scene = "kiirosroom"
+    Game.ctx.font = "240px Calibri";
+    Game.ctx.beginPath();
+    Game.ctx.rect(20, 20, 1240, 680);
+    Game.ctx.lineWidth = 7;
+    Game.ctx.strokeStyle = 'black';
+    Game.ctx.stroke();
+    Game.ctx.fillText("Start", 440, 200);
+    if (click === true) scene.at = "kiirosroom"
 }
 
-createRoom(kiirosroom);
-room.kiirosroom.specs = function() {
-   Game.ctx.strokeStyle = 'black';
-   Game.ctx.fillStyle = "black";
-   Game.ctx.font = "24px Calibri";
+scene.kiirosroom = function() {
+    Game.ctx.strokeStyle = 'black';
+    Game.ctx.fillStyle = "black";
+    Game.ctx.font = "24px Calibri";
     scale = 1;
     groundlevel = 220;
     if (player1.x > 1080) player1.x = 1080;
@@ -46,24 +42,9 @@ room.kiirosroom.specs = function() {
     if (use !== "black" || use !== "aboutToSleep") background = image.kiirosroom;
     if (use !== "guitar") audio.theme1.play();
 
-    if (player1.x < 20) {
-        if (false)Game.ctx.fillText("I dont want to go outside right now.", 100, 220);
-        if (use === "false")Game.ctx.fillText("Leave(E)", 84, 220);
-        if (use === "true") use = "leaving";
-        if (use === "leaving") {
-            scene = "home_floor1";
-            player1.x = 700;
-            use = "false";
-        }
-    }
-    if (player1.x > 200 && player1.x < 400) {
-        if (use === "false")Game.ctx.fillText("Use(E)", 350, 220);
-        if (use === "true") scene = "desktop";
-    }
-    if (480 < player1.x && player1.x < 680) {
-        if (use === "false")Game.ctx.fillText("Open(E)", 580, 220);
-        if (use === "true") use = "intro", scene = "closet";
-    }
+	door(0,"home_floor1",700,"Leave");
+	door(300,"desktop",0,"Use");
+	door(580,"closet",0,"Closet");)
     if (player1.x > 640 && player1.x < 840) {
         if (use === "false")Game.ctx.fillText("Rest(E)", 840, 220);
         if (use === "true") {
@@ -91,8 +72,7 @@ room.kiirosroom.specs = function() {
     if (player1.x > 1050)Game.ctx.fillText("Maybe I could go to the park...", 900, 220);
 }
 
-createRoom(desktop);
-room.desktop.specs = function() {
+scene.desktop = function() {
     audio.theme1.play();
     background = image.desktop;
    Game.ctx.drawImage(image.toolbar, 0, 0);
@@ -100,17 +80,16 @@ room.desktop.specs = function() {
    Game.ctx.drawImage(image.basestar, 100, 100);
    Game.ctx.drawImage(image.lnk, 100, 100);
    Game.ctx.fillText("Basestar", 100, 224);
-    if (esc === "true") scene = "kiirosroom";
+    if (esc === "true") scene.at = "kiirosroom";
     if (click === true) {
-        if (cursorX > 30 && cursorX < 90 && cursorY > 660 && cursorY < 710) scene = "kiirosroom", player1.x = 350, gravity = "true";
-        if (cursorX > 100 && cursorX < 200 && cursorY > 100 && cursorY < 200) scene = "basestar", player1.x = 600;
+        if (cursorX > 30 && cursorX < 90 && cursorY > 660 && cursorY < 710) scene.at = "kiirosroom", player1.x = 350;
+        if (cursorX > 100 && cursorX < 200 && cursorY > 100 && cursorY < 200) scene.at = "basestar", player1.x = 600;
     }
 }
 
-createRoom(basestar);
-room.basestar.specs = function() {
+scene.basestar = function() {
     groundlevel = 2000;
-    gravity = "space";
+    mode = "space";
     player1.skin = image.basestar;
     scale = 0.75;
     background = image.space1;
@@ -118,22 +97,21 @@ room.basestar.specs = function() {
     if (player1.x < 0) player1.x = 1280;
     if (player1.y > 720) player1.y = 0;
     if (player1.y < 0) player1.y = 720;
-   Game.ctx.drawImage(image.fenster, 0, 0);
-   Game.ctx.fillText("Basestar Simulator.exe", 10, 28);
+    Game.ctx.drawImage(image.fenster, 0, 0);
+    Game.ctx.fillText("Basestar Simulator.exe", 10, 28);
     if (click === true) {
-        if (cursorX.between(30,90) && cursorY.between(660,710)) scene = "kiirosroom", player1.x = 350, player1.vx = 0, gravity = "true";
-        if (cursorX.between(1250,1280)&& cursorY.between(0,30)) scene = "desktop", player1.x = -200, player1.vx = 0, gravity = "true";
+        if (cursorX.between(30,90) && cursorY.between(660,710)) scene.at = "kiirosroom", player1.x = 350, player1.vx = 0, mode = "adventure";
+        if (cursorX.between(1250,1280)&& cursorY.between(0,30)) scene.at = "desktop", player1.x = -200, player1.vx = 0, mode = "adventure";
     }
     if (esc === "true") scene = "desktop";
 }
 
-createRoom(closet);
-room.closet.specs = function() {
+scene.closet = function() {
     audio.theme1.play();
     player1.x = -200;
     background = image.closet;
-   Game.ctx.lineWidth = 4;
-   Game.ctx.beginPath();
+    Game.ctx.lineWidth = 4;
+    Game.ctx.beginPath();
     if (use === "intro")Game.ctx.fillText("Hmmm, I wish I had more outfits...", 300, 40), setTimeout(normalize, 2000);
     if (cursorX < 400 || cursorX > 900)Game.ctx.drawImage(image.lnk, cursorX - 100, cursorY - 110),Game.ctx.fillText("Return", cursorX - 100, cursorY - 46);
     if (click === true) {
@@ -154,7 +132,6 @@ room.closet.specs = function() {
     Game.ctx.stroke();
 
     if (use === "slot1") {
-	console.log(player1.step, clothes, player1.crouch, player1.skin);
         setTimeout(normalize, 2000);
         if (clothes === "kiiro_main") Game.ctx.fillText("Im already wearing that.", 300, 40)
         if (clothes !== "kiiro_main") {
@@ -176,33 +153,24 @@ room.closet.specs = function() {
     if (use === "slot5") setTimeout(normalize, 2000), Game.ctx.fillText("There´s nothing in the closet...", 300, 40);
 }
 
-createRoom(home_floor1);
-room.home_floor1.specs = function() {
+
+scene.home_floor1 = function() {
     groundlevel = 180;
     scale = 0.9;
     audio.theme1.play();
     background = image.home_floor1;
     Game.ctx.drawImage(image.midori0r, 0, groundlevel, scale * 220, scale * 440);
-    if (player1.x < 0) player1.x = 1280, scene = "home_floor2";
+    if (player1.x < 0) player1.x = 1280, scene.at = "home_floor2";
     if (player1.x > 260 && player1.x < 410) {
-        if (player1.crouch === "false") Game.ctx.fillText("Downstairs(S)", 300, groundlevel);
-        if (player1.crouch === "true") scene = "home_floor3", player1.x = 600;
+		Game.ctx.fillText("Downstairs(S)", 300, groundlevel);
+        if (key.s) scene.at = "home_floor3", player1.x = 600;
     }
-    if (player1.x > 710 && player1.x < 850) {
-        if (use === "false") Game.ctx.fillText("Enter(E)", 800, groundlevel);
-        if (use === "true") use = "entering";
-        if (use === "entering") {
-            scene = "kiirosroom";
-            player1.x = 0;
-            player1.y = 220;
-            use = "false";
-        }
-    }
+	door(790,"kiirosroom",0,"Enter");
     if (player1.x > 10 && player1.x < 180) {
         if (use === "false") Game.ctx.fillText("Enter(E)", 120, groundlevel);
         if (use === "true") use = "talk";
         if (use === "entering") {
-            scene = "midorisroom";
+            scene.at = "midorisroom";
             player1.x = 0;
             player1.y = 220;
             use = "false";
@@ -222,8 +190,7 @@ room.home_floor1.specs = function() {
     if (player1.x > 990) player1.x = 990;
 }
 
-createRoom(home_floor2);
-room.home_floor2.specs = function() {
+scene.home_floor2 = function() {
     background = image.home_floor2;
     scale = 0.9;
     groundlevel = 180;
@@ -233,46 +200,43 @@ room.home_floor2.specs = function() {
         if (use === "false") Game.ctx.fillText("Enter(E)", 580, groundlevel);
         if (use === "true") use = "entering";
         if (use === "entering") {
-            scene = "room1";
+            scene.at = "home_room1";
             player1.x = 0;
             player1.y = 220;
-            use = "false";
+            setTimeout(normalize,200);
         }
     }
-    if (player1.x > 1180) player1.x = 0, scene = "home_floor1";
+    if (player1.x > 1180) player1.x = 0, scene.at = "home_floor1";
 }
 
-createRoom(room1);
-room.room1.specs = function() {
+scene.home_room1 = function() {
     background = image.room1;
     scale = 1;
     groundlevel = 220;
     audio.theme1.play();
     if (player1.x < 0) player1.x = 0;
     if (player1.x < 20) {
-        if (false) Game.ctx.fillText("I dont want to go outside right now.", 100, 220);
         if (use === "false") Game.ctx.fillText("Leave(E)", 84, 220);
         if (use === "true") use = "leaving";
         if (use === "leaving") {
-            scene = "home_floor2";
+            scene.at = "home_floor2";
             player1.x = 520;
-            use = "false";
+            setTimeout(normalize,200);
         }
     }
     if (player1.x > 1080) player1.x = 1080;
 }
 
-createRoom(home_floor3);
-room.home_floor3.specs = function() {
+scene.home_floor3 = function() {
     background = image.home_floor3;
     scale = 1;
     groundlevel = 220;
     audio.theme1.play();
-    if (player1.x < 0) scene = "home_floor4", player1.x = 100;
+    if (player1.x < 0) scene.at = "home_floor4", player1.x = 100;
     if (player1.x > 460 && player1.x < 640) {
-        if (player1.crouch !== "jump") Game.ctx.fillText("Upstairs(W)", 500, 220);
-        if (player1.crouch === "jump") use = "stairs";
-        if (use === "stairs") scene = "home_floor1", player1.x = 300, use = "false";
+		Game.ctx.fillText("Upstairs(W)", 500, 220);
+        if (key.w) use = "stairs";
+        if (use === "stairs") scene.at = "home_floor1", player1.x = 300, use = "false";
     }
     if (player1.x > 720 && player1.x < 800) {
         if (use === "false") Game.ctx.fillText("Enter(E)", 800, 220);
@@ -286,8 +250,7 @@ room.home_floor3.specs = function() {
     if (player1.x > 1080) player1.x = 1080;
 }
 
-createRoom(livingroom);
-room.livingroom.specs = function() {
+scene.livingroom = function() {
     background = image.livingroom;
     scale = 1.25;
     groundlevel = 160;
@@ -304,22 +267,21 @@ room.livingroom.specs = function() {
             talk("Riyu: Yeah, they should really hurry up...", 4);
         }
     }
-    if (player1.x > 1180) scene = "home_floor4", player1.x = 200;
+    if (player1.x > 1180) scene.at = "home_floor4", player1.x = 200;
 }
 
-createRoom(home_floor4);
-room.home_floor4.specs = function(){
+scene.home_floor4 = function(){
 	background = image.home_floor4;
 	scale = 1;
 	audio.theme1.play();
 	groundlevel = 220;
-	if (player1.x<0) scene = "home_floor3", player1.x =200;
+	if (player1.x < 0) scene.at = "home_floor3", player1.x =200;
 	if (player1.x.between(200,400)) {
         if (use === "false") Game.ctx.fillText("Enter(E)", 800, 220);
         if (use === "true") use = "leaving";
         if (use === "leaving") {
             player1.x = 1100;
-            scene = "livingroom";
+            scene.at = "livingroom";
 			use = "false";
 		}
 	}
@@ -331,11 +293,10 @@ room.home_floor4.specs = function(){
             setTimeout(normalize, 1000);
        	}
 	}
-	if (player1.x>1280) scene = "home_floor5", player1.x =100;
+	if (player1.x>1280) scene.at = "home_floor5", player1.x =100;
 }
 
-createRoom(home_floor5);
-room.home_floor5.specs = function(){
+scene.home_floor5 = function(){
 	background = image.home_floor5;
 	scale = 1;
 	audio.theme1.play();
@@ -349,11 +310,10 @@ room.home_floor5.specs = function(){
             setTimeout(normalize, 1000);
         }
 	}
-	if (player1.x>900 && scene === "home_floor5") scene = "home_floor3", player1.x = 100;
+	if (player1.x>900 && scene === "home_floor5") scene.at = "home_floor3", player1.x = 100;
 }
 
-createRoom(XX1);
-room.XX1.specs = function(){
+scene.XX1 = function(){
 	background = image.whitescreen;
 	player1.skin = image.blank;
 	use = "love";

@@ -4,9 +4,8 @@ var Game = {};
 var audio = {};
 var image = {};
 var player1 = {};
-var room = {};
 var skin = {};
-var scene = "loading";
+var scene = {};
 var scale = 1;
 var state = 0;
 var next = [];
@@ -16,10 +15,17 @@ var cursorY;
 var clothes = "kiiro_main";
 var use = "false";
 var groundlevel = 220;
-var gravity = "true";
-var esc = "false";
+var mode = "adventure";
 var click = false;
 var nsfw = false;
+var key = {
+	w : false,
+	a : false,
+	s : false,
+	d : false,
+	e : false,
+	esc : false,
+}
 
 function setup_skins(){
 	createSkin("kiiro_main");
@@ -31,7 +37,7 @@ function setup_player1() {
 	player1.skin = skin[clothes].r[0];
 	player1.step = 0;
 	player1.dir = "right";	
-    player1.crouch = "false";
+    player1.crouch = false;
     player1.y = 200;
     player1.x = 400;
     player1.vy = 0;
@@ -42,16 +48,17 @@ function setup_player1() {
 window.onload = function() {
     var canvas = document.getElementById("Canvas");
     Game.ctx = canvas.getContext("2d");
-    loadImages();
+	loadImages();
 	loadAudio();
 	setup_skins();
-    setup_player1();
-	setup_rooms();
+	setup_player1();
+	setup_scenes();
+	scene.at = "loading";
 
     // Tatsächliche Abbildung
     function draw() {
 		Game.ctx.drawImage(background, 0, 0);
-        room[scene].act();
+        scene[scene.at]();
         physik();
         if (scene !== "menue") Game.ctx.fillText("Version 0.251", 1140, 710);
 		Game.ctx.drawImage(player1.skin, player1.x, player1.y, 220 * scale, 440 * scale)
@@ -63,36 +70,20 @@ window.onload = function() {
 
     // Eingabeverwaltung
     addEventListener("keydown", function(w) {
-		if (gravity === "true"){
-			if (w.keyCode === 87 && player1.y === groundlevel) player1.vy = 30 * scale, player1.y -= 40;
-			if (w.keyCode === 83) player1.crouch = "true";
-			if (w.keyCode === 65 && player1.x > room[scene].edgeL) {
-				player1.vx = -10 * scale;
-				audio.steps.play();
-			}
-			if (w.keyCode === 68 && player1.x < room[scene].edgeR) {
-				player1.vx = +10 * scale;
-				audio.steps.play();
-			}
-			if (w.keyCode === 69) use = "true";
-		}
-		if (gravity === "space"){
-			if (w.keyCode === 87) player1.vy += 2;
-			if (w.keyCode === 83) player1.vy -= 2;
-			if (w.keyCode === 65) player1.vx -= 2;
-			if (w.keyCode === 68) player1.vx += 2;
-			if (w.keyCode === 69) use = "true";
-			if (w.keycode === 27) esc = "true";
-		}
+		if (w.keyCode === 87) key.w = true;
+		if (w.keyCode === 83) key.s = true;
+		if (w.keyCode === 65) key.a = true
+		if (w.keyCode === 68) key.d = true;
+		if (w.keyCode === 69) key.e = true;
+		if (w.keycode === 27) key.esc = true;
 	}, false);
     addEventListener("keyup", function(w) {
-		if (gravity === "true"){
-			if (w.keyCode === 83) player1.crouch = "false";
-			if (w.keyCode === 65) player1.vx = 0;
-			if (w.keyCode === 68) player1.vx = 0;
-			if (w.keyCode === 69 && use === "true") use = "false";
-			if (w.keycode === 27) esc = "false";
-		}
+		if (w.keyCode === 87) key.w = false;
+		if (w.keyCode === 83) key.s = false;
+		if (w.keyCode === 65) key.a = false
+		if (w.keyCode === 68) key.d = false;
+		if (w.keyCode === 69) key.e = false;
+		if (w.keycode === 27) key.esc = false;
 	}, false);
 
     document.onmousedown = function(trigger) {

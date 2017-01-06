@@ -1,4 +1,3 @@
-
 function loadAudio(){
     audio.steps = new Audio("ress/audio/steps.mp3");
     audio.guitar1 = new Audio("ress/audio/guitar1.mp3");

@@ -2,7 +2,7 @@ Number.prototype.between = function(a, b) {
   var min = Math.min.apply(Math, [a, b]),
     max = Math.max.apply(Math, [a, b]);
   return this > min && this < max;
-};
+}
 function createImage(path) {
     var img = new Image();
     img.src = path;
@@ -46,6 +46,7 @@ function createSkin(declaration){
 	console.log(skin[declaration]);
 }
 
+/*
 function createRoom(declaration){
 	var neuerraum = {
 		scale : 1
@@ -71,6 +72,7 @@ function createRoom(declaration){
 	}
 	room[declaration] = neuerraum;
 }
+*/
 
 //this is objeckt stufffff
 var Animation = function(){
@@ -106,6 +108,7 @@ var Animation = function(){
     this.step = 0;
   }).bind(this);
 }
+
 
 
 
