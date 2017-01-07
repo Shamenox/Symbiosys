@@ -46,10 +46,12 @@ function physik() {
 		
 	}
 	if (mode === "space"){
-			if (key.w) player1.vy += 2;
-			if (key.s) player1.vy -= 2;
-			if (key.a) player1.vx -= 2;
-			if (key.d) player1.vx += 2;
+			if (key.w) player1.vy += 0.05;
+			if (key.s) player1.vy -= 0.05;
+			if (key.a) player1.vx -= 0.05;
+			if (key.d) player1.vx += 0.05;
+			if (player1.vx > 400) player1.vx = 400;
+			if (player1.vy > 400) player1.vy = 400;
 		}
     if (use === "black") background = image.blackscreen;
 }
@@ -91,14 +93,21 @@ function talk(text, turn) {
     if (next[turn] !== true) setTimeout(delay, 2000 * turn), next[turn] = true;
 }
 function door(pos,to,at,tag){
-    if (player1.x.between(pos - 60*scale,pos + 60*scale)) {
+    if (player1.x.between(pos - 80*scale,pos + 80*scale)) {
         if (use === "false")Game.ctx.fillText(tag+"(E)", pos, groundlevel);
+		if (use === "true" && at === "locked") use = "locked";
         if (use === "true") use = "enter";
-        if (use === "enter") {
+        if (use === "enter" && !next[1]) {
             scene.at = to;
             player1.x = at;
-            setTimeout(normalize,200);
+			player1.y = groundlevel;
+			next[1] = true;
+            setTimeout(normalize,500);
         }
+		if (use === "locked"){
+		Game.ctx.fillText("Its locked?...", pos, groundlevel);
+        setTimeout(normalize, 1000);
+		}
     }
 }
 

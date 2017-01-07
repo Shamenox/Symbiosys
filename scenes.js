@@ -43,8 +43,8 @@ scene.kiirosroom = function() {
     if (use !== "guitar") audio.theme1.play();
 
 	door(0,"home_floor1",700,"Leave");
-	door(300,"desktop",0,"Use");
-	door(580,"closet",0,"Closet");)
+	door(300,"desktop",-200,"Use");
+	door(580,"closet",-200,"Closet");
     if (player1.x > 640 && player1.x < 840) {
         if (use === "false")Game.ctx.fillText("Rest(E)", 840, 220);
         if (use === "true") {
@@ -75,12 +75,12 @@ scene.kiirosroom = function() {
 scene.desktop = function() {
     audio.theme1.play();
     background = image.desktop;
-   Game.ctx.drawImage(image.toolbar, 0, 0);
+    Game.ctx.drawImage(image.toolbar, 0, 0);
     player1.x = -200;
-   Game.ctx.drawImage(image.basestar, 100, 100);
-   Game.ctx.drawImage(image.lnk, 100, 100);
-   Game.ctx.fillText("Basestar", 100, 224);
-    if (esc === "true") scene.at = "kiirosroom";
+    Game.ctx.drawImage(image.basestar, 100, 100);
+    Game.ctx.drawImage(image.lnk, 100, 100);
+    Game.ctx.fillText("Basestar", 100, 224);
+    if (key.esc === "true") scene.at = "kiirosroom";
     if (click === true) {
         if (cursorX > 30 && cursorX < 90 && cursorY > 660 && cursorY < 710) scene.at = "kiirosroom", player1.x = 350;
         if (cursorX > 100 && cursorX < 200 && cursorY > 100 && cursorY < 200) scene.at = "basestar", player1.x = 600;
@@ -103,7 +103,7 @@ scene.basestar = function() {
         if (cursorX.between(30,90) && cursorY.between(660,710)) scene.at = "kiirosroom", player1.x = 350, player1.vx = 0, mode = "adventure";
         if (cursorX.between(1250,1280)&& cursorY.between(0,30)) scene.at = "desktop", player1.x = -200, player1.vx = 0, mode = "adventure";
     }
-    if (esc === "true") scene = "desktop";
+    if (key.esc === "true") scene.at = "desktop";
 }
 
 scene.closet = function() {
@@ -115,7 +115,7 @@ scene.closet = function() {
     if (use === "intro")Game.ctx.fillText("Hmmm, I wish I had more outfits...", 300, 40), setTimeout(normalize, 2000);
     if (cursorX < 400 || cursorX > 900)Game.ctx.drawImage(image.lnk, cursorX - 100, cursorY - 110),Game.ctx.fillText("Return", cursorX - 100, cursorY - 46);
     if (click === true) {
-        if (cursorX < 400 || cursorX > 900) scene = "kiirosroom", player1.x = 580;
+        if (cursorX < 400 || cursorX > 900) scene.at = "kiirosroom", player1.x = 580;
         if (cursorX < 600 && cursorX > 460 && cursorY < 220 && cursorY > 80) use = "slot1";
         if (cursorX < 800 && cursorX > 660 && cursorY < 220 && cursorY > 80) use = "slot2";
         if (cursorX < 600 && cursorX > 460 && cursorY < 390 && cursorY > 250) use = "slot3";
@@ -196,16 +196,7 @@ scene.home_floor2 = function() {
     groundlevel = 180;
     audio.theme1.play();
     if (player1.x < 100) player1.x = 100;
-    if (player1.x > 500 && player1.x < 650) {
-        if (use === "false") Game.ctx.fillText("Enter(E)", 580, groundlevel);
-        if (use === "true") use = "entering";
-        if (use === "entering") {
-            scene.at = "home_room1";
-            player1.x = 0;
-            player1.y = 220;
-            setTimeout(normalize,200);
-        }
-    }
+	door(575,"home_room1",0,"Enter");
     if (player1.x > 1180) player1.x = 0, scene.at = "home_floor1";
 }
 
@@ -215,15 +206,7 @@ scene.home_room1 = function() {
     groundlevel = 220;
     audio.theme1.play();
     if (player1.x < 0) player1.x = 0;
-    if (player1.x < 20) {
-        if (use === "false") Game.ctx.fillText("Leave(E)", 84, 220);
-        if (use === "true") use = "leaving";
-        if (use === "leaving") {
-            scene.at = "home_floor2";
-            player1.x = 520;
-            setTimeout(normalize,200);
-        }
-    }
+	door(0,"home_floor2",575,"Leave");
     if (player1.x > 1080) player1.x = 1080;
 }
 
@@ -232,20 +215,13 @@ scene.home_floor3 = function() {
     scale = 1;
     groundlevel = 220;
     audio.theme1.play();
-    if (player1.x < 0) scene.at = "home_floor4", player1.x = 100;
+    if (player1.x < 0) scene.at = "home_floor4", player1.x = 250;
     if (player1.x > 460 && player1.x < 640) {
 		Game.ctx.fillText("Upstairs(W)", 500, 220);
         if (key.w) use = "stairs";
         if (use === "stairs") scene.at = "home_floor1", player1.x = 300, use = "false";
     }
-    if (player1.x > 720 && player1.x < 800) {
-        if (use === "false") Game.ctx.fillText("Enter(E)", 800, 220);
-        if (use === "true") use = "leaving";
-        if (use === "leaving") {
-            Game.ctx.fillText("Its locked?...", 800, 220);
-            setTimeout(normalize, 1000);
-        }
-    }
+	door(800,"home_kitchen","locked","Kitchen");
     if (player1.x > 1000) Game.ctx.fillText("I dont want to go outside right now...", 900, 220);
     if (player1.x > 1080) player1.x = 1080;
 }
@@ -256,7 +232,7 @@ scene.livingroom = function() {
     groundlevel = 160;
     audio.theme1.play();
     Game.ctx.drawImage(image.riyu0r_sketched, 250, 130);
-    if (player1.x < 0) player1.x = 0;
+    if (player1.x < 400) player1.x = 400;
     if (player1.x > 250 && player1.x < 470) {
         if (use === "false") Game.ctx.fillText("Talk(E)", 300, 220);
         if (use === "true") use = "talk";
@@ -267,7 +243,8 @@ scene.livingroom = function() {
             talk("Riyu: Yeah, they should really hurry up...", 4);
         }
     }
-    if (player1.x > 1180) scene.at = "home_floor4", player1.x = 200;
+	door(700,"home_floor4",300,"Leave");
+    if (player1.x > 750) player1.x = 750;
 }
 
 scene.home_floor4 = function(){
@@ -275,24 +252,10 @@ scene.home_floor4 = function(){
 	scale = 1;
 	audio.theme1.play();
 	groundlevel = 220;
-	if (player1.x < 0) scene.at = "home_floor3", player1.x =200;
-	if (player1.x.between(200,400)) {
-        if (use === "false") Game.ctx.fillText("Enter(E)", 800, 220);
-        if (use === "true") use = "leaving";
-        if (use === "leaving") {
-            player1.x = 1100;
-            scene.at = "livingroom";
-			use = "false";
-		}
-	}
-	if (player1.x.between(900,1100)) {
-        if (use === "false") Game.ctx.fillText("Enter(E)", 800, 220);
-        if (use === "true") use = "leaving";
-        if (use === "leaving") {
-            Game.ctx.fillText("Its locked?...", 800, 220);
-            setTimeout(normalize, 1000);
-       	}
-	}
+	if (player1.x < 60) player1.x = 60;
+	door(120,"home_floor3",100,"Back");
+	door(300,"livingroom",700,"Livingroom");
+	door(1000,"parentsroom","locked","Parents Room");
 	if (player1.x>1280) scene.at = "home_floor5", player1.x =100;
 }
 
@@ -302,15 +265,8 @@ scene.home_floor5 = function(){
 	audio.theme1.play();
 	groundlevel = 220;
 	if (player1.x<0) scene = "home_floor4", player1.x = 1100;
-	if (player1.x.between(250,450)) {
-        if (use === "false") Game.ctx.fillText("Enter(E)", 800, 220);
-        if (use === "true") use = "leaving";
-        if (use === "leaving") {
-            Game.ctx.fillText("Its locked?...", 800, 220);
-            setTimeout(normalize, 1000);
-        }
-	}
-	if (player1.x>900 && scene === "home_floor5") scene.at = "home_floor3", player1.x = 100;
+	door(350,"home_kitchen","locked","Kitchen");
+	if (player1.x > 900 && scene.at === "home_floor5") scene.at = "home_floor3", player1.x = 100;
 }
 
 scene.XX1 = function(){

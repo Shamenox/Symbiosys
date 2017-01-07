@@ -60,7 +60,7 @@ window.onload = function() {
 		Game.ctx.drawImage(background, 0, 0);
         scene[scene.at]();
         physik();
-        if (scene !== "menue") Game.ctx.fillText("Version 0.251", 1140, 710);
+        if (scene.at !== "menue") Game.ctx.fillText("Version 0.252", 1140, 710);
 		Game.ctx.drawImage(player1.skin, player1.x, player1.y, 220 * scale, 440 * scale)
 		Game.ctx.drawImage(image.cursor, cursorX - 8, cursorY - 36);
         requestAnimationFrame(draw);
