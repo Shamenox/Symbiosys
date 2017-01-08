@@ -92,7 +92,7 @@ function talk(text, turn) {
     if (state === turn)Game.ctx.fillText(text, player1.x, groundlevel);
     if (next[turn] !== true) setTimeout(delay, 2000 * turn), next[turn] = true;
 }
-function door(pos,to,at,tag,trigger,alt){
+function door(pos,to,at,tag,trigger,alt1,alt2,alt3){
     if (player1.x.between(pos - 80*scale,pos + 80*scale)) {
         if (use === "false")Game.ctx.fillText(tag+"(E)", pos, groundlevel);
 		if (use === "true" && at === "locked") use = "locked";
@@ -112,7 +112,9 @@ function door(pos,to,at,tag,trigger,alt){
         setTimeout(normalize, 1000);
 		}
 		if (use === "failed"){
-		Game.ctx.fillText(alt, pos, groundlevel);
+		Game.ctx.fillText(alt1, pos, groundlevel - 40);
+		if (alt2 !== undefined)Game.ctx.fillText(alt2, pos, groundlevel - 20);
+		if (alt3 !== undefined)Game.ctx.fillText(alt3, pos, groundlevel);
         setTimeout(normalize, 1000);
 		}
 		if (use === "true") use = "false";

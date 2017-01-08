@@ -80,11 +80,15 @@ scene.desktop = function() {
     player1.x = -200;
     Game.ctx.drawImage(image.basestar, 100, 100);
     Game.ctx.drawImage(image.lnk, 100, 100);
-    Game.ctx.fillText("Basestar", 100, 224);
+	Game.ctx.fillText("Basestar", 100, 224);
+	Game.ctx.drawImage(image.trollface,300,100)
+	Game.ctx.drawImage(image.lnk, 300, 100);
+    Game.ctx.fillText("Unlock Everything", 300, 224);
     if (key.esc) scene.at = "kiirosroom";
     if (click === true) {
         if (cursorX > 30 && cursorX < 90 && cursorY > 660 && cursorY < 710) scene.at = "kiirosroom", player1.x = 350;
         if (cursorX > 100 && cursorX < 200 && cursorY > 100 && cursorY < 200) scene.at = "basestar", player1.x = 600;
+		if (cursorX.between(300,400) && cursorY.between(100,200)) unlock();
     }
     console.log(key.esc)
 }
@@ -222,7 +226,7 @@ scene.home_floor3 = function() {
         if (use === "stairs") scene.at = "home_floor1", player1.x = 300, use = "false";
     }
 	door(800,"home_kitchen","locked","Kitchen");
-    if (player1.x > 1000) Game.ctx.fillText("I dont want to go outside right now...", 900, 220);
+	door(1040,"frontyard",0,"Leave",event.getBirdfood,"I first need to gather", "something to feed to", "beloved crow friends.");
     if (player1.x > 1080) player1.x = 1080;
 }
 

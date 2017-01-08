@@ -27,7 +27,8 @@ var key = {
 	esc : false,
 };
 var event = {
-	MopBeforeLeaving : false
+	MopBeforeLeaving : false,
+	getBirdfood : false
 };
 
 function setup_skins(){

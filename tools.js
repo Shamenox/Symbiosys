@@ -46,6 +46,10 @@ function createSkin(declaration){
 	console.log(skin[declaration]);
 }
 
+function unlock(){
+event.MopBeforeLeaving = true;
+}
+
 /*
 function createRoom(declaration){
 	var neuerraum = {
