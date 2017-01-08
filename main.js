@@ -2,7 +2,10 @@
 
 // Setup
 var audio = {};
-var image = {};
+var image = {
+	quantity : 0,
+	loaded : 0
+};
 var player1 = {};
 var skin = {};
 var scene = {};

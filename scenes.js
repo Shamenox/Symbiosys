@@ -1,10 +1,16 @@
 ﻿function setup_scenes(){
+
 scene.loading = function() {
     background = image.whitescreen;
     if (player1.x > 1280) player1.x = 0;
     if (player1.x < 0) player1.x = 1280;
-   Game.ctx.font = "80px Calibri";
-   Game.ctx.fillText("Loading... please wait", 300, 200);
+    Game.ctx.font = "80px Calibri";
+	Game.ctx.lineWidth = 10;
+    Game.ctx.strokeStyle = 'black';
+	Game.ctx.stroke();
+	Game.ctx.rect(40,400,1200,100);
+	Game.ctx.rect(50,410,1200*(image.loaded/image.quantity),80);
+    Game.ctx.fillText("Loading... please wait", 300, 200);
 
 }
 
