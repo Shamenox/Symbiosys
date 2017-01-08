@@ -81,11 +81,12 @@ scene.desktop = function() {
     Game.ctx.drawImage(image.basestar, 100, 100);
     Game.ctx.drawImage(image.lnk, 100, 100);
     Game.ctx.fillText("Basestar", 100, 224);
-    if (key.esc === "true") scene.at = "kiirosroom";
+    if (key.esc) scene.at = "kiirosroom";
     if (click === true) {
         if (cursorX > 30 && cursorX < 90 && cursorY > 660 && cursorY < 710) scene.at = "kiirosroom", player1.x = 350;
         if (cursorX > 100 && cursorX < 200 && cursorY > 100 && cursorY < 200) scene.at = "basestar", player1.x = 600;
     }
+    console.log(key.esc)
 }
 
 scene.basestar = function() {
@@ -146,8 +147,6 @@ scene.closet = function() {
             clothes = "kiiro_sketched";
         }
     }
-
-
     if (use === "slot2") setTimeout(normalize, 2000), Game.ctx.fillText("There's nothing in the closet...", 300, 40);
     if (use === "slot3") setTimeout(normalize, 2000), Game.ctx.fillText("There's nothing in the closet...", 300, 40);
     if (use === "slot4") setTimeout(normalize, 2000), Game.ctx.fillText("There's nothing in the closet...", 300, 40);
@@ -281,6 +280,6 @@ scene.XX1 = function(){
 		if (state>10) state = 0;
 		setTimeout(frame,100)
 	}
-	
+
 }
 }

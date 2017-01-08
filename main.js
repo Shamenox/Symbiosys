@@ -57,7 +57,7 @@ window.onload = function() {
 	setup_player1();
 	setup_scenes();
 	scene.at = "loading";
-
+	
     // Tatsaechliche Abbildung
     function draw() {
 		Game.ctx.drawImage(background, 0, 0);
@@ -78,7 +78,7 @@ window.onload = function() {
 		if (w.keyCode === 65) key.a = true;
 		if (w.keyCode === 68) key.d = true;
 		if (w.keyCode === 69) key.e = true;
-		if (w.keycode === 27) key.esc = true;
+		if (w.keyCode === 27) key.esc = true;
 		w.preventDefault();
 		w.stopPropagation();
 	}, false);
@@ -107,6 +107,5 @@ window.onload = function() {
     function mausY() {
         return cursorY;
     }
-
 };
 // Scripted by Shamenox with a lot of help by Miterosan
