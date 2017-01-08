@@ -1,4 +1,4 @@
-// Eingabeverarbeitung
+﻿// Eingabeverarbeitung
 function physik() {
     player1.y -= player1.vy;
     player1.x += player1.vx;

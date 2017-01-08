@@ -1,4 +1,4 @@
-var Game = {};
+﻿var Game = {};
 
 // Setup
 var audio = {};

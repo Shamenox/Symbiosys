@@ -1,4 +1,4 @@
-function setup_scenes(){
+ï»¿function setup_scenes(){
 scene.loading = function() {
     background = image.whitescreen;
     if (player1.x > 1280) player1.x = 0;
@@ -42,7 +42,7 @@ scene.kiirosroom = function() {
     if (use !== "black" || use !== "aboutToSleep") background = image.kiirosroom;
     if (use !== "guitar") audio.theme1.play();
 
-	door(0,"home_floor1",700,"Leave",event.MopBeforeLeaving,"Ich wollte doch vorher noch diesen coolen Song üben!");
+	door(0,"home_floor1",700,"Leave",event.MopBeforeLeaving,"Wait! I wanted to try out that cool song on guitar.");
 	door(300,"desktop",-200,"Use");
 	door(580,"closet",-200,"Closet");
     if (player1.x > 640 && player1.x < 840) {
