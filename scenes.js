@@ -42,7 +42,7 @@ scene.kiirosroom = function() {
     if (use !== "black" || use !== "aboutToSleep") background = image.kiirosroom;
     if (use !== "guitar") audio.theme1.play();
 
-	door(0,"home_floor1",700,"Leave");
+	door(0,"home_floor1",700,"Leave",event.MopBeforeLeaving,"Ich wollte doch vorher noch diesen coolen Song üben!");
 	door(300,"desktop",-200,"Use");
 	door(580,"closet",-200,"Closet");
     if (player1.x > 640 && player1.x < 840) {
@@ -66,6 +66,7 @@ scene.kiirosroom = function() {
         }
     }
 	if (use === "guitar") {
+		event.MopBeforeLeaving = true;
 		changeSkin("kiiro_guitar");
 		Game.ctx.drawImage(image.overlay_guitar, 1092, 75);
 	}
@@ -264,7 +265,7 @@ scene.home_floor5 = function(){
 	scale = 1;
 	audio.theme1.play();
 	groundlevel = 220;
-	if (player1.x<0) scene = "home_floor4", player1.x = 1100;
+	if (player1.x<0) scene.at = "home_floor4", player1.x = 1100;
 	door(350,"home_kitchen","locked","Kitchen");
 	if (player1.x > 900 && scene.at === "home_floor5") scene.at = "home_floor3", player1.x = 100;
 }
