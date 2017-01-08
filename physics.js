@@ -21,8 +21,8 @@ function physik() {
 		if (key.d) {
 			player1.dir = "right"
 			if (player1.x < 1280){
-			player1.vx = +10 * scale;
-			audio.steps.play();
+				player1.vx = +10 * scale;
+				audio.steps.play();
 			}
 		}
 		if (!key.a && !key.d) player1.vx = 0;
@@ -92,11 +92,14 @@ function talk(text, turn) {
     if (state === turn)Game.ctx.fillText(text, player1.x, groundlevel);
     if (next[turn] !== true) setTimeout(delay, 2000 * turn), next[turn] = true;
 }
-function door(pos,to,at,tag){
+function door(pos,to,at,tag,trigger,alt){
     if (player1.x.between(pos - 80*scale,pos + 80*scale)) {
         if (use === "false")Game.ctx.fillText(tag+"(E)", pos, groundlevel);
 		if (use === "true" && at === "locked") use = "locked";
-        if (use === "true") use = "enter";
+        if (use === "true"){
+			if (trigger === null || trigger === undefined || trigger === true) use = "enter";
+			if (trigger === false) use = "failed";
+		}
         if (use === "enter" && !next[1]) {
             scene.at = to;
             player1.x = at;
@@ -108,6 +111,11 @@ function door(pos,to,at,tag){
 		Game.ctx.fillText("Its locked?...", pos, groundlevel);
         setTimeout(normalize, 1000);
 		}
+		if (use === "failed"){
+		Game.ctx.fillText(alt, pos, groundlevel);
+        setTimeout(normalize, 1000);
+		}
+		if (use === "true") use = "false";
     }
 }
 
