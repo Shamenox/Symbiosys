@@ -3,7 +3,22 @@
     audio.guitar1 = new Audio("ress/audio/guitar1.mp3");
     audio.theme1 = new Audio("ress/audio/theme1.mp3");
 }
+function createImage(path) {
+	image.quantity += 1;
+    var img = new Image();
+    img.src = path;
+	img.addEventListener("load",function(e){
+	    image.loaded +=1;
+	    if (image.loaded === image.quantity !== 0) {
+			scene.at = "menue";
+			console.log(image.quantity,image.loaded);
+		}
+	})
+    return img;
+}
 function loadImages() {
+	image.quantity = 0;
+	image.loaded = 0;
     image.menue = createImage("ress/menue.png");
     image.cursor = createImage("ress/cursor.png");
     image.blank = createImage("ress/blank.png");

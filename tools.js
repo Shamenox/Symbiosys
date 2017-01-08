@@ -3,13 +3,6 @@
     max = Math.max.apply(Math, [a, b]);
   return this > min && this < max;
 }
-function createImage(path) {
-    var img = new Image();
-    img.src = path;
-		state +=1;
-		console.log(state);
-    return img;
-}
 
 function createSprite(path,x,y){
     var content = {

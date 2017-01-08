@@ -5,10 +5,7 @@ scene.loading = function() {
     if (player1.x < 0) player1.x = 1280;
    Game.ctx.font = "80px Calibri";
    Game.ctx.fillText("Loading... please wait", 300, 200);
-    if (state > 74) {
-        state = 0;
-        scene.at = "menue";
-    }
+
 }
 
 scene.whitescreen = function() {
