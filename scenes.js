@@ -115,7 +115,7 @@ scene.closet = function() {
     Game.ctx.beginPath();
     if (use === "intro")Game.ctx.fillText("Hmmm, I wish I had more outfits...", 300, 40), setTimeout(normalize, 2000);
     if (cursorX < 400 || cursorX > 900)Game.ctx.drawImage(image.lnk, cursorX - 100, cursorY - 110),Game.ctx.fillText("Return", cursorX - 100, cursorY - 46);
-    if (click === true) {
+    if (click) {
         if (cursorX < 400 || cursorX > 900) scene.at = "kiirosroom", player1.x = 580;
         if (cursorX < 600 && cursorX > 460 && cursorY < 220 && cursorY > 80) use = "slot1";
         if (cursorX < 800 && cursorX > 660 && cursorY < 220 && cursorY > 80) use = "slot2";
@@ -148,10 +148,10 @@ scene.closet = function() {
     }
 
 
-    if (use === "slot2") setTimeout(normalize, 2000), Game.ctx.fillText("There큦 nothing in the closet...", 300, 40);
-    if (use === "slot3") setTimeout(normalize, 2000), Game.ctx.fillText("There큦 nothing in the closet...", 300, 40);
-    if (use === "slot4") setTimeout(normalize, 2000), Game.ctx.fillText("There큦 nothing in the closet...", 300, 40);
-    if (use === "slot5") setTimeout(normalize, 2000), Game.ctx.fillText("There큦 nothing in the closet...", 300, 40);
+    if (use === "slot2") setTimeout(normalize, 2000), Game.ctx.fillText("There's nothing in the closet...", 300, 40);
+    if (use === "slot3") setTimeout(normalize, 2000), Game.ctx.fillText("There's nothing in the closet...", 300, 40);
+    if (use === "slot4") setTimeout(normalize, 2000), Game.ctx.fillText("There's nothing in the closet...", 300, 40);
+    if (use === "slot5") setTimeout(normalize, 2000), Game.ctx.fillText("There's nothing in the closet...", 300, 40);
 }
 
 
