@@ -36,7 +36,7 @@ function setup_skins(){
 function setup_player1() {
 	player1.skin = skin[clothes].r[0];
 	player1.step = 0;
-	player1.dir = "right";	
+	player1.dir = "right";
     player1.crouch = false;
     player1.y = 200;
     player1.x = 400;
@@ -55,7 +55,7 @@ window.onload = function() {
 	setup_scenes();
 	scene.at = "loading";
 
-    // Tatsächliche Abbildung
+    // Tatsï¿½chliche Abbildung
     function draw() {
 		Game.ctx.drawImage(background, 0, 0);
         scene[scene.at]();
@@ -65,7 +65,7 @@ window.onload = function() {
 		Game.ctx.drawImage(image.cursor, cursorX - 8, cursorY - 36);
         requestAnimationFrame(draw);
     }
-    draw(); 
+    draw();
 
 
     // Eingabeverwaltung
@@ -75,7 +75,8 @@ window.onload = function() {
 		if (w.keyCode === 65) key.a = true
 		if (w.keyCode === 68) key.d = true;
 		if (w.keyCode === 69) key.e = true;
-		if (w.keycode === 27) key.esc = true;
+		if (w.keyCode === 27) key.esc = true;
+
 	}, false);
     addEventListener("keyup", function(w) {
 		if (w.keyCode === 87) key.w = false;
@@ -83,7 +84,8 @@ window.onload = function() {
 		if (w.keyCode === 65) key.a = false
 		if (w.keyCode === 68) key.d = false;
 		if (w.keyCode === 69) key.e = false;
-		if (w.keycode === 27) key.esc = false;
+		if (w.keyCode === 27) key.esc = false;
+
 	}, false);
 
     document.onmousedown = function(trigger) {
