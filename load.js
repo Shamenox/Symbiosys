@@ -11,7 +11,7 @@ function loadImages() {
     image.blackscreen = createImage("ress/blackscreen.png");
     image.lnk = createImage("ress/lnk.png");
     image.bouttosleep = createImage("ress/bouttosleep.png");
-	image.kiiro_main0l = createImage("ress/kiiro_main/0l.png");
+  	image.kiiro_main0l = createImage("ress/kiiro_main/0l.png");
     image.kiiro_main0r = createImage("ress/kiiro_main/0r.png");
     image.kiiro_main1r = createImage("ress/kiiro_main/1r.png");
     image.kiiro_main2r = createImage("ress/kiiro_main/2r.png");
@@ -35,7 +35,7 @@ function loadImages() {
     image.kiiro_main10l = createImage("ress/kiiro_main/10l.png");
     image.kiiro_maincl = createImage("ress/kiiro_main/cl.png");
     image.kiiro_maincr = createImage("ress/kiiro_main/cr.png");
-	image.kiiro_sketched0l = createImage("ress/kiiro_sketched/0l.png");
+  	image.kiiro_sketched0l = createImage("ress/kiiro_sketched/0l.png");
     image.kiiro_sketched0r = createImage("ress/kiiro_sketched/0r.png");
     image.kiiro_sketched1r = createImage("ress/kiiro_sketched/1r.png");
     image.kiiro_sketched2r = createImage("ress/kiiro_sketched/2r.png");
@@ -59,7 +59,7 @@ function loadImages() {
     image.kiiro_sketched10l = createImage("ress/kiiro_sketched/5l.png");
     image.kiiro_sketchedcl = createImage("ress/kiiro_sketched/1l.png");
     image.kiiro_sketchedcr = createImage("ress/kiiro_sketched/1r.png");
-	image.kiiro_guitar0l = createImage("ress/kiiro_guitar/0l.png");
+  	image.kiiro_guitar0l = createImage("ress/kiiro_guitar/0l.png");
     image.kiiro_guitar0r = createImage("ress/kiiro_guitar/0r.png");
     image.kiiro_guitar1r = createImage("ress/kiiro_main/1r.png");
     image.kiiro_guitar2r = createImage("ress/kiiro_main/2r.png");

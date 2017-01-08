@@ -21,8 +21,8 @@ function physik() {
 		if (key.d) {
 			player1.dir = "right"
 			if (player1.x < 1280){
-			player1.vx = +10 * scale;
-			audio.steps.play();
+				player1.vx = +10 * scale;
+				audio.steps.play();
 			}
 		}
 		if (!key.a && !key.d) player1.vx = 0;
