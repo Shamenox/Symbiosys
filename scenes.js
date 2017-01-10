@@ -187,11 +187,12 @@ scene.home_floor1 = function() {
             setTimeout(normalize, 1000);
         }
         if (use === "talk") {
-            talk("Midori: Hi Sisterheart", 1);
+            talk("Midori: Hey Kiiro.", 1);
             talk("Kiiro: Hi Midori, im looking for something. May i take a look for it in your room?", 2);
             talk("Midori: No, you dont wanna go in there right now...", 3);
             talk("Kiiro: Why? Whats going on?", 4);
             talk("Midori: Im... busy. You just dont want to be in there right now, trust me!", 5);
+			talk("lol",6);
         }
     }
     if (player1.x > 990) player1.x = 990;
@@ -214,7 +215,9 @@ scene.home_room1 = function() {
     audio.theme1.play();
     if (player1.x < 0) player1.x = 0;
 	door(0,"home_floor2",575,"Leave");
+	if (player1.x > 900) die();
     if (player1.x > 1080) player1.x = 1080;
+	Game.ctx.drawImage(image.scp173,880,120);
 }
 
 scene.home_floor3 = function() {

@@ -121,3 +121,8 @@ function door(pos,to,at,tag,trigger,alt1,alt2,alt3){
     }
 }
 
+function die(){
+	fadeout();
+	scene.at = "kiirosroom";
+}
+

@@ -116,6 +116,7 @@ function loadImages() {
     image.home_floor5 = createImage("ress/home_dns3.png");
     image.livingroom = createImage("ress/living room.png");
 	image.trollface = createImage("ress/trollface.png");
+	image.scp173 = createImage("ress/scp173.png");
 
     console.log(image);
 }
