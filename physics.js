@@ -73,7 +73,7 @@ function fadeout() {
     use = "black";
 	console.log(use);
     changeSkin("blank");
-    setTimeout(normalize, 500,"skin");
+    setTimeout(normalize, 1000,"skin");
 }
 
 function changeSkin(to){
@@ -123,6 +123,7 @@ function door(pos,to,at,tag,trigger,alt1,alt2,alt3){
 
 function die(){
 	fadeout();
+	audio.snap.play();
 	scene.at = "kiirosroom";
 }
 

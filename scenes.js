@@ -217,7 +217,7 @@ scene.home_room1 = function() {
 	door(0,"home_floor2",575,"Leave");
 	if (player1.x > 900) die();
     if (player1.x > 1080) player1.x = 1080;
-	Game.ctx.drawImage(image.scp173,880,120);
+	Game.ctx.drawImage(image.scp173,880,120,220,440);
 }
 
 scene.home_floor3 = function() {
