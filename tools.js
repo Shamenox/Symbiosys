@@ -43,6 +43,37 @@ function unlock(){
 event.MopBeforeLeaving = true;
 }
 
+function labelFont(){
+	Game.ctx.strokeStyle = 'black';
+    Game.ctx.fillStyle = "black";
+    Game.ctx.font = "100px Calibri";
+	Game.ctx.lineWidth = 10;
+    Game.ctx.beginPath();
+	Game.ctx.stroke();
+}
+
+function standartFont(){
+	Game.ctx.strokeStyle = 'black';
+    Game.ctx.fillStyle = "black";
+    Game.ctx.font = "24px Calibri";
+	Game.ctx.lineWidth = 4;
+    Game.ctx.beginPath();
+	Game.ctx.stroke();
+}
+
+function createScene(declaration, bg, theme, font, edgeL, edgeR, ground, scaling){
+	var neueszene = {};
+	neueszene.background = image[bg];
+	if (theme !== "none") neueszene.theme = audio[theme];
+	if (theme === "none") neueszene.theme = "none";
+	neueszene.font = font;
+	neueszene.edgeL = edgeL;
+	neueszene.edgeR = edgeR;
+	neueszene.groundlevel = ground;
+	neueszene.scale = scaling;
+	scene[declaration] = neueszene;
+}
+
 /*
 function createRoom(declaration){
 	var neuerraum = {

@@ -1,17 +1,23 @@
 ﻿function setup_scenes(){
+scene.act = function(){
+	background = scene[scene.at].background;
+	if (scene[scene.at].theme !== "none") scene[scene.at].theme.play();
+	groundlevel = scene[scene.at].groundlevel;
+	scale = scene[scene.at].scale;
+	if (player1.x < scene[scene.at].edgeL) player1.x = scene[scene.at].edgeL;
+	if (player1.x > scene[scene.at].edgeR) player1.x = scene[scene.at].edgeR;
+	if (scene[scene.at].events !== undefined) scene[scene.at].events();
+	scene[scene.at].font();
+}
 
-scene.loading = function() {
-    background = image.whitescreen;
-    if (player1.x > 1280) player1.x = 0;
-    if (player1.x < 0) player1.x = 1280;
-    Game.ctx.font = "80px Calibri";
-	Game.ctx.lineWidth = 10;
-    Game.ctx.strokeStyle = 'black';
-	Game.ctx.stroke();
+createScene("loading", "whitescreen", "none", labelFont, 0, 1280, 220, 1);	
+scene.loading.events = function() {
+	Game.ctx.fillText("Loading... please wait", 200, 200);
 	Game.ctx.rect(40,400,1200,100);
-	Game.ctx.rect(50,410,1200*(image.loaded/image.quantity),80);
-    Game.ctx.fillText("Loading... please wait", 300, 200);
-
+	Game.ctx.fillStyle = "yellow";
+	Game.ctx.fillRect(50,410,1180*(image.loaded/image.quantity),80);
+	Game.ctx.rect(50,410,1180*(image.loaded/image.quantity),80);
+	Game.ctx.stroke();
 }
 
 scene.whitescreen = function() {

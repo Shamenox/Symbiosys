@@ -11,7 +11,7 @@ function createImage(path) {
 	img.addEventListener("load",function(e){
 	    image.loaded +=1;
 	    if (image.loaded === image.quantity) {
-			scene.at = "menue";
+			//scene.at = "menue";
 			console.log(image.quantity,image.loaded);
 		}
 	})
