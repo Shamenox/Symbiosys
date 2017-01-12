@@ -30,17 +30,9 @@ scene.menue.events = function() {
     if (click === true) scene.at = "kiirosroom"
 }
 
-scene.kiirosroom = function() {
-    Game.ctx.strokeStyle = 'black';
-    Game.ctx.fillStyle = "black";
-    Game.ctx.font = "24px Calibri";
-    scale = 1;
-    groundlevel = 220;
-    if (player1.x > 1080) player1.x = 1080;
-    if (player1.x < 0) player1.x = 0;
-    if (use !== "black" || use !== "aboutToSleep") background = image.kiirosroom;
-    if (use !== "guitar") audio.theme1.play();
-
+createScene("kiirosroom", "kiirosroom", "theme1", standartFont, 0, 1080, 220, 1);
+scene.kiirosroom.events = function() {
+    if (use !== "aboutToSleep") background = image.kiirosroom;
 	door(0,"home_floor1",700,"Leave",event.MopBeforeLeaving,"Wait! I wanted to try out that cool song on guitar.");
 	door(300,"desktop",-200,"Use");
 	door(580,"closet",-200,"Closet");
@@ -72,20 +64,19 @@ scene.kiirosroom = function() {
     if (player1.x > 1050)Game.ctx.fillText("Maybe I could go to the park...", 900, 220);
 }
 
-scene.desktop = function() {
-    audio.theme1.play();
-    background = image.desktop;
+createScene("desktop", "desktop", "theme1", standartFont, 0, 1280, 220, 1);
+scene.desktop.events = function() {
+	changeSkin("blank");
     Game.ctx.drawImage(image.toolbar, 0, 0);
-    player1.x = -200;
     Game.ctx.drawImage(image.basestar, 100, 100);
     Game.ctx.drawImage(image.lnk, 100, 100);
 	Game.ctx.fillText("Basestar", 100, 224);
 	Game.ctx.drawImage(image.trollface,300,100)
 	Game.ctx.drawImage(image.lnk, 300, 100);
     Game.ctx.fillText("Unlock Everything", 300, 224);
-    if (key.esc) scene.at = "kiirosroom";
+    if (key.esc) scene.at = "kiirosroom", normalize("skin");
     if (click === true) {
-        if (cursorX > 30 && cursorX < 90 && cursorY > 660 && cursorY < 710) scene.at = "kiirosroom", player1.x = 350;
+        if (cursorX > 30 && cursorX < 90 && cursorY > 660 && cursorY < 710) scene.at = "kiirosroom", player1.x = 350, normalize("skin");
         if (cursorX > 100 && cursorX < 200 && cursorY > 100 && cursorY < 200) scene.at = "basestar", player1.x = 600;
 		if (cursorX.between(300,400) && cursorY.between(100,200)) unlock();
     }
@@ -105,7 +96,7 @@ scene.basestar = function() {
     Game.ctx.drawImage(image.fenster, 0, 0);
     Game.ctx.fillText("Basestar Simulator.exe", 10, 28);
     if (click === true) {
-        if (cursorX.between(30,90) && cursorY.between(660,710)) scene.at = "kiirosroom", player1.x = 350, player1.vx = 0, mode = "adventure";
+        if (cursorX.between(30,90) && cursorY.between(660,710)) scene.at = "kiirosroom", player1.x = 350, player1.vx = 0, mode = "adventure", normalize("skin");
         if (cursorX.between(1250,1280)&& cursorY.between(0,30)) scene.at = "desktop", player1.x = -200, player1.vx = 0, mode = "adventure";
     }
     if (key.esc === "true") scene.at = "desktop";
