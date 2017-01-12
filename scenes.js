@@ -20,21 +20,11 @@ scene.loading.events = function() {
 	Game.ctx.stroke();
 }
 
-scene.whitescreen = function() {
-    background = image.whitescreen;
-    if (player1.x > 1280) player1.x = 0;
-    if (player1.x < 0) player1.x = 1280;
-    if (player1.y > 720) player1.y = 0;
-    if (player1.y < 0) player1.y = 720;
-}
+createScene("whitescreen", "whitescreen", "none", labelFont, 0, 1280, 220, 1);	
 
-scene.menue = function() {
-    background = image.menue;
-    Game.ctx.font = "240px Calibri";
-    Game.ctx.beginPath();
+createScene("menue", "whitescreen", "none", labelFont, 0, 1280, 220, 1);	
+scene.menue.events = function() {
     Game.ctx.rect(20, 20, 1240, 680);
-    Game.ctx.lineWidth = 7;
-    Game.ctx.strokeStyle = 'black';
     Game.ctx.stroke();
     Game.ctx.fillText("Start", 440, 200);
     if (click === true) scene.at = "kiirosroom"
