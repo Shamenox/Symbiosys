@@ -1,5 +1,6 @@
 ﻿function setup_scenes(){
 scene.act = function(){
+	scene[scene.at].font();
 	background = scene[scene.at].background;
 	if (scene[scene.at].theme !== "none") scene[scene.at].theme.play();
 	groundlevel = scene[scene.at].groundlevel;
@@ -7,7 +8,6 @@ scene.act = function(){
 	if (player1.x < scene[scene.at].edgeL) player1.x = scene[scene.at].edgeL;
 	if (player1.x > scene[scene.at].edgeR) player1.x = scene[scene.at].edgeR;
 	if (scene[scene.at].events !== undefined) scene[scene.at].events();
-	scene[scene.at].font();
 }
 
 createScene("loading", "whitescreen", "none", labelFont, 0, 1280, 220, 1);	
