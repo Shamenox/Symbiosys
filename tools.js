@@ -61,47 +61,6 @@ function standartFont(){
 	Game.ctx.stroke();
 }
 
-function createScene(declaration, bg, theme, font, edgeL, edgeR, ground, scaling){
-	var neueszene = {};
-	neueszene.background = image[bg];
-	if (theme !== "none") neueszene.theme = audio[theme];
-	if (theme === "none") neueszene.theme = "none";
-	neueszene.font = font;
-	neueszene.edgeL = edgeL;
-	neueszene.edgeR = edgeR;
-	neueszene.groundlevel = ground;
-	neueszene.scale = scaling;
-	scene[declaration] = neueszene;
-}
-
-/*
-function createRoom(declaration){
-	var neuerraum = {
-		scale : 1
-		groundlevel: 220
-		background : image.whitecreen
-		edgeR : 1280
-		edgeL : 0
-		theme : audio.theme1
-		font : "24px Calibri"
-		fillStyle : "black"
-		strokeStyle : "black"
-		}
-	neuerraum.specs = function(){}
-	neuerraum.act = function(){
-		scale = room[scene].scale;
-		groundlevel = room[scéne].groundlevel;
-		background = room[scene].background;
-		room[scene].theme.play();
-		Game.ctx.font = room[scene].font;
-		Game.ctx.fillStyle = room[scene].fillStyle;
-		Game.ctx.strokeStyle = room[scene].strokeStyle;
-		neuerraum.specs();
-	}
-	room[declaration] = neuerraum;
-}
-*/
-
 //this is objeckt stufffff
 var Animation = function(){
   this.isRunning = false;

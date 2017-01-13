@@ -54,6 +54,7 @@ function physik() {
 			if (player1.vy > 400) player1.vy = 400;
 		}
     if (use === "black") background = image.blackscreen;
+	if (mode === "interface") player1.skin = image.blank;
 }
 	
 function steppon(){
@@ -81,6 +82,18 @@ function changeSkin(to){
 	clothes = to;
 	console.log(clothes);
 }
+
+function changeClothes(to){
+        setTimeout(normalize, 2000);
+        if (clothes === to){
+			if (!next[1])Game.ctx.fillText("Im already wearing that.", 300, 40);
+		}
+        if (clothes !== to) {
+            clothes = to;
+			next[1] = true;
+			audio.cloth.play();
+        }
+    }
 
 function delay() {
     state += 1;

@@ -1,16 +1,34 @@
-﻿function setup_scenes(){
+﻿function createScene(declaration, bg, theme, font, edgeL, edgeR, ground, scaling, gamemode){
+	var neueszene = {};
+	neueszene.background = image[bg];
+	if (theme !== "none") neueszene.theme = audio[theme];
+	if (theme === "none") neueszene.theme = "none";
+	neueszene.font = font;
+	neueszene.edgeL = edgeL;
+	neueszene.edgeR = edgeR;
+	neueszene.groundlevel = ground;
+	neueszene.scale = scaling;
+	neueszene.mode = gamemode;
+	scene[declaration] = neueszene;
+}
+
+function setup_scenes(){
 scene.act = function(){
+	console.log(parseInt(scene[scene.at].edgeL,10))
 	scene[scene.at].font();
+	mode = scene[scene.at].mode;
 	background = scene[scene.at].background;
 	if (scene[scene.at].theme !== "none") scene[scene.at].theme.play();
 	groundlevel = scene[scene.at].groundlevel;
 	scale = scene[scene.at].scale;
-	if (player1.x < scene[scene.at].edgeL) player1.x = scene[scene.at].edgeL;
-	if (player1.x > scene[scene.at].edgeR) player1.x = scene[scene.at].edgeR;
+	if (scene[scene.at].edgeL !== parseInt(scene[scene.at].edgeL,10)) scene.at = scene[scene.at].edgeL;
+	if (scene[scene.at].edgeR !== parseInt(scene[scene.at].edgeR,10)) scene.at = scene[scene.at].edgeR;
+	if (scene[scene.at].edgeL === parseInt(scene[scene.at].edgeL,10) && player1.x < scene[scene.at].edgeL) player1.x = scene[scene.at].edgeL;
+	if (scene[scene.at].edgeR === parseInt(scene[scene.at].edgeR,10) && player1.x > scene[scene.at].edgeR) player1.x = scene[scene.at].edgeR;
 	if (scene[scene.at].events !== undefined) scene[scene.at].events();
 }
 
-createScene("loading", "whitescreen", "none", labelFont, 0, 1280, 220, 1);	
+createScene("loading", "whitescreen", "none", labelFont, 0, 1280, 220, 1,"adventure");	
 scene.loading.events = function() {
 	Game.ctx.fillText("Loading... please wait", 200, 200);
 	Game.ctx.rect(40,400,1200,100);
@@ -20,7 +38,7 @@ scene.loading.events = function() {
 	Game.ctx.stroke();
 }
 
-createScene("whitescreen", "whitescreen", "none", labelFont, 0, 1280, 220, 1);	
+createScene("whitescreen", "whitescreen", "none", labelFont, 0, 1280, 220, 1,"adventure");	
 
 createScene("menue", "whitescreen", "none", labelFont, 0, 1280, 220, 1);	
 scene.menue.events = function() {
@@ -30,7 +48,7 @@ scene.menue.events = function() {
     if (click === true) scene.at = "kiirosroom"
 }
 
-createScene("kiirosroom", "kiirosroom", "theme1", standartFont, 0, 1080, 220, 1);
+createScene("kiirosroom", "kiirosroom", "theme1", standartFont, 0, 1080, 220, 1,"adventure");
 scene.kiirosroom.events = function() {
     if (use !== "aboutToSleep") background = image.kiirosroom;
 	door(0,"home_floor1",700,"Leave",event.MopBeforeLeaving,"Wait! I wanted to try out that cool song on guitar.");
@@ -64,9 +82,8 @@ scene.kiirosroom.events = function() {
     if (player1.x > 1050)Game.ctx.fillText("Maybe I could go to the park...", 900, 220);
 }
 
-createScene("desktop", "desktop", "theme1", standartFont, 0, 1280, 220, 1);
+createScene("desktop", "desktop", "theme1", standartFont, 0, 1280, 220, 1,"interface");
 scene.desktop.events = function() {
-	changeSkin("blank");
     Game.ctx.drawImage(image.toolbar, 0, 0);
     Game.ctx.drawImage(image.basestar, 100, 100);
     Game.ctx.drawImage(image.lnk, 100, 100);
@@ -74,21 +91,18 @@ scene.desktop.events = function() {
 	Game.ctx.drawImage(image.trollface,300,100)
 	Game.ctx.drawImage(image.lnk, 300, 100);
     Game.ctx.fillText("Unlock Everything", 300, 224);
-    if (key.esc) scene.at = "kiirosroom", normalize("skin");
+    if (key.esc) scene.at = "kiirosroom";
     if (click === true) {
-        if (cursorX > 30 && cursorX < 90 && cursorY > 660 && cursorY < 710) scene.at = "kiirosroom", player1.x = 350, normalize("skin");
+        if (cursorX > 30 && cursorX < 90 && cursorY > 660 && cursorY < 710) scene.at = "kiirosroom", player1.x = 350;
         if (cursorX > 100 && cursorX < 200 && cursorY > 100 && cursorY < 200) scene.at = "basestar", player1.x = 600;
 		if (cursorX.between(300,400) && cursorY.between(100,200)) unlock();
     }
     console.log(key.esc)
 }
 
-scene.basestar = function() {
-    groundlevel = 2000;
-    mode = "space";
+createScene("basestar", "space1", "none", standartFont, 0, 1280, 2000, 0.75,"space");
+scene.basestar.events = function() {
     player1.skin = image.basestar;
-    scale = 0.75;
-    background = image.space1;
     if (player1.x > 1280) player1.x = 0;
     if (player1.x < 0) player1.x = 1280;
     if (player1.y > 720) player1.y = 0;
@@ -96,17 +110,14 @@ scene.basestar = function() {
     Game.ctx.drawImage(image.fenster, 0, 0);
     Game.ctx.fillText("Basestar Simulator.exe", 10, 28);
     if (click === true) {
-        if (cursorX.between(30,90) && cursorY.between(660,710)) scene.at = "kiirosroom", player1.x = 350, player1.vx = 0, mode = "adventure", normalize("skin");
-        if (cursorX.between(1250,1280)&& cursorY.between(0,30)) scene.at = "desktop", player1.x = -200, player1.vx = 0, mode = "adventure";
+        if (cursorX.between(30,90) && cursorY.between(660,710)) scene.at = "kiirosroom", player1.x = 350, player1.vx = 0;
+        if (cursorX.between(1250,1280)&& cursorY.between(0,30)) scene.at = "desktop", player1.x = -200, player1.vx = 0;
     }
     if (key.esc === "true") scene.at = "desktop";
 }
 
-scene.closet = function() {
-    audio.theme1.play();
-    player1.x = -200;
-    background = image.closet;
-    Game.ctx.lineWidth = 4;
+createScene("closet", "closet", "theme1", standartFont, 0, 1280, 220, 1,"interface");
+scene.closet.events = function() {
     Game.ctx.beginPath();
     if (use === "intro")Game.ctx.fillText("Hmmm, I wish I had more outfits...", 300, 40), setTimeout(normalize, 2000);
     if (cursorX < 400 || cursorX > 900)Game.ctx.drawImage(image.lnk, cursorX - 100, cursorY - 110),Game.ctx.fillText("Return", cursorX - 100, cursorY - 46);
@@ -127,20 +138,8 @@ scene.closet = function() {
     if (cursorX < 800 && cursorX > 660 && cursorY < 570 && cursorY > 430)Game.ctx.rect(660, 430, 140, 140), Game.ctx.fillText("Sketched outfit", 660, 410);
     Game.ctx.stroke();
 
-    if (use === "slot1") {
-        setTimeout(normalize, 2000);
-        if (clothes === "kiiro_main") Game.ctx.fillText("Im already wearing that.", 300, 40)
-        if (clothes !== "kiiro_main") {
-            clothes = "kiiro_main";
-        }
-    }
-    if (use === "slot6") {
-        setTimeout(normalize, 2000);
-        if (clothes === "kiiro_sketched") Game.ctx.fillText("Im already wearing that.", 300, 40)
-        if (clothes !== "kiiro_sketched") {
-            clothes = "kiiro_sketched";
-        }
-    }
+    if (use === "slot1") changeClothes("kiiro_main");
+    if (use === "slot6") changeClothes("kiiro_sketched");
     if (use === "slot2") setTimeout(normalize, 2000), Game.ctx.fillText("There's nothing in the closet...", 300, 40);
     if (use === "slot3") setTimeout(normalize, 2000), Game.ctx.fillText("There's nothing in the closet...", 300, 40);
     if (use === "slot4") setTimeout(normalize, 2000), Game.ctx.fillText("There's nothing in the closet...", 300, 40);
@@ -148,13 +147,9 @@ scene.closet = function() {
 }
 
 
-scene.home_floor1 = function() {
-    groundlevel = 180;
-    scale = 0.9;
-    audio.theme1.play();
-    background = image.home_floor1;
+createScene("home_floor1", "home_floor1", "theme1", standartFont, "home_floor2", 990, 180, 0.9, "adventure");
+scene.home_floor1.events = function() {
     Game.ctx.drawImage(image.midori0r, 0, groundlevel, scale * 220, scale * 440);
-    if (player1.x < 0) player1.x = 1280, scene.at = "home_floor2";
     if (player1.x > 260 && player1.x < 410) {
 		Game.ctx.fillText("Downstairs(S)", 300, groundlevel);
         if (key.s) scene.at = "home_floor3", player1.x = 600;
@@ -163,16 +158,6 @@ scene.home_floor1 = function() {
     if (player1.x > 10 && player1.x < 180) {
         if (use === "false") Game.ctx.fillText("Enter(E)", 120, groundlevel);
         if (use === "true") use = "talk";
-        if (use === "entering") {
-            scene.at = "midorisroom";
-            player1.x = 0;
-            player1.y = 220;
-            use = "false";
-        }
-        if (use === "abandoned") {
-            Game.ctx.fillText("Midori seems to be absent right now...", 100, groundlevel);
-            setTimeout(normalize, 1000);
-        }
         if (use === "talk") {
             talk("Midori: Hey Kiiro.", 1);
             talk("Kiiro: Hi Midori, im looking for something. May i take a look for it in your room?", 2);
@@ -185,14 +170,9 @@ scene.home_floor1 = function() {
     if (player1.x > 990) player1.x = 990;
 }
 
-scene.home_floor2 = function() {
-    background = image.home_floor2;
-    scale = 0.9;
-    groundlevel = 180;
-    audio.theme1.play();
-    if (player1.x < 100) player1.x = 100;
+createScene("home_floor2", "home_floor2", "theme1", standartFont, 100, "home_floor1", 180, 0.9, "adventure");
+scene.home_floor2.events = function() {
 	door(575,"home_room1",0,"Enter");
-    if (player1.x > 1180) player1.x = 0, scene.at = "home_floor1";
 }
 
 scene.home_room1 = function() {
