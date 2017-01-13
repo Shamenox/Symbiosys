@@ -134,9 +134,22 @@ function door(pos,to,at,tag,trigger,alt1,alt2,alt3){
     }
 }
 
+function portal(pos, to, at, trigger){
+	if (player1.x.between(pos - 5, pos + 5)) {
+        if (trigger === true || trigger === undefined) {
+            scene.at = to;
+            player1.x = at;
+			player1.y = groundlevel;
+			next[1] = true;
+            setTimeout(normalize,500);
+        }
+    }
+}
+
 function die(){
 	fadeout();
 	audio.snap.play();
+	normalize();
 	scene.at = "kiirosroom";
 }
 

@@ -9,6 +9,7 @@ var image = {
 var player1 = {};
 var skin = {};
 var scene = {};
+var npc = {};
 var scale = 1;
 var state = 0;
 var next = [];
@@ -34,13 +35,13 @@ var event = {
 	getBirdfood : false
 };
 
-function setup_skins(){
+function setupSkins(){
 	createSkin("kiiro_main");
 	createSkin("kiiro_sketched");
 	createSkin("blank");
 	createSkin("kiiro_guitar");
 }
-function setup_player1() {
+function setupPlayer1() {
 	player1.skin = skin[clothes].r[0];
 	player1.step = 0;
 	player1.dir = "right";
@@ -57,9 +58,10 @@ window.onload = function() {
     Game.ctx = canvas.getContext("2d");
 	loadImages();
 	loadAudio();
-	setup_skins();
-	setup_player1();
-	setup_scenes();
+	setupSkins();
+	setupPlayer1();
+	setupNpcs();
+	setupScenes();
 	scene.at = "loading";
 	
     // Tatsaechliche Abbildung

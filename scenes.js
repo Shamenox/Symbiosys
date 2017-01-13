@@ -12,9 +12,8 @@
 	scene[declaration] = neueszene;
 }
 
-function setup_scenes(){
+function setupScenes(){
 scene.act = function(){
-	console.log(Number.isInteger(scene[scene.at].edgeL))
 	scene[scene.at].font();
 	mode = scene[scene.at].mode;
 	background = scene[scene.at].background;
@@ -28,7 +27,7 @@ scene.act = function(){
 	if (scene[scene.at].events !== undefined) scene[scene.at].events();
 }
 
-createScene("loading", "whitescreen", "none", labelFont, 0, 1280, 220, 1,"adventure");	
+createScene("loading", "whitescreen", "none", labelFont, 0, 1280, 220, 1,"interface");	
 scene.loading.events = function() {
 	Game.ctx.fillText("Loading... please wait", 200, 200);
 	Game.ctx.rect(40,400,1200,100);
@@ -40,7 +39,7 @@ scene.loading.events = function() {
 
 createScene("whitescreen", "whitescreen", "none", labelFont, 0, 1280, 220, 1,"adventure");	
 
-createScene("menue", "whitescreen", "none", labelFont, 0, 1280, 220, 1);	
+createScene("menue", "whitescreen", "none", labelFont, 0, 1280, 220, 1, "interface");	
 scene.menue.events = function() {
     Game.ctx.rect(20, 20, 1240, 680);
     Game.ctx.stroke();
@@ -97,7 +96,6 @@ scene.desktop.events = function() {
         if (cursorX > 100 && cursorX < 200 && cursorY > 100 && cursorY < 200) scene.at = "basestar", player1.x = 600;
 		if (cursorX.between(300,400) && cursorY.between(100,200)) unlock();
     }
-    console.log(key.esc)
 }
 
 createScene("basestar", "space1", "none", standartFont, 0, 1280, 2000, 0.75,"space");
@@ -146,7 +144,6 @@ scene.closet.events = function() {
     if (use === "slot5") setTimeout(normalize, 2000), Game.ctx.fillText("There's nothing in the closet...", 300, 40);
 }
 
-
 createScene("home_floor1", "home_floor1", "theme1", standartFont, "home_floor2", 990, 180, 0.9, "adventure");
 scene.home_floor1.events = function() {
     Game.ctx.drawImage(image.midori0r, 0, groundlevel, scale * 220, scale * 440);
@@ -175,24 +172,15 @@ scene.home_floor2.events = function() {
 	door(575,"home_room1",0,"Enter");
 }
 
-scene.home_room1 = function() {
-    background = image.room1;
-    scale = 1;
-    groundlevel = 220;
-    audio.theme1.play();
-    if (player1.x < 0) player1.x = 0;
+createScene("home_room1", "room1", "theme1", standartFont, 0, 1080, 220, 1,"adventure");
+scene.home_room1.events = function() {
 	door(0,"home_floor2",575,"Leave");
-	if (player1.x > 900) die();
-    if (player1.x > 1080) player1.x = 1080;
-	Game.ctx.drawImage(image.scp173,880,120,220,440);
+	npc.scp173.spawn(900);
 }
 
-scene.home_floor3 = function() {
-    background = image.home_floor3;
-    scale = 1;
-    groundlevel = 220;
-    audio.theme1.play();
-    if (player1.x < 0) scene.at = "home_floor4", player1.x = 250;
+createScene("home_floor3", "home_floor3", "theme1", standartFont, "home_floor4", 1080, 200, 1, "adventure");
+scene.home_floor3.events = function() {
+	portal(0,"home_floor4",100);
     if (player1.x > 460 && player1.x < 640) {
 		Game.ctx.fillText("Upstairs(W)", 500, 220);
         if (key.w) use = "stairs";
@@ -200,16 +188,11 @@ scene.home_floor3 = function() {
     }
 	door(800,"home_kitchen","locked","Kitchen");
 	door(1040,"frontyard",0,"Leave",event.getBirdfood,"I first need to gather", "something to feed to", "beloved crow friends.");
-    if (player1.x > 1080) player1.x = 1080;
 }
 
-scene.livingroom = function() {
-    background = image.livingroom;
-    scale = 1.25;
-    groundlevel = 160;
-    audio.theme1.play();
+createScene("livingroom", "livingroom", "theme1", standartFont, 400, 750, 160, 1.25,"adventure");
+scene.livingroom.events = function() {
     Game.ctx.drawImage(image.riyu0r_sketched, 250, 130);
-    if (player1.x < 400) player1.x = 400;
     if (player1.x > 250 && player1.x < 470) {
         if (use === "false") Game.ctx.fillText("Talk(E)", 300, 220);
         if (use === "true") use = "talk";
@@ -221,42 +204,18 @@ scene.livingroom = function() {
         }
     }
 	door(700,"home_floor4",300,"Leave");
-    if (player1.x > 750) player1.x = 750;
 }
 
-scene.home_floor4 = function(){
-	background = image.home_floor4;
-	scale = 1;
-	audio.theme1.play();
-	groundlevel = 220;
-	if (player1.x < 60) player1.x = 60;
+createScene("home_floor4", "home_floor4", "theme1", standartFont, 60, "home_floor5", 220, 1, "adventure");
+scene.home_floor4.events = function(){
 	door(120,"home_floor3",100,"Back");
 	door(300,"livingroom",700,"Livingroom");
 	door(1000,"parentsroom","locked","Parents Room");
-	if (player1.x>1280) scene.at = "home_floor5", player1.x =100;
 }
 
-scene.home_floor5 = function(){
-	background = image.home_floor5;
-	scale = 1;
-	audio.theme1.play();
-	groundlevel = 220;
-	if (player1.x<0) scene.at = "home_floor4", player1.x = 1100;
+createScene("home_floor5", "home_floor5", "theme1", standartFont, "home_floor4", 1080, 220, 1, "adventure");
+scene.home_floor5.events = function(){
 	door(350,"home_kitchen","locked","Kitchen");
-	if (player1.x > 900 && scene.at === "home_floor5") scene.at = "home_floor3", player1.x = 100;
-}
-
-scene.XX1 = function(){
-	background = image.whitescreen;
-	player1.skin = image.blank;
-	use = "love";
-	gravity = "octopode";
-	function frame(action){
-		if (action === "intro")
-		state +=1;
-		if (state>10) state = 0;
-		setTimeout(frame,100)
-	}
-
+	portal(900,"home_floor3",400);
 }
 }
