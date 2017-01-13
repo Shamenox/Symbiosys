@@ -14,17 +14,17 @@
 
 function setup_scenes(){
 scene.act = function(){
-	console.log(parseInt(scene[scene.at].edgeL,10))
+	console.log(Number.isInteger(scene[scene.at].edgeL))
 	scene[scene.at].font();
 	mode = scene[scene.at].mode;
 	background = scene[scene.at].background;
 	if (scene[scene.at].theme !== "none") scene[scene.at].theme.play();
 	groundlevel = scene[scene.at].groundlevel;
 	scale = scene[scene.at].scale;
-	if (scene[scene.at].edgeL !== parseInt(scene[scene.at].edgeL,10)) scene.at = scene[scene.at].edgeL;
-	if (scene[scene.at].edgeR !== parseInt(scene[scene.at].edgeR,10)) scene.at = scene[scene.at].edgeR;
-	if (scene[scene.at].edgeL === parseInt(scene[scene.at].edgeL,10) && player1.x < scene[scene.at].edgeL) player1.x = scene[scene.at].edgeL;
-	if (scene[scene.at].edgeR === parseInt(scene[scene.at].edgeR,10) && player1.x > scene[scene.at].edgeR) player1.x = scene[scene.at].edgeR;
+	if (!Number.isInteger(scene[scene.at].edgeL) && player1.x < 0) player1.x = 1100, scene.at = scene[scene.at].edgeL;
+	if (!Number.isInteger(scene[scene.at].edgeR) && player1.x > 1280) player1.x = 0, scene.at = scene[scene.at].edgeR;
+	if (Number.isInteger(scene[scene.at].edgeL) && player1.x < scene[scene.at].edgeL) player1.x = scene[scene.at].edgeL;
+	if (Number.isInteger(scene[scene.at].edgeR) && player1.x > scene[scene.at].edgeR) player1.x = scene[scene.at].edgeR;
 	if (scene[scene.at].events !== undefined) scene[scene.at].events();
 }
 
