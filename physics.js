@@ -147,9 +147,10 @@ function portal(pos, to, at, trigger){
 }
 
 function die(){
+	normalize();
 	fadeout();
 	audio.snap.play();
-	normalize();
+	player1.x = 740;
 	scene.at = "kiirosroom";
 }
 
