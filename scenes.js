@@ -50,7 +50,7 @@ scene.menue.events = function() {
 createScene("kiirosroom", "kiirosroom", "theme1", standartFont, 0, 1080, 220, 1,"adventure");
 scene.kiirosroom.events = function() {
     if (use !== "aboutToSleep") background = image.kiirosroom;
-	door(0,"home_floor1",700,"Leave",event.MopBeforeLeaving,"Wait! I wanted to try out that cool song on guitar.");
+	door(0,"home_upstairs1",700,"Leave",event.MopBeforeLeaving,"Wait! I wanted to try out that cool song on guitar.");
 	door(300,"desktop",-200,"Use");
 	door(580,"closet",-200,"Closet");
     if (player1.x > 640 && player1.x < 840) {
@@ -144,12 +144,12 @@ scene.closet.events = function() {
     if (use === "slot5") setTimeout(normalize, 2000), Game.ctx.fillText("There's nothing in the closet...", 300, 40);
 }
 
-createScene("home_floor1", "home_floor1", "theme1", standartFont, "home_floor2", 990, 180, 0.9, "adventure");
-scene.home_floor1.events = function() {
+createScene("home_upstairs1", "home_upstairs1", "theme1", standartFont, "home_upstairs2", 990, 180, 0.9, "adventure");
+scene.home_upstairs1.events = function() {
     Game.ctx.drawImage(image.midori0r, 0, groundlevel, scale * 220, scale * 440);
     if (player1.x > 260 && player1.x < 410) {
 		Game.ctx.fillText("Downstairs(S)", 300, groundlevel);
-        if (key.s) scene.at = "home_floor3", player1.x = 600;
+        if (key.s) scene.at = "home_downstairs1", player1.x = 600;
     }
 	door(790,"kiirosroom",0,"Enter");
     if (player1.x > 10 && player1.x < 180) {
@@ -167,24 +167,23 @@ scene.home_floor1.events = function() {
     if (player1.x > 990) player1.x = 990;
 }
 
-createScene("home_floor2", "home_floor2", "theme1", standartFont, 100, "home_floor1", 180, 0.9, "adventure");
-scene.home_floor2.events = function() {
+createScene("home_upstairs2", "home_upstairs2", "theme1", standartFont, 100, "home_upstairs1", 180, 0.9, "adventure");
+scene.home_upstairs2.events = function() {
 	door(575,"home_room1",0,"Enter");
 }
 
 createScene("home_room1", "room1", "theme1", standartFont, 0, 1080, 220, 1,"adventure");
 scene.home_room1.events = function() {
-	door(0,"home_floor2",575,"Leave");
+	door(0,"home_upstairs2",575,"Leave");
 	npc.scp173.spawn(900);
 }
 
-createScene("home_floor3", "home_floor3", "theme1", standartFont, "home_floor4", 1080, 200, 1, "adventure");
-scene.home_floor3.events = function() {
-	portal(0,"home_floor4",100);
+createScene("home_downstairs1", "home_downstairs1", "theme1", standartFont, "home_downstairs2", 1080, 200, 1, "adventure");
+scene.home_downstairs1.events = function() {
     if (player1.x > 460 && player1.x < 640) {
 		Game.ctx.fillText("Upstairs(W)", 500, 220);
         if (key.w) use = "stairs";
-        if (use === "stairs") scene.at = "home_floor1", player1.x = 300, use = "false";
+        if (use === "stairs") scene.at = "home_upstairs1", player1.x = 300, use = "false";
     }
 	door(800,"home_kitchen","locked","Kitchen");
 	door(1040,"frontyard",0,"Leave",event.getBirdfood,"I first need to gather", "something to feed to", "beloved crow friends.");
@@ -203,19 +202,19 @@ scene.livingroom.events = function() {
             talk("Riyu: Yeah, they should really hurry up...", 4);
         }
     }
-	door(700,"home_floor4",300,"Leave");
+	door(700,"home_downstairs2",750,"Leave");
 }
 
-createScene("home_floor4", "home_floor4", "theme1", standartFont, 60, "home_floor5", 220, 1, "adventure");
-scene.home_floor4.events = function(){
-	door(120,"home_floor3",100,"Back");
-	door(300,"livingroom",700,"Livingroom");
-	door(1000,"parentsroom","locked","Parents Room");
+createScene("home_downstairs2", "home_downstairs2", "theme1", standartFont, 0, "home_downstairs1", 220, 1, "adventure");
+scene.home_downstairs2.events = function(){
+console.log(player1.x);
+	door(980,"basement","locked","Basement");
+	door(750,"livingroom",700,"Livingroom");
+	door(0,"parentsroom","locked","Parents Room");
 }
 
-createScene("home_floor5", "home_floor5", "theme1", standartFont, "home_floor4", 1080, 220, 1, "adventure");
-scene.home_floor5.events = function(){
+createScene("home_downstairs3", "home_downstairs3", "theme1", standartFont, 200, "home_downstairs2", 220, 1, "adventure");
+scene.home_downstairs3.events = function(){
 	door(350,"home_kitchen","locked","Kitchen");
-	portal(900,"home_floor3",400);
 }
 }

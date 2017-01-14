@@ -110,12 +110,12 @@ function loadImages() {
     image.kiirosroom = createImage("ress/kiiros room sketch.png");
     image.closet = createImage("ress/kiiros closet sketch.png");
     image.kiirosroom_door = createImage("ress/kiirosroom door overlay.png");
-    image.home_floor1 = createImage("ress/home_ups1.png");
-    image.home_floor2 = createImage("ress/home_ups2.png");
+    image.home_upstairs1 = createImage("ress/home_ups1.png");
+    image.home_upstairs2 = createImage("ress/home_ups2.png");
     image.room1 = createImage("ress/room1.png");
-    image.home_floor3 = createImage("ress/home_dns1.png");
-    image.home_floor4 = createImage("ress/home_dns2.png");
-    image.home_floor5 = createImage("ress/home_dns3.png");
+    image.home_downstairs1 = createImage("ress/home_dns1.png");
+    image.home_downstairs2 = createImage("ress/home_dns2.png");
+    image.home_downstairs3 = createImage("ress/home_dns3.png");
     image.livingroom = createImage("ress/living room.png");
 	image.trollface = createImage("ress/trollface.png");
 	image.scp1730l = createImage("ress/scp173/0l.png");
