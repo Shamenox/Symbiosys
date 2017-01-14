@@ -172,7 +172,7 @@ scene.home_upstairs2.events = function() {
 	door(575,"home_room1",0,"Enter");
 }
 
-createScene("home_room1", "room1", "theme1", standartFont, 0, 1080, 220, 1,"adventure");
+createScene("home_room1", "room1", "theme2", standartFont, 0, 1080, 220, 1,"adventure");
 scene.home_room1.events = function() {
 	door(0,"home_upstairs2",575,"Leave");
 	npc.scp173.spawn(900);

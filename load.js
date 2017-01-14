@@ -4,6 +4,8 @@
     audio.theme1 = new Audio("ress/audio/theme1.mp3");
 	audio.snap = new Audio("ress/audio/snap.mp3");
 	audio.cloth = new Audio("ress/audio/cloth.mp3");
+	audio.concrete = new Audio("ress/audio/concrete.mp3");
+	audio.theme2 = new Audio("ress/audio/the_dread.mp3");
 }
 function createImage(path) {
 	image.quantity += 1;
