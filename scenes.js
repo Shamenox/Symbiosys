@@ -172,10 +172,9 @@ scene.home_upstairs2.events = function() {
 	door(575,"home_room1",0,"Enter");
 }
 
-createScene("home_room1", "room1", "theme2", standartFont, 0, 1080, 220, 1,"adventure");
+createScene("home_room1", "room1", "theme1", standartFont, 0, 1080, 220, 1,"adventure");
 scene.home_room1.events = function() {
 	door(0,"home_upstairs2",575,"Leave");
-	npc.scp173.spawn(900);
 }
 
 createScene("home_downstairs1", "home_downstairs1", "theme1", standartFont, "home_downstairs2", 1080, 200, 1.05, "adventure");
@@ -192,7 +191,7 @@ scene.home_downstairs1.events = function() {
 
 createScene("home_downstairs2", "home_downstairs2", "theme1", standartFont, "home_downstairs3", "home_downstairs1", 200, 1.05, "adventure");
 scene.home_downstairs2.events = function(){
-	door(980,"basement","locked","Basement");
+	door(980,"home_basement", 100,"Basement");
 	door(750,"livingroom",700,"Livingroom");
 	door(0,"parentsroom","locked","Parents Room");
 }
@@ -205,6 +204,13 @@ scene.home_downstairs3.events = function(){
 createScene("livingroom", "livingroom", "theme1", standartFont, 400, 750, 160, 1.25,"adventure");
 scene.livingroom.events = function() {
 	door(700,"home_downstairs2",750,"Leave");
+}
+
+createScene("home_basement","home_basement", "theme2", standartFont, "home_downstairs2", 1050, 350, 0.8, "adventure")
+scene.home_basement.events = function(){
+	portal(45, "home_downstairs2", 980);
+	npc.scp173.spawn(1000);
+	console.log(player1.x);
 }
 
 

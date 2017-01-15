@@ -6,13 +6,13 @@ function setupNpcs(){
 		if (player1.x > npc.scp173.x) npc.scp173.dir = "right";
 		if (npc.scp173.dir === "left"){
 			if (player1.dir === "left") npc.scp173.x -=40, audio.concrete.play();
-			Game.ctx.drawImage(image.scp1730l, npc.scp173.x, 120, 220*scale, 440*scale);
+			Game.ctx.drawImage(image.scp1730l, npc.scp173.x, groundlevel - 50*scale, 220*scale, 440*scale);
 		}
 		if (npc.scp173.dir === "right"){
 			if (player1.dir === "right") npc.scp173.x +=40, audio.concrete.play();
-			Game.ctx.drawImage(image.scp1730r, npc.scp173.x, 120, 220*scale, 440*scale);
+			Game.ctx.drawImage(image.scp1730r, npc.scp173.x, groundlevel - 50*scale, 220*scale, 440*scale);
 		}
-		if (player1.x === npc.scp173.x) die(), npc.scp173.setup === false;
+		if (player1.x.between(npc.scp173.x +5 , npc.scp173.x -5)) die(), npc.scp173.setup === false;
 	}
 	npc.riyu = {};
 	npc.riyu.conversation1 = function(){
@@ -28,6 +28,6 @@ function setupNpcs(){
 			if (use === "true") use = "talk";
 			if (use === "talk") npc.riyu[conversation]();
 		}
-		Game.ctx.drawImage(image.riyu0r, npc.riyu.x, groundlevel);
+		Game.ctx.drawImage(image.riyu0r, npc.riyu.x, groundlevel,220*scale,440*scale);
 	}
 }

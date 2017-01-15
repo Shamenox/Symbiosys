@@ -123,6 +123,7 @@ function loadImages() {
 	image.trollface = createImage("ress/trollface.png");
 	image.scp1730l = createImage("ress/scp173/0l.png");
 	image.scp1730r = createImage("ress/scp173/0r.png");
+	image.home_basement = createImage("ress/home_basement.png");
 
     console.log(image);
 }
