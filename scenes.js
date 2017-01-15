@@ -1,15 +1,16 @@
-﻿function createScene (declaration, bg, theme, font, edgeL, edgeR, ground, scaling, gamemode) {
+﻿function createScene (options) {
+	//declaration, bg, theme, font, edgeL, edgeR, ground, scaling, gamemode
 	var neueszene = {};
-	neueszene.background = image[bg];
-	if (theme !== "none") neueszene.theme = audio[theme];
-	if (theme === "none") neueszene.theme = "none";
-	neueszene.font = font;
-	neueszene.edgeL = edgeL;
-	neueszene.edgeR = edgeR;
-	neueszene.groundlevel = ground;
-	neueszene.scale = scaling;
-	neueszene.mode = gamemode;
-	scene[declaration] = neueszene;
+	neueszene.background = image[options.bg];
+	if (options.theme !== "none") neueszene.theme = audio[options.theme];
+	if (options.theme === "none") neueszene.theme = "none";
+	neueszene.font = options.font;
+	neueszene.edgeL = options.edgeL;
+	neueszene.edgeR = options.edgeR;
+	neueszene.groundlevel = options.ground;
+	neueszene.scale = options.scaling;
+	neueszene.mode = options.gamemode;
+	scene[options.name] = neueszene;
 }
 
 function setupScenes () {
@@ -27,7 +28,15 @@ scene.act = function(){
 	if (scene[scene.at].events !== undefined) scene[scene.at].events();
 }
 
-createScene("loading", "whitescreen", "none", labelFont, 0, 1280, 220, 1,"interface");
+createScene({ name: "loading",
+	bg: "whitescreen",
+	theme: "none",
+	font: labelFont,
+	edgeL: 0,
+	edgeR: 1280,
+	ground: 220,
+	scaling: 1,
+	gamemode: "interface"});
 scene.loading.events = function() {
 	Game.ctx.fillText("Loading... please wait", 200, 200);
 	Game.ctx.rect(40,400,1200,100);
@@ -37,9 +46,25 @@ scene.loading.events = function() {
 	Game.ctx.stroke();
 }
 
-createScene("whitescreen", "whitescreen", "none", labelFont, 0, 1280, 220, 1,"adventure");
+createScene({ name: "whitescreen",
+	bg: "whitescreen",
+	theme: "none",
+	font: labelFont,
+	edgeL: 0,
+	edgeR: 1280,
+	ground: 220,
+	scaling: 1,
+	gamemode: "adventure"});
 
-createScene("menue", "whitescreen", "none", labelFont, 0, 1280, 220, 1, "interface");
+createScene({ name: "menue",
+		bg: "whitescreen",
+		theme: "none",
+		font: labelFont,
+		edgeL: 0,
+		edgeR: 1280,
+		ground: 220,
+		scaling: 1,
+		gamemode: "interface"});
 scene.menue.events = function() {
     Game.ctx.rect(20, 20, 1240, 680);
     Game.ctx.stroke();
@@ -47,7 +72,15 @@ scene.menue.events = function() {
     if (click === true) scene.at = "kiirosroom"
 }
 
-createScene("kiirosroom", "kiirosroom", "theme1", standartFont, 0, 1080, 220, 1,"adventure");
+createScene({ name: "kiirosroom",
+		bg: "whitescreen",
+		theme: "theme1",
+		font: standartFont,
+		edgeL: 0,
+		edgeR: 1080,
+		ground: 220,
+		scaling: 1,
+		gamemode: "adventure"});
 scene.kiirosroom.events = function() {
     if (use !== "aboutToSleep") background = image.kiirosroom;
 	door(0,"home_upstairs1",700,"Leave",event.MopBeforeLeaving,"Wait! I wanted to try out that cool song on guitar.");
@@ -81,7 +114,15 @@ scene.kiirosroom.events = function() {
     if (player1.x > 1050)Game.ctx.fillText("Maybe I could go to the park...", 900, 220);
 }
 
-createScene("desktop", "desktop", "theme1", standartFont, 0, 1280, 220, 1,"interface");
+createScene({ name: "desktop",
+		bg: "desktop",
+		theme: "theme1",
+		font: standartFont,
+		edgeL: 0,
+		edgeR: 1280,
+		ground: 220,
+		scaling: 1,
+		gamemode: "interface"});
 scene.desktop.events = function() {
     Game.ctx.drawImage(image.toolbar, 0, 0);
     Game.ctx.drawImage(image.basestar, 100, 100);
@@ -98,7 +139,15 @@ scene.desktop.events = function() {
     }
 }
 
-createScene("basestar", "space1", "none", standartFont, 0, 1280, 2000, 0.75,"space");
+createScene({ name: "basestar",
+		bg: "space1",
+		theme: "none",
+		font: standartFont,
+		edgeL: 0,
+		edgeR: 1280,
+		ground: 2000,
+		scaling: 0.75,
+		gamemode: "space"});
 scene.basestar.events = function() {
     player1.skin = image.basestar;
     if (player1.x > 1280) player1.x = 0;
@@ -114,7 +163,15 @@ scene.basestar.events = function() {
     if (key.esc === "true") scene.at = "desktop";
 }
 
-createScene("closet", "closet", "theme1", standartFont, 0, 1280, 220, 1,"interface");
+createScene({ name: "closet",
+		bg: "closet",
+		theme: "theme1",
+		font: standartFont,
+		edgeL: 0,
+		edgeR: 1280,
+		ground: 220,
+		scaling: 1,
+		gamemode: "interface"});
 scene.closet.events = function() {
     Game.ctx.beginPath();
     if (use === "intro")Game.ctx.fillText("Hmmm, I wish I had more outfits...", 300, 40), setTimeout(normalize, 2000);
@@ -144,7 +201,15 @@ scene.closet.events = function() {
     if (use === "slot5") setTimeout(normalize, 2000), Game.ctx.fillText("There's nothing in the closet...", 300, 40);
 }
 
-createScene("home_upstairs1", "home_upstairs1", "theme1", standartFont, "home_upstairs2", 990, 180, 0.9, "adventure");
+createScene({ name: "home_upstairs1",
+		bg: "home_upstairs1",
+		theme: "theme1",
+		font: standartFont,
+		edgeL: "home_upstairs2",
+		edgeR: 990,
+		ground: 180,
+		scaling: 0.9,
+		gamemode: "adventure"});
 scene.home_upstairs1.events = function() {
     Game.ctx.drawImage(image.midori0r, 0, groundlevel, scale * 220, scale * 440);
     if (player1.x > 260 && player1.x < 410) {
@@ -167,17 +232,41 @@ scene.home_upstairs1.events = function() {
     if (player1.x > 990) player1.x = 990;
 }
 
-createScene("home_upstairs2", "home_upstairs2", "theme1", standartFont, 100, "home_upstairs1", 180, 0.9, "adventure");
+createScene({ name: "home_upstairs2",
+		bg: "home_upstairs2",
+		theme: "theme1",
+		font: standartFont,
+		edgeL: 100,
+		edgeR: "home_upstairs1",
+		ground: 180,
+		scaling: 0.9,
+		gamemode: "adventure"});
 scene.home_upstairs2.events = function() {
 	door(575,"home_room1",0,"Enter");
 }
 
-createScene("home_room1", "room1", "theme1", standartFont, 0, 1080, 220, 1,"adventure");
+createScene({ name: "home_room1",
+		bg: "room1",
+		theme: "theme1",
+		font: standartFont,
+		edgeL: 0,
+		edgeR: 1080,
+		ground: 220,
+		scaling: 1,
+		gamemode: "adventure"});
 scene.home_room1.events = function() {
 	door(0,"home_upstairs2",575,"Leave");
 }
 
-createScene("home_downstairs1", "home_downstairs1", "theme1", standartFont, "home_downstairs2", 1080, 200, 1.05, "adventure");
+createScene({ name: "home_downstairs1",
+		bg: "home_downstairs1",
+		theme: "theme1",
+		font: standartFont,
+		edgeL: "home_downstairs2",
+		edgeR: 1080,
+		ground: 200,
+		scaling: 1.05,
+		gamemode: "adventure"});
 scene.home_downstairs1.events = function() {
     if (player1.x > 460 && player1.x < 640) {
 		Game.ctx.fillText("Upstairs(W)", 500, 220);
@@ -189,24 +278,56 @@ scene.home_downstairs1.events = function() {
 	door(1040,"frontyard",0,"Leave",event.getBirdfood,"I first need to gather", "something to feed to", "beloved crow friends.");
 }
 
-createScene("home_downstairs2", "home_downstairs2", "theme1", standartFont, "home_downstairs3", "home_downstairs1", 200, 1.05, "adventure");
+createScene({ name: "home_downstairs2",
+		bg: "home_downstairs2",
+		theme: "theme1",
+		font: standartFont,
+		edgeL: "home_downstairs3",
+		edgeR: "home_downstairs1",
+		ground: 200,
+		scaling: 1.05,
+		gamemode: "adventure"});
 scene.home_downstairs2.events = function(){
 	door(980,"home_basement", 100,"Basement");
 	door(750,"livingroom",700,"Livingroom");
 	door(0,"parentsroom","locked","Parents Room");
 }
 
-createScene("home_downstairs3", "home_downstairs3", "theme1", standartFont, 300, "home_downstairs2", 200, 1.05, "adventure");
+createScene({ name: "home_downstairs3",
+		bg: "home_downstairs3",
+		theme: "theme1",
+		font: standartFont,
+		edgeL: 300,
+		edgeR: "home_downstairs2",
+		ground: 200,
+		scaling: 1.05,
+		gamemode: "adventure"});
 scene.home_downstairs3.events = function(){
 	door(600,"home_bath","locked","Bathroom");
 }
 
-createScene("livingroom", "livingroom", "theme1", standartFont, 400, 750, 160, 1.25,"adventure");
+createScene({ name: "livingroom",
+		bg: "livingroom",
+		theme: "theme1",
+		font: standartFont,
+		edgeL: 400,
+		edgeR: 750,
+		ground: 160,
+		scaling: 1.25,
+		gamemode: "adventure"});
 scene.livingroom.events = function() {
 	door(700,"home_downstairs2",750,"Leave");
 }
 
-createScene("home_basement","home_basement", "theme2", standartFont, "home_downstairs2", 1050, 350, 0.8, "adventure")
+createScene({ name: "home_basement",
+		bg: "home_basement",
+		theme: "theme2",
+		font: standartFont,
+		edgeL: "home_downstairs2",
+		edgeR: 1050,
+		ground: 350,
+		scaling: 0.8,
+		gamemode: "adventure"});
 scene.home_basement.events = function(){
 	portal(45, "home_downstairs2", 980);
 	npc.scp173.spawn(1000);
@@ -215,3 +336,4 @@ scene.home_basement.events = function(){
 
 
 }// No touchy!
+// :p hehe ~miterosan

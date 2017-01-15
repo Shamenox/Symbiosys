@@ -39,4 +39,5 @@ function loadSprites(){
     xx1.leg_upper_r = createSprite("ress/upper leg r.png",700,500);
     xx1.leg_lower_l = createSprite("ress/lower leg l.png",400,600);
     xx1.leg_lower_r = createSprite("ress/lower leg r.png",800,600);
+    //hier passiert nichts mehr mit xx1 TODO
 }
