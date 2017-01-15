@@ -1,10 +1,13 @@
 {
   "dependencies": {
-    "nw": "^0.19.4-sdk"
-    },
-    "name": "LastContinueClient",
-    "main": "index.html",
-    "scripts": {
-        "start": "nw"
-    }
+    "nw": "^0.19.4-sdk",
+    "xo": "*"
+  },
+  "name": "LastContinueClient",
+  "main": "index.html",
+  "scripts": {
+    "start": "nw"
+  },
+  "xo": {}
+
 }

@@ -1,4 +1,4 @@
-﻿function createScene(declaration, bg, theme, font, edgeL, edgeR, ground, scaling, gamemode){
+﻿function createScene (declaration, bg, theme, font, edgeL, edgeR, ground, scaling, gamemode) {
 	var neueszene = {};
 	neueszene.background = image[bg];
 	if (theme !== "none") neueszene.theme = audio[theme];
@@ -12,7 +12,7 @@
 	scene[declaration] = neueszene;
 }
 
-function setupScenes(){
+function setupScenes () {
 scene.act = function(){
 	scene[scene.at].font();
 	mode = scene[scene.at].mode;
@@ -27,7 +27,7 @@ scene.act = function(){
 	if (scene[scene.at].events !== undefined) scene[scene.at].events();
 }
 
-createScene("loading", "whitescreen", "none", labelFont, 0, 1280, 220, 1,"interface");	
+createScene("loading", "whitescreen", "none", labelFont, 0, 1280, 220, 1,"interface");
 scene.loading.events = function() {
 	Game.ctx.fillText("Loading... please wait", 200, 200);
 	Game.ctx.rect(40,400,1200,100);
@@ -37,9 +37,9 @@ scene.loading.events = function() {
 	Game.ctx.stroke();
 }
 
-createScene("whitescreen", "whitescreen", "none", labelFont, 0, 1280, 220, 1,"adventure");	
+createScene("whitescreen", "whitescreen", "none", labelFont, 0, 1280, 220, 1,"adventure");
 
-createScene("menue", "whitescreen", "none", labelFont, 0, 1280, 220, 1, "interface");	
+createScene("menue", "whitescreen", "none", labelFont, 0, 1280, 220, 1, "interface");
 scene.menue.events = function() {
     Game.ctx.rect(20, 20, 1240, 680);
     Game.ctx.stroke();

@@ -1,4 +1,4 @@
-﻿Number.prototype.between = function(a, b) {
+Number.prototype.between = function(a, b) {
   var min = Math.min.apply(Math, [a, b]),
     max = Math.max.apply(Math, [a, b]);
   return this > min && this < max;
@@ -17,7 +17,7 @@ function createSkin(declaration){
 		r : [],
 		l : []
 	}
-	if (declaration === "blank"){
+	if (declaration === "blank") {
 		for (var i = 0;i <12 ; i++){
 			neuerskin.r[i] = image.blank;
 		}
@@ -40,7 +40,7 @@ function createSkin(declaration){
 }
 
 function unlock(){
-event.MopBeforeLeaving = true;
+    event.MopBeforeLeaving = true;
 }
 
 function labelFont(){
@@ -94,29 +94,25 @@ var Animation = function(){
   this.reset = (function() { //does not stop the animation
     this.step = 0;
   }).bind(this);
+
+  /*
+
+  Beispiel
+
+  var geileAnimation = new Animation();
+
+  geileAnimation.addFrame(pic1);
+  geileAnimation.addFrame(pic2);
+  geileAnimation.addFrame(pic3);
+
+  geileAnimation.start();
+
+  das Aktikuelle frame bekommst du mit
+  geileAnimation.getCurrentFrame();
+
+  //das kannst du dann bei drawImage benutzen
+
+  ctx.drawImage(geileAnimation.getCurrentFrame(), 250, 130);
+
+  */
 }
-
-
-
-
-
-/*
-
-Beispiel
-
-var geileAnimation = new Animation();
-
-geileAnimation.addFrame(pic1);
-geileAnimation.addFrame(pic2);
-geileAnimation.addFrame(pic3);
-
-geileAnimation.start();
-
-das Aktikuelle frame bekommst du mit 
-geileAnimation.getCurrentFrame();
-
-//das kannst du dann bei drawImage benutzen
-
-ctx.drawImage(geileAnimation.getCurrentFrame(), 250, 130);
-
-*/
