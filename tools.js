@@ -61,7 +61,6 @@ function standartFont(){
 	Game.ctx.stroke();
 }
 
-//this is objeckt stufffff
 var Animation = function(){
   this.isRunning = false;
   this.frames = [];

@@ -131,7 +131,7 @@ scene.desktop.events = function() {
 	Game.ctx.drawImage(image.trollface,300,100)
 	Game.ctx.drawImage(image.lnk, 300, 100);
     Game.ctx.fillText("Unlock Everything", 300, 224);
-    if (key.esc) scene.at = "kiirosroom";
+    if (key.back) scene.at = "kiirosroom";
     if (click === true) {
         if (cursorX > 30 && cursorX < 90 && cursorY > 660 && cursorY < 710) scene.at = "kiirosroom", player1.x = 350;
         if (cursorX > 100 && cursorX < 200 && cursorY > 100 && cursorY < 200) scene.at = "basestar", player1.x = 600;
@@ -160,7 +160,7 @@ scene.basestar.events = function() {
         if (cursorX.between(30,90) && cursorY.between(660,710)) scene.at = "kiirosroom", player1.x = 350, player1.vx = 0;
         if (cursorX.between(1250,1280)&& cursorY.between(0,30)) scene.at = "desktop", player1.x = -200, player1.vx = 0;
     }
-    if (key.esc === "true") scene.at = "desktop";
+    if (key.back === "true") scene.at = "desktop";
 }
 
 createScene({ name: "closet",
@@ -214,7 +214,7 @@ scene.home_upstairs1.events = function() {
     Game.ctx.drawImage(image.midori0r, 0, groundlevel, scale * 220, scale * 440);
     if (player1.x > 260 && player1.x < 410) {
 		Game.ctx.fillText("Downstairs(S)", 300, groundlevel);
-        if (key.s) scene.at = "home_downstairs1", player1.x = 600;
+        if (key.down) scene.at = "home_downstairs1", player1.x = 600;
     }
 	door(790,"kiirosroom",0,"Enter");
     if (player1.x > 10 && player1.x < 180) {
@@ -270,7 +270,7 @@ createScene({ name: "home_downstairs1",
 scene.home_downstairs1.events = function() {
     if (player1.x > 460 && player1.x < 640) {
 		Game.ctx.fillText("Upstairs(W)", 500, 220);
-        if (key.w) use = "stairs";
+        if (key.up) use = "stairs";
         if (use === "stairs") scene.at = "home_upstairs1", player1.x = 300, use = "false";
     }
 	npc.riyu.spawn(300, "conversation1");

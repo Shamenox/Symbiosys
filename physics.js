@@ -2,30 +2,30 @@
 function physik() {
     player1.y -= player1.vy;
     player1.x += player1.vx;
-	if (key.e) use = "true";
-	if (!key.e && use === "true") use = "false"; 
-	
+	if (key.use) use = "true";
+	if (!key.use && use === "true") use = "false";
+
 	if (mode === "adventure"){
-		if (key.w && player1.y === groundlevel) player1.vy = 30 * scale, player1.y -= 40;
-		if (key.s){
+		if (key.up && player1.y === groundlevel) player1.vy = 30 * scale, player1.y -= 40;
+		if (key.down){
 			player1.step = 11;
-			if (player1.y === groundlevel) player1.y = groundlevel + 100*scale; 
+			if (player1.y === groundlevel) player1.y = groundlevel + 100*scale;
 		}
-		if (key.a) {
+		if (key.left) {
 			player1.dir = "left";
 			if (player1.x > 0){
 				player1.vx = -10 * scale;
 				audio.steps.play();
 			}
 		}
-		if (key.d) {
+		if (key.right) {
 			player1.dir = "right"
 			if (player1.x < 1280){
 				player1.vx = +10 * scale;
 				audio.steps.play();
 			}
 		}
-		if (!key.a && !key.d) player1.vx = 0;
+		if (!key.left && !key.right) player1.vx = 0;
 		if (player1.y > groundlevel) {
 			player1.vy = 0;
 			if (!key.s){
@@ -43,20 +43,20 @@ function physik() {
 		if (player1.vx === 0 && player1.step !== 11) player1.step = 0;
 		if (player1.dir === "right") player1.skin = skin[clothes].r[player1.step];
 		if (player1.dir === "left") player1.skin = skin[clothes].l[player1.step];
-		
+
 	}
 	if (mode === "space"){
-			if (key.w) player1.vy += 0.05;
-			if (key.s) player1.vy -= 0.05;
-			if (key.a) player1.vx -= 0.05;
-			if (key.d) player1.vx += 0.05;
+			if (key.up) player1.vy += 0.05;
+			if (key.down) player1.vy -= 0.05;
+			if (key.left) player1.vx -= 0.05;
+			if (key.right) player1.vx += 0.05;
 			if (player1.vx > 400) player1.vx = 400;
 			if (player1.vy > 400) player1.vy = 400;
 		}
     if (use === "black") background = image.blackscreen;
 	if (mode === "interface") player1.skin = image.blank;
 }
-	
+
 function steppon(){
 	next["walking"] = false;
 }
@@ -78,7 +78,7 @@ function fadeout() {
 }
 
 function changeSkin(to){
-	if (!next["saveclothes"]) next["clothes"] = clothes, next["saveclothes"] = true; 
+	if (!next["saveclothes"]) next["clothes"] = clothes, next["saveclothes"] = true;
 	clothes = to;
 	console.log(clothes);
 }
@@ -153,4 +153,3 @@ function die(){
 	player1.x = 740;
 	scene.at = "kiirosroom";
 }
-
