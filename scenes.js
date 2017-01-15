@@ -178,43 +178,34 @@ scene.home_room1.events = function() {
 	npc.scp173.spawn(900);
 }
 
-createScene("home_downstairs1", "home_downstairs1", "theme1", standartFont, "home_downstairs2", 1080, 200, 1, "adventure");
+createScene("home_downstairs1", "home_downstairs1", "theme1", standartFont, "home_downstairs2", 1080, 200, 1.05, "adventure");
 scene.home_downstairs1.events = function() {
     if (player1.x > 460 && player1.x < 640) {
 		Game.ctx.fillText("Upstairs(W)", 500, 220);
         if (key.w) use = "stairs";
         if (use === "stairs") scene.at = "home_upstairs1", player1.x = 300, use = "false";
     }
+	npc.riyu.spawn(300, "conversation1");
 	door(800,"home_kitchen","locked","Kitchen");
 	door(1040,"frontyard",0,"Leave",event.getBirdfood,"I first need to gather", "something to feed to", "beloved crow friends.");
 }
 
-createScene("livingroom", "livingroom", "theme1", standartFont, 400, 750, 160, 1.25,"adventure");
-scene.livingroom.events = function() {
-    Game.ctx.drawImage(image.riyu0r_sketched, 250, 130);
-    if (player1.x > 250 && player1.x < 470) {
-        if (use === "false") Game.ctx.fillText("Talk(E)", 300, 220);
-        if (use === "true") use = "talk";
-        if (use === "talk") {
-            talk("Kiiro: Hi Riyu!", 1);
-            talk("Riyu: Hey Kiiro, i was wondering if you would like to come over", 2);
-            talk("Kiiro: Of course, but we will have to wait until the outside world is finnished...", 3);
-            talk("Riyu: Yeah, they should really hurry up...", 4);
-        }
-    }
-	door(700,"home_downstairs2",750,"Leave");
-}
-
-createScene("home_downstairs2", "home_downstairs2", "theme1", standartFont, 0, "home_downstairs1", 220, 1, "adventure");
+createScene("home_downstairs2", "home_downstairs2", "theme1", standartFont, "home_downstairs3", "home_downstairs1", 200, 1.05, "adventure");
 scene.home_downstairs2.events = function(){
-console.log(player1.x);
 	door(980,"basement","locked","Basement");
 	door(750,"livingroom",700,"Livingroom");
 	door(0,"parentsroom","locked","Parents Room");
 }
 
-createScene("home_downstairs3", "home_downstairs3", "theme1", standartFont, 200, "home_downstairs2", 220, 1, "adventure");
+createScene("home_downstairs3", "home_downstairs3", "theme1", standartFont, 300, "home_downstairs2", 200, 1.05, "adventure");
 scene.home_downstairs3.events = function(){
-	door(350,"home_kitchen","locked","Kitchen");
+	door(600,"home_bath","locked","Bathroom");
 }
+
+createScene("livingroom", "livingroom", "theme1", standartFont, 400, 750, 160, 1.25,"adventure");
+scene.livingroom.events = function() {
+	door(700,"home_downstairs2",750,"Leave");
 }
+
+
+}// No touchy!

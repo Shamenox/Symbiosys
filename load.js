@@ -102,7 +102,8 @@ function loadImages() {
     image.kiiro_guitarcr = createImage("ress/kiiro_main/cr.png");
     image.midori0l = createImage("ress/midori/0l.png");
     image.midori0r = createImage("ress/midori/0r.png");
-    image.riyu0r_sketched = createImage("ress/riyu/0r.png");
+    image.riyu0r = createImage("ress/riyu/0r.png");
+	image.riyu0l = createImage("ress/riyu/0l.png");
     image.overlay_guitar = createImage("ress/emptyguitar overlay.png");
     image.desktop = createImage("ress/desktop.png");
     image.toolbar = createImage("ress/toolbar.png");
