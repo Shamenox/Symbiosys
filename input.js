@@ -30,6 +30,8 @@ document.onmousemove = function(m) {
     cursorX = m.pageX - document.getElementById("Canvas").offsetLeft;
     cursorY = m.pageY - document.getElementById("Canvas").offsetTop;
 };
+
+//diese funcktionen mache keinen sinn!
 function mausX() {
     return cursorX;
 }

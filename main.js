@@ -66,18 +66,19 @@ window.onload = function() {
 	setupScenes();
 	scene.at = "loading";
 
-    // Tatsaechliche Abbildung
-    function draw() {
-		Game.ctx.drawImage(background, 0, 0);
-        if (scene[scene.at].background === undefined) scene[scene.at]();
-		if (scene[scene.at].background !== undefined) scene.act();
-        physik();
-        if (scene.at !== "menue" && scene.at !== "loading") Game.ctx.fillText("Version 0.255", 1140, 710);
-		Game.ctx.drawImage(player1.skin, player1.x, player1.y, 220 * scale, 440 * scale);
-		Game.ctx.drawImage(image.cursor, cursorX - 8, cursorY - 36);
-        requestAnimationFrame(draw);
-    }
+	//start drawloop
     draw();
-
 };
+
+// Tatsaechliche Abbildung
+function draw() {
+	Game.ctx.drawImage(background, 0, 0);
+		// else bedeutet ansonsten
+	if (scene[scene.at].background === undefined) scene[scene.at](); else scene.act();
+	physik();
+	if (scene.at !== "menue" && scene.at !== "loading") Game.ctx.fillText("Version 0.255", 1140, 710);
+	Game.ctx.drawImage(player1.skin, player1.x, player1.y, 220 * scale, 440 * scale);
+	Game.ctx.drawImage(image.cursor, cursorX - 8, cursorY - 36);
+	requestAnimationFrame(draw);
+}
 // Scripted by Shamenox with a lot of help by Miterosan
