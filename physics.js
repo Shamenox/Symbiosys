@@ -2,30 +2,30 @@
 function physik() {
     player1.y -= player1.vy;
     player1.x += player1.vx;
-	if (key.use) use = "true";
-	if (!key.use && use === "true") use = "false";
+	if (key.e) use = "true";
+	if (!key.e && use === "true") use = "false";
 
 	if (mode === "adventure"){
-		if (key.up && player1.y === groundlevel) player1.vy = 30 * scale, player1.y -= 40;
-		if (key.down){
+		if (key.w && player1.y === groundlevel) player1.vy = 30 * scale, player1.y -= 40;
+		if (key.s){
 			player1.step = 11;
 			if (player1.y === groundlevel) player1.y = groundlevel + 100*scale;
 		}
-		if (key.left) {
+		if (key.a) {
 			player1.dir = "left";
 			if (player1.x > 0){
 				player1.vx = -10 * scale;
 				audio.steps.play();
 			}
 		}
-		if (key.right) {
+		if (key.d) {
 			player1.dir = "right"
 			if (player1.x < 1280){
 				player1.vx = +10 * scale;
 				audio.steps.play();
 			}
 		}
-		if (!key.left && !key.right) player1.vx = 0;
+		if (!key.a && !key.d) player1.vx = 0;
 		if (player1.y > groundlevel) {
 			player1.vy = 0;
 			if (!key.s){
@@ -46,10 +46,10 @@ function physik() {
 
 	}
 	if (mode === "space"){
-			if (key.up) player1.vy += 0.05;
-			if (key.down) player1.vy -= 0.05;
-			if (key.left) player1.vx -= 0.05;
-			if (key.right) player1.vx += 0.05;
+			if (key.w) player1.vy += 0.05;
+			if (key.s) player1.vy -= 0.05;
+			if (key.a) player1.vx -= 0.05;
+			if (key.d) player1.vx += 0.05;
 			if (player1.vx > 400) player1.vx = 400;
 			if (player1.vy > 400) player1.vy = 400;
 		}
@@ -105,6 +105,7 @@ function talk(text, turn) {
     if (state === turn)Game.ctx.fillText(text, player1.x, groundlevel);
     if (next[turn] !== true) setTimeout(delay, 2000 * turn), next[turn] = true;
 }
+	
 function door(pos,to,at,tag,trigger,alt1,alt2,alt3){
     if (player1.x.between(pos - 80*scale,pos + 80*scale)) {
         if (use === "false")Game.ctx.fillText(tag+"(E)", pos, groundlevel);
@@ -122,8 +123,33 @@ function door(pos,to,at,tag,trigger,alt1,alt2,alt3){
         }
 		if (use === "locked"){
 		Game.ctx.fillText("Its locked?...", pos, groundlevel);
-        setTimeout(normalize, 1000);
+        setTimeout(normalize, 1500);
 		}
+		if (use === "failed"){
+		Game.ctx.fillText(alt1, pos, groundlevel - 40);
+		if (alt2 !== undefined)Game.ctx.fillText(alt2, pos, groundlevel - 20);
+		if (alt3 !== undefined)Game.ctx.fillText(alt3, pos, groundlevel);
+        setTimeout(normalize, 3000);
+		}
+		if (use === "true") use = "false";
+    }
+}
+
+function stairs(pos, direction, to, at, trigger, alt1, alt2, alt3){
+    if (player1.x.between(pos - 80*scale,pos + 80*scale)) {
+        if (use === "false" && direction === "down")Game.ctx.fillText("Downstairs(S)", pos, groundlevel);
+		if (use === "false" && direction === "up")Game.ctx.fillText("Upstairs(W)", pos, groundlevel);
+        if (direction === "down" && key.s || direction === "up" && key.w){
+			if (trigger === null || trigger === undefined || trigger === true) use = "stairs";
+			if (trigger === false) use = "failed";
+		}
+        if (use === "stairs" && !next[1]) {
+            scene.at = to;
+            player1.x = at;
+			player1.y = groundlevel;
+			next[1] = true;
+            setTimeout(normalize,500);
+        }
 		if (use === "failed"){
 		Game.ctx.fillText(alt1, pos, groundlevel - 40);
 		if (alt2 !== undefined)Game.ctx.fillText(alt2, pos, groundlevel - 20);
@@ -153,3 +179,4 @@ function die(){
 	player1.x = 740;
 	scene.at = "kiirosroom";
 }
+

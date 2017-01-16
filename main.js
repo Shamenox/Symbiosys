@@ -14,8 +14,7 @@ var scale = 1;
 var state = 0;
 var next = [];
 var background = new Image();
-var cursorX;
-var cursorY;
+var cursor = { x : 0, y : 0};
 var clothes = "kiiro_main";
 var use = "false";
 var groundlevel = 220;
@@ -23,12 +22,12 @@ var mode = "adventure";
 var click = false;
 var nsfw = false;
 var key = {
-	up : false,
-	left : false,
-	down : false,
-	right : false,
-	use : false,
-	back : false,
+	w : false,
+	a : false,
+	s : false,
+	d : false,
+	e : false,
+	esc : false,
 };
 var event = {
 	MopBeforeLeaving : false,
@@ -73,12 +72,11 @@ window.onload = function() {
 // Tatsaechliche Abbildung
 function draw() {
 	Game.ctx.drawImage(background, 0, 0);
-		// else bedeutet ansonsten
-	if (scene[scene.at].background === undefined) scene[scene.at](); else scene.act();
+	scene.act();
 	physik();
 	if (scene.at !== "menue" && scene.at !== "loading") Game.ctx.fillText("Version 0.255", 1140, 710);
 	Game.ctx.drawImage(player1.skin, player1.x, player1.y, 220 * scale, 440 * scale);
-	Game.ctx.drawImage(image.cursor, cursorX - 8, cursorY - 36);
+	Game.ctx.drawImage(image.cursor, cursor.x - 8, cursor.y - 36);
 	requestAnimationFrame(draw);
 }
 // Scripted by Shamenox with a lot of help by Miterosan

@@ -66,14 +66,11 @@ createScene({ name: "menue",
 		scaling: 1,
 		gamemode: "interface"});
 scene.menue.events = function() {
-    Game.ctx.rect(20, 20, 1240, 680);
-    Game.ctx.stroke();
-    Game.ctx.fillText("Start", 440, 200);
-    if (click === true) scene.at = "kiirosroom"
+    button(400, 100, 480, 100, "yellow", "Start", scene.at = "kiirosroom" )
 }
 
 createScene({ name: "kiirosroom",
-		bg: "whitescreen",
+		bg: "kiirosroom",
 		theme: "theme1",
 		font: standartFont,
 		edgeL: 0,
@@ -82,7 +79,6 @@ createScene({ name: "kiirosroom",
 		scaling: 1,
 		gamemode: "adventure"});
 scene.kiirosroom.events = function() {
-    if (use !== "aboutToSleep") background = image.kiirosroom;
 	door(0,"home_upstairs1",700,"Leave",event.MopBeforeLeaving,"Wait! I wanted to try out that cool song on guitar.");
 	door(300,"desktop",-200,"Use");
 	door(580,"closet",-200,"Closet");
@@ -94,7 +90,7 @@ scene.kiirosroom.events = function() {
         }
         if (use === "sleep") {
 			changeSkin("blank");
-            background = image.bouttosleep;
+            Game.ctx.drawImage(image.bouttosleep, 0, 0);
             Game.ctx.fillText("Im so tired... Time to get some sleep.", 880, 220);
         }
     }
@@ -133,8 +129,8 @@ scene.desktop.events = function() {
     Game.ctx.fillText("Unlock Everything", 300, 224);
     if (key.back) scene.at = "kiirosroom";
     if (click === true) {
-        if (cursorX > 30 && cursorX < 90 && cursorY > 660 && cursorY < 710) scene.at = "kiirosroom", player1.x = 350;
-        if (cursorX > 100 && cursorX < 200 && cursorY > 100 && cursorY < 200) scene.at = "basestar", player1.x = 600;
+        if (cursor.x > 30 && cursor.x < 90 && cursor.y > 660 && cursor.y < 710) scene.at = "kiirosroom", player1.x = 350;
+        if (cursor.x > 100 && cursor.x < 200 && cursor.y > 100 && cursor.y < 200) scene.at = "basestar", player1.x = 600;
 		if (cursorX.between(300,400) && cursorY.between(100,200)) unlock();
     }
 }
@@ -157,8 +153,8 @@ scene.basestar.events = function() {
     Game.ctx.drawImage(image.fenster, 0, 0);
     Game.ctx.fillText("Basestar Simulator.exe", 10, 28);
     if (click === true) {
-        if (cursorX.between(30,90) && cursorY.between(660,710)) scene.at = "kiirosroom", player1.x = 350, player1.vx = 0;
-        if (cursorX.between(1250,1280)&& cursorY.between(0,30)) scene.at = "desktop", player1.x = -200, player1.vx = 0;
+        if (cursor.x.between(30,90) && cursor.y.between(660,710)) scene.at = "kiirosroom", player1.x = 350, player1.vx = 0;
+        if (cursor.x.between(1250,1280)&& cursor.y.between(0,30)) scene.at = "desktop", player1.x = -200, player1.vx = 0;
     }
     if (key.back === "true") scene.at = "desktop";
 }
@@ -177,20 +173,20 @@ scene.closet.events = function() {
     if (use === "intro")Game.ctx.fillText("Hmmm, I wish I had more outfits...", 300, 40), setTimeout(normalize, 2000);
     if (cursorX < 400 || cursorX > 900)Game.ctx.drawImage(image.lnk, cursorX - 100, cursorY - 110),Game.ctx.fillText("Return", cursorX - 100, cursorY - 46);
     if (click) {
-        if (cursorX < 400 || cursorX > 900) scene.at = "kiirosroom", player1.x = 580;
-        if (cursorX < 600 && cursorX > 460 && cursorY < 220 && cursorY > 80) use = "slot1";
-        if (cursorX < 800 && cursorX > 660 && cursorY < 220 && cursorY > 80) use = "slot2";
-        if (cursorX < 600 && cursorX > 460 && cursorY < 390 && cursorY > 250) use = "slot3";
-        if (cursorX < 800 && cursorX > 660 && cursorY < 390 && cursorY > 250) use = "slot4";
-        if (cursorX < 600 && cursorX > 460 && cursorY < 570 && cursorY > 430) use = "slot5";
-        if (cursorX < 800 && cursorX > 660 && cursorY < 570 && cursorY > 430) use = "slot6";
+        if (cursor.x < 400 || cursor.x > 900) scene.at = "kiirosroom", player1.x = 580;
+        if (cursor.x.between(460, 600) && cursor.y.between(220, 80)) use = "slot1";
+		if (cursor.x.between(660, 800) && cursor.y.between(220, 80)) use = "slot2";
+		if (cursor.x.between(460, 600) && cursor.y.between(390, 250)) use = "slot3";
+		if (cursor.x.between(660, 800) && cursor.y.between(390, 250)) use = "slot4";
+		if (cursor.x.between(460, 600) && cursor.y.between(570, 430)) use = "slot5";
+		if (cursor.x.between(660, 800) && cursor.y.between(570, 430)) use = "slot6";
     }
-    if (cursorX < 600 && cursorX > 460 && cursorY < 220 && cursorY > 80)Game.ctx.rect(460, 80, 140, 140),Game.ctx.fillText("Everyday wear", 460, 60);
-    if (cursorX < 800 && cursorX > 660 && cursorY < 220 && cursorY > 80)Game.ctx.rect(660, 80, 140, 140),Game.ctx.fillText("Empty", 660, 60);
-    if (cursorX < 600 && cursorX > 460 && cursorY < 390 && cursorY > 250)Game.ctx.rect(460, 250, 140, 140), Game.ctx.fillText("Empty", 460, 120);
-    if (cursorX < 800 && cursorX > 660 && cursorY < 390 && cursorY > 250)Game.ctx.rect(660, 250, 140, 140), Game.ctx.fillText("Empty", 660, 120);
-    if (cursorX < 600 && cursorX > 460 && cursorY < 570 && cursorY > 430)Game.ctx.rect(460, 430, 140, 140),Game.ctx.fillText("Empty", 460, 410);
-    if (cursorX < 800 && cursorX > 660 && cursorY < 570 && cursorY > 430)Game.ctx.rect(660, 430, 140, 140), Game.ctx.fillText("Sketched outfit", 660, 410);
+    if (cursor.x.between(460, 600) && cursor.y.between(220, 80)) Game.ctx.rect(460, 80, 140, 140),Game.ctx.fillText("Everyday wear", 460, 60);
+	if (cursor.x.between(660, 800) && cursor.y.between(220, 80)) Game.ctx.rect(660, 80, 140, 140),Game.ctx.fillText("Empty", 660, 60);
+	if (cursor.x.between(460, 600) && cursor.y.between(390, 250)) Game.ctx.rect(460, 250, 140, 140), Game.ctx.fillText("Empty", 460, 120);
+	if (cursor.x.between(660, 800) && cursor.y.between(390, 250)) Game.ctx.rect(660, 250, 140, 140), Game.ctx.fillText("Empty", 660, 120);
+	if (cursor.x.between(460, 600) && cursor.y.between(570, 430)) Game.ctx.rect(460, 430, 140, 140),Game.ctx.fillText("Empty", 460, 410);
+	if (cursor.x.between(660, 800) && cursor.y.between(570, 430)) Game.ctx.rect(660, 430, 140, 140), Game.ctx.fillText("Sketched outfit", 660, 410);
     Game.ctx.stroke();
 
     if (use === "slot1") changeClothes("kiiro_main");
@@ -212,10 +208,7 @@ createScene({ name: "home_upstairs1",
 		gamemode: "adventure"});
 scene.home_upstairs1.events = function() {
     Game.ctx.drawImage(image.midori0r, 0, groundlevel, scale * 220, scale * 440);
-    if (player1.x > 260 && player1.x < 410) {
-		Game.ctx.fillText("Downstairs(S)", 300, groundlevel);
-        if (key.down) scene.at = "home_downstairs1", player1.x = 600;
-    }
+	stairs(400, "down", "home_downstairs1", 600)
 	door(790,"kiirosroom",0,"Enter");
     if (player1.x > 10 && player1.x < 180) {
         if (use === "false") Game.ctx.fillText("Enter(E)", 120, groundlevel);
@@ -268,11 +261,7 @@ createScene({ name: "home_downstairs1",
 		scaling: 1.05,
 		gamemode: "adventure"});
 scene.home_downstairs1.events = function() {
-    if (player1.x > 460 && player1.x < 640) {
-		Game.ctx.fillText("Upstairs(W)", 500, 220);
-        if (key.up) use = "stairs";
-        if (use === "stairs") scene.at = "home_upstairs1", player1.x = 300, use = "false";
-    }
+    stairs(560, "up", "home_upstairs1", 400);
 	npc.riyu.spawn(300, "conversation1");
 	door(800,"home_kitchen","locked","Kitchen");
 	door(1040,"frontyard",0,"Leave",event.getBirdfood,"I first need to gather", "something to feed to", "beloved crow friends.");

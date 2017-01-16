@@ -4,6 +4,19 @@ Number.prototype.between = function(a, b) {
   return this > min && this < max;
 }
 
+function button(posx, posy, lengthx, lengthy, tag, colour, action){
+	Game.ctx.rect(posx, posy, lengthx, lengthy);
+	Game.ctx.fillStyle = colour;
+	Game.ctx.fillRect(posx, posy, lengthx, lengthy);
+	Game.ctx.fillStyle = "black";
+	Game.ctx.fillText(tag,posx + 10, 0.5*(lengthy - 100));
+	console.log(cursor.x.between(posx, posx + lengthx) && cursor.y.between(posy, posy + lengthy));
+	if (cursor.x.between(posx, posx + lengthx) && cursor.y.between(posy, posy + lengthy)){
+		Game.ctx.rect(posx + Game.ctx.lineWidth, posy + Game.ctx.lineWidth, lengthx - Game.ctx.lineWidth*2, lengthy - Game.ctx.lineWidth*2);
+		if (click) action();
+	}
+}
+
 function createSprite(path,x,y){
     var content = {
         x: x,

@@ -1,23 +1,23 @@
 function setupInput(){
 
 addEventListener("keydown", function(w) {
-    if (w.keyCode === 87) key.up = true;
-    if (w.keyCode === 83) key.down = true;
-    if (w.keyCode === 65) key.left = true;
-    if (w.keyCode === 68) key.right = true;
-    if (w.keyCode === 69) key.use = true;
-    if (w.keyCode === 27) key.back = true;
+    if (w.keyCode === 87) key.w = true;
+    if (w.keyCode === 83) key.s = true;
+    if (w.keyCode === 65) key.a = true;
+    if (w.keyCode === 68) key.d = true;
+    if (w.keyCode === 69) key.e = true;
+    if (w.keyCode === 27) key.esc = true;
 
     w.preventDefault();
     w.stopPropagation();
 }, false);
 addEventListener("keyup", function(w) {
-    if (w.keyCode === 87) key.up = false;
-    if (w.keyCode === 83) key.down = false;
-    if (w.keyCode === 65) key.left = false;
-    if (w.keyCode === 68) key.right = false;
-    if (w.keyCode === 69) key.use = false;
-    if (w.keyCode === 27) key.back = false;
+    if (w.keyCode === 87) key.w = false;
+    if (w.keyCode === 83) key.s = false;
+    if (w.keyCode === 65) key.a = false;
+    if (w.keyCode === 68) key.d = false;
+    if (w.keyCode === 69) key.e = false;
+    if (w.keyCode === 27) key.esc = false;
 }, false);
 
 document.onmousedown = function(trigger) {
@@ -27,16 +27,16 @@ document.onmouseup = function(trigger) {
     click = false;
 };
 document.onmousemove = function(m) {
-    cursorX = m.pageX - document.getElementById("Canvas").offsetLeft;
-    cursorY = m.pageY - document.getElementById("Canvas").offsetTop;
+    cursor.x = m.pageX - document.getElementById("Canvas").offsetLeft;
+    cursor.y = m.pageY - document.getElementById("Canvas").offsetTop;
 };
 
 //diese funcktionen mache keinen sinn!
 function mausX() {
-    return cursorX;
+    return cursor.x;
 }
 function mausY() {
-    return cursorY;
+    return cursor.y;
 }
 
 }
