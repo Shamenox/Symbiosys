@@ -1,5 +1,4 @@
 var resources = {
-    "menue": "ress/menue.png",
     "cursor": "ress/cursor.png",
     "blank": "ress/blank.png",
     "whitescreen": "ress/whitescreen.png",
