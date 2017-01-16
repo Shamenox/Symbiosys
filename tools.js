@@ -4,16 +4,16 @@ Number.prototype.between = function(a, b) {
   return this > min && this < max;
 }
 
-function button(posx, posy, lengthx, lengthy, tag, colour, action){
-	Game.ctx.rect(posx, posy, lengthx, lengthy);
-	Game.ctx.fillText(tag, posx + 10, posy + 0.5*(lengthy - 100));
+function button(posx, posy, width, height, tag, colour, action){
 	Game.ctx.fillStyle = colour;
-	Game.ctx.fillRect(posx, posy, lengthx, lengthy);
-	console.log(cursor.x.between(posx, posx + lengthx) && cursor.y.between(posy, posy + lengthy));
-	if (cursor.x.between(posx, posx + lengthx) && cursor.y.between(posy, posy + lengthy)){
-		Game.ctx.rect(posx + Game.ctx.lineWidth, posy + Game.ctx.lineWidth, lengthx - Game.ctx.lineWidth*2, lengthy - Game.ctx.lineWidth*2);
+	Game.ctx.fillRect(posx + Game.ctx.lineWidth, posy + Game.ctx.lineWidth, width - Game.ctx.lineWidth*2, height - Game.ctx.lineWidth*2);
+	Game.ctx.fillStyle = "black";
+	Game.ctx.rect(posx , posy, width, height);
+	if (cursor.x.between(posx, posx + width) && cursor.y.between(posy, posy + height)){
 		if (click) action();
 	}
+	Game.ctx.fillStyle = "black";
+	Game.ctx.fillText(tag, posx + ((width - Game.ctx.measureText(tag).width)*0.5), posy + 50 + 0.5*(height -100));
 }
 
 function createSprite(path,x,y){
