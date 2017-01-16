@@ -23,8 +23,8 @@ function setupNpcs(){
 	}
 	npc.riyu.spawn = function(at, conversation){
 		npc.riyu.x = at;
-		if (player1.x.between(npc.riyu.x + 80* scale, npc.riyu.x - 80* scale)) {
-			if (use === "false") Game.ctx.fillText("Talk", npc.riyu.x, groundlevel);
+		if (player1.x.between(npc.riyu.x + 100* scale, npc.riyu.x - 100* scale)) {
+			if (use === "false") Game.ctx.fillText("Talk(E)", npc.riyu.x + 110*scale, groundlevel);
 			if (use === "true") use = "talk";
 			if (use === "talk") npc.riyu[conversation]();
 		}

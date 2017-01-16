@@ -8,7 +8,7 @@
 	neueszene.edgeL = options.edgeL;
 	neueszene.edgeR = options.edgeR;
 	neueszene.groundlevel = options.ground;
-	neueszene.scale = options.scaling;
+	neueszene.scale = options.scale;
 	neueszene.mode = options.gamemode;
 	scene[options.name] = neueszene;
 }
@@ -35,7 +35,7 @@ createScene({ name: "loading",
 	edgeL: 0,
 	edgeR: 1280,
 	ground: 220,
-	scaling: 1,
+	scale: 1,
 	gamemode: "interface"});
 scene.loading.events = function() {
 	Game.ctx.fillText("Loading... please wait", 200, 200);
@@ -53,7 +53,7 @@ createScene({ name: "whitescreen",
 	edgeL: 0,
 	edgeR: 1280,
 	ground: 220,
-	scaling: 1,
+	scale: 1,
 	gamemode: "adventure"});
 
 createScene({ name: "menue",
@@ -63,10 +63,44 @@ createScene({ name: "menue",
 		edgeL: 0,
 		edgeR: 1280,
 		ground: 220,
-		scaling: 1,
+		scale: 1,
 		gamemode: "interface"});
 scene.menue.events = function() {
     button(400, 100, 480, 100, "Start", "yellow", function(){scene.at = "kiirosroom"})
+	button(400, 250, 480, 100, "Gallery", "yellow", function(){scene.at = "gallery"})
+	button(400, 400, 480, 100, "Credits", "yellow", function(){scene.at = "credits"})
+	button(400, 550, 480, 100, nsfw, "purple", unsafeforWork)
+}
+
+createScene({ name: "credits",
+	bg: "whitescreen",
+	theme: "none",
+	font: standartFont,
+	edgeL: 0,
+	edgeR: 1280,
+	ground: 220,
+	scale: 1,
+	gamemode: "interface"});
+scene.credits.events = function() {
+	Game.ctx.fillText("Credits:",100,100);
+	Game.ctx.fillText("Concept : Shamenox",100,200);
+	Game.ctx.fillText("Characters : Shamenox, TheKaramboli",100,300);
+	Game.ctx.fillText("Artwork : Shamenox, TheKaramboli",100,400);
+	Game.ctx.fillText("Programming : Shamenox, Miterosan",100,500);
+	button(400, 600, 480, 100, "Back", "yellow", function(){scene.at = "menue"})
+}
+
+createScene({ name: "gallery",
+	bg: "whitescreen",
+	theme: "none",
+	font: labelFont,
+	edgeL: 0,
+	edgeR: 1280,
+	ground: 220,
+	scale: 1,
+	gamemode: "interface"});
+scene.gallery.events = function() {
+	button(400, 600, 480, 100, "Back", "yellow", function(){scene.at = "menue"})
 }
 
 createScene({ name: "kiirosroom",
@@ -76,7 +110,7 @@ createScene({ name: "kiirosroom",
 		edgeL: 0,
 		edgeR: 1080,
 		ground: 220,
-		scaling: 1,
+		scale: 1,
 		gamemode: "adventure"});
 scene.kiirosroom.events = function() {
 	door(0,"home_upstairs1",700,"Leave",event.MopBeforeLeaving,"Wait! I wanted to try out that cool song on guitar.");
@@ -117,7 +151,7 @@ createScene({ name: "desktop",
 		edgeL: 0,
 		edgeR: 1280,
 		ground: 220,
-		scaling: 1,
+		scale: 1,
 		gamemode: "interface"});
 scene.desktop.events = function() {
     Game.ctx.drawImage(image.toolbar, 0, 0);
@@ -131,7 +165,7 @@ scene.desktop.events = function() {
     if (click === true) {
         if (cursor.x > 30 && cursor.x < 90 && cursor.y > 660 && cursor.y < 710) scene.at = "kiirosroom", player1.x = 350;
         if (cursor.x > 100 && cursor.x < 200 && cursor.y > 100 && cursor.y < 200) scene.at = "basestar", player1.x = 600;
-		if (cursorX.between(300,400) && cursorY.between(100,200)) unlock();
+		if (cursor.x.between(300,400) && cursor.y.between(100,200)) unlock();
     }
 }
 
@@ -142,7 +176,7 @@ createScene({ name: "basestar",
 		edgeL: 0,
 		edgeR: 1280,
 		ground: 2000,
-		scaling: 0.75,
+		scale: 0.75,
 		gamemode: "space"});
 scene.basestar.events = function() {
     player1.skin = image.basestar;
@@ -166,12 +200,12 @@ createScene({ name: "closet",
 		edgeL: 0,
 		edgeR: 1280,
 		ground: 220,
-		scaling: 1,
+		scale: 1,
 		gamemode: "interface"});
 scene.closet.events = function() {
     Game.ctx.beginPath();
     if (use === "intro")Game.ctx.fillText("Hmmm, I wish I had more outfits...", 300, 40), setTimeout(normalize, 2000);
-    if (cursorX < 400 || cursorX > 900)Game.ctx.drawImage(image.lnk, cursorX - 100, cursorY - 110),Game.ctx.fillText("Return", cursorX - 100, cursorY - 46);
+    if (cursor.x < 400 || cursor.x > 900)Game.ctx.drawImage(image.lnk, cursor.x - 100, cursor.y - 110),Game.ctx.fillText("Return", cursor.x - 100, cursor.y - 46);
     if (click) {
         if (cursor.x < 400 || cursor.x > 900) scene.at = "kiirosroom", player1.x = 580;
         if (cursor.x.between(460, 600) && cursor.y.between(220, 80)) use = "slot1";
@@ -204,7 +238,7 @@ createScene({ name: "home_upstairs1",
 		edgeL: "home_upstairs2",
 		edgeR: 990,
 		ground: 180,
-		scaling: 0.9,
+		scale: 0.9,
 		gamemode: "adventure"});
 scene.home_upstairs1.events = function() {
     Game.ctx.drawImage(image.midori0r, 0, groundlevel, scale * 220, scale * 440);
@@ -232,7 +266,7 @@ createScene({ name: "home_upstairs2",
 		edgeL: 100,
 		edgeR: "home_upstairs1",
 		ground: 180,
-		scaling: 0.9,
+		scale: 0.9,
 		gamemode: "adventure"});
 scene.home_upstairs2.events = function() {
 	door(575,"home_room1",0,"Enter");
@@ -245,7 +279,7 @@ createScene({ name: "home_room1",
 		edgeL: 0,
 		edgeR: 1080,
 		ground: 220,
-		scaling: 1,
+		scale: 1,
 		gamemode: "adventure"});
 scene.home_room1.events = function() {
 	door(0,"home_upstairs2",575,"Leave");
@@ -258,7 +292,7 @@ createScene({ name: "home_downstairs1",
 		edgeL: "home_downstairs2",
 		edgeR: 1080,
 		ground: 200,
-		scaling: 1.05,
+		scale: 1.05,
 		gamemode: "adventure"});
 scene.home_downstairs1.events = function() {
     stairs(560, "up", "home_upstairs1", 400);
@@ -274,7 +308,7 @@ createScene({ name: "home_downstairs2",
 		edgeL: "home_downstairs3",
 		edgeR: "home_downstairs1",
 		ground: 200,
-		scaling: 1.05,
+		scale: 1.05,
 		gamemode: "adventure"});
 scene.home_downstairs2.events = function(){
 	door(980,"home_basement", 100,"Basement");
@@ -289,7 +323,7 @@ createScene({ name: "home_downstairs3",
 		edgeL: 300,
 		edgeR: "home_downstairs2",
 		ground: 200,
-		scaling: 1.05,
+		scale: 1.05,
 		gamemode: "adventure"});
 scene.home_downstairs3.events = function(){
 	door(600,"home_bath","locked","Bathroom");
@@ -302,7 +336,7 @@ createScene({ name: "livingroom",
 		edgeL: 400,
 		edgeR: 750,
 		ground: 160,
-		scaling: 1.25,
+		scale: 1.25,
 		gamemode: "adventure"});
 scene.livingroom.events = function() {
 	door(700,"home_downstairs2",750,"Leave");
@@ -315,7 +349,7 @@ createScene({ name: "home_basement",
 		edgeL: "home_downstairs2",
 		edgeR: 1050,
 		ground: 350,
-		scaling: 0.8,
+		scale: 0.8,
 		gamemode: "adventure"});
 scene.home_basement.events = function(){
 	portal(45, "home_downstairs2", 980);

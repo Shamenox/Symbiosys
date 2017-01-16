@@ -57,6 +57,11 @@ function unlock(){
     event.MopBeforeLeaving = true;
 }
 
+function unsafeforWork(){
+	var layer = 0;
+	if (layer === 5 ) nsfw = true;
+}
+
 function labelFont(){
 	Game.ctx.strokeStyle = 'black';
     Game.ctx.fillStyle = "black";
