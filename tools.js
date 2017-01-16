@@ -5,15 +5,17 @@ Number.prototype.between = function(a, b) {
 }
 
 function button(posx, posy, width, height, tag, colour, action){
+	var textY = parseInt(Game.ctx.font.split('p')[0]) + posy + 0.4*((height - 2*Game.ctx.lineWidth) - parseInt(Game.ctx.font.split('p')[0]));
 	Game.ctx.fillStyle = colour;
 	Game.ctx.fillRect(posx + Game.ctx.lineWidth, posy + Game.ctx.lineWidth, width - Game.ctx.lineWidth*2, height - Game.ctx.lineWidth*2);
 	Game.ctx.fillStyle = "black";
-	Game.ctx.rect(posx , posy, width, height);
+	Game.ctx.strokeRect(posx , posy, width, height);
 	if (cursor.x.between(posx, posx + width) && cursor.y.between(posy, posy + height)){
 		if (click) action();
+		Game.ctx.strokeRect(posx + Game.ctx.lineWidth, posy + Game.ctx.lineWidth, width - Game.ctx.lineWidth*2, height - Game.ctx.lineWidth*2);
 	}
 	Game.ctx.fillStyle = "black";
-	Game.ctx.fillText(tag, posx + ((width - Game.ctx.measureText(tag).width)*0.5), posy + 50 + 0.5*(height -100));
+	Game.ctx.fillText(tag, posx + ((width - Game.ctx.measureText(tag).width)*0.5), textY);
 }
 
 function createSprite(path,x,y){

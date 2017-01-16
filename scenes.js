@@ -66,7 +66,7 @@ createScene({ name: "menue",
 		scaling: 1,
 		gamemode: "interface"});
 scene.menue.events = function() {
-    button(400, 100, 480, 200, "Start", "yellow", function(){scene.at = "kiirosroom"})
+    button(400, 100, 480, 100, "Start", "yellow", function(){scene.at = "kiirosroom"})
 }
 
 createScene({ name: "kiirosroom",
