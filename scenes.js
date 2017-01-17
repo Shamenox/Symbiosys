@@ -1,4 +1,5 @@
-﻿function createScene (options) {
+﻿var scene = {};
+function createScene (options) {
 	//declaration, bg, theme, font, edgeL, edgeR, ground, scaling, gamemode
 	var neueszene = {};
 	neueszene.background = image[options.bg];

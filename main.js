@@ -1,34 +1,17 @@
 ﻿var Game = {};
 
 // Setup
-var audio = {};
-var image = {
-	quantity : 0,
-	loaded : 0
-};
 var player1 = {};
 var skin = {};
-var scene = {};
-var npc = {};
 var scale = 1;
 var state = 0;
 var next = [];
 var background = new Image();
-var cursor = { x : 0, y : 0};
 var clothes = "kiiro_main";
 var use = "false";
 var groundlevel = 220;
 var mode = "adventure";
-var click = false;
 var nsfw = false;
-var key = {
-	w : false,
-	a : false,
-	s : false,
-	d : false,
-	e : false,
-	esc : false,
-};
 var event = {
 	MopBeforeLeaving : false,
 	getBirdfood : false
@@ -62,7 +45,9 @@ window.onload = function() {
 	setupSkins();
 	setupPlayer1();
 	setupNpcs();
+	setupItems();
 	setupScenes();
+	item.bar.act
 	scene.at = "loading";
 
 	//start drawloop

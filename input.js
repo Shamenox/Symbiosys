@@ -1,5 +1,14 @@
+var key = {
+	w : false,
+	a : false,
+	s : false,
+	d : false,
+	e : false,
+	esc : false,
+};
+var cursor = { x : 0, y : 0};
+var click = false;
 function setupInput(){
-
 addEventListener("keydown", function(w) {
     if (w.keyCode === 87) key.w = true;
     if (w.keyCode === 83) key.s = true;
