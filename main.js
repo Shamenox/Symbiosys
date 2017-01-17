@@ -47,7 +47,6 @@ window.onload = function() {
 	setupNpcs();
 	setupItems();
 	setupScenes();
-	item.bar.act
 	scene.at = "loading";
 
 	//start drawloop
@@ -58,6 +57,7 @@ window.onload = function() {
 function draw() {
 	Game.ctx.drawImage(background, 0, 0);
 	scene.act();
+	item.bar.act();
 	physik();
 	if (mode !== "interface") Game.ctx.fillText("Version 0.255", 1140, 710);
 	Game.ctx.drawImage(player1.skin, player1.x, player1.y, 220 * scale, 440 * scale);
