@@ -4,6 +4,7 @@ var key = {
 	s : false,
 	d : false,
 	e : false,
+	i : false,
 	esc : false,
 };
 var cursor = { x : 0, y : 0};
@@ -15,6 +16,7 @@ addEventListener("keydown", function(w) {
     if (w.keyCode === 65) key.a = true;
     if (w.keyCode === 68) key.d = true;
     if (w.keyCode === 69) key.e = true;
+	if (w.keyCode === 73) key.i = true;
     if (w.keyCode === 27) key.esc = true;
 
     w.preventDefault();
@@ -26,6 +28,7 @@ addEventListener("keyup", function(w) {
     if (w.keyCode === 65) key.a = false;
     if (w.keyCode === 68) key.d = false;
     if (w.keyCode === 69) key.e = false;
+	if (w.keyCode === 73) key.i = false;
     if (w.keyCode === 27) key.esc = false;
 }, false);
 

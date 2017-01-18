@@ -62,6 +62,21 @@ function unsafeforWork(){
 	if (layer === 5 ) nsfw = true;
 }
 
+function react(){
+	next["reaction"] = false;
+}
+function triggerReact(trigger){
+	if (trigger){
+		if (next["reaction"] === false || next["reaction"] === undefined){
+		next["reaction"] = true;
+		setTimeout(react,500);
+		return true;
+		}
+	}
+	return false;
+}
+	
+
 function labelFont(){
 	Game.ctx.strokeStyle = 'black';
     Game.ctx.fillStyle = "black";

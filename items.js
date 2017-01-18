@@ -3,10 +3,24 @@ function setupItems(){
 	item.bar = {};
 	item.bar.extended = false;
 	item.bar.slot = [];
+	for (i = 0; i<9; i++){
+		item.bar.slot[i] = "empty";
+	}
 	item.bar.act = function(){
-		if (!item.bar.extended) ;//draw ausklappenbutton
-		if (item.bar.extended){
-			// zeichne Inventory
+	console.log(item.bar.extended);
+		if (triggerReact(key.i && !item.bar.extended)) item.bar.extended = true;
+		if (triggerReact(key.i && item.bar.extended)) item.bar.extended = false;
+		console.log(item.bar.extended);
+		if (mode === "adventure"){
+			if (!item.bar.extended) {
+				Game.ctx.drawImage(image.inventory,0,660);
+			}
+			if (item.bar.extended){
+				Game.ctx.drawImage(image.inventory,0,465);
+				for (i = 0; i<9; i++){
+				if (item.bar.slot[i] !== "empty") Game.ctx.drawImage(item.bar.slot[i].skin,40+110*i,575); ;
+				}
+			}
 		}
 	}
 	

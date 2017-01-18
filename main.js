@@ -57,10 +57,10 @@ window.onload = function() {
 function draw() {
 	Game.ctx.drawImage(background, 0, 0);
 	scene.act();
-	item.bar.act();
 	physik();
 	if (mode !== "interface") Game.ctx.fillText("Version 0.255", 1140, 710);
 	Game.ctx.drawImage(player1.skin, player1.x, player1.y, 220 * scale, 440 * scale);
+	item.bar.act();
 	Game.ctx.drawImage(image.cursor, cursor.x - 8, cursor.y - 36);
 	requestAnimationFrame(draw);
 }

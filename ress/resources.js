@@ -100,5 +100,6 @@ var resources = {
 	"trollface": "ress/trollface.png",
 	"scp1730l": "ress/scp173/0l.png",
 	"scp1730r": "ress/scp173/0r.png",
-	"home_basement": "ress/home_basement.png"
+	"home_basement": "ress/home_basement.png",
+	"inventory" : "ress/inventory.png"
 }

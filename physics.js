@@ -6,7 +6,7 @@ function physik() {
 	if (!key.e && use === "true") use = "false";
 
 	if (mode === "adventure"){
-		if (key.w && player1.y === groundlevel) player1.vy = 30 * scale, player1.y -= 40;
+		if (triggerReact(key.w && player1.y === groundlevel)) player1.vy = 30 * scale, player1.y -= 40;
 		if (key.s){
 			player1.step = 11;
 			if (player1.y === groundlevel) player1.y = groundlevel + 100*scale;
