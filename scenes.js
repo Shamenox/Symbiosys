@@ -68,7 +68,7 @@ createScene({ name: "menue",
 		gamemode: "interface"});
 scene.menue.events = function() {
     button(400, 100, 480, 100, "Start", "yellow", function(){scene.at = "kiirosroom"})
-	button(400, 250, 480, 100, "Gallery", "yellow", function(){scene.at = "gallery"})
+	button(400, 250, 480, 100, "Controls", "yellow", function(){scene.at = "controls"})
 	button(400, 400, 480, 100, "Credits", "yellow", function(){scene.at = "credits"})
 	button(400, 550, 480, 100, nsfw, "purple", unsafeforWork)
 }
@@ -91,16 +91,23 @@ scene.credits.events = function() {
 	button(400, 600, 480, 100, "Back", "yellow", function(){scene.at = "menue"})
 }
 
-createScene({ name: "gallery",
+createScene({ name: "controls",
 	bg: "whitescreen",
 	theme: "none",
-	font: labelFont,
+	font: standartFont,
 	edgeL: 0,
 	edgeR: 1280,
 	ground: 220,
 	scale: 1,
 	gamemode: "interface"});
-scene.gallery.events = function() {
+scene.controls.events = function() {
+	Game.ctx.fillText("Jump = W", 100,100);
+	Game.ctx.fillText("Go left = A", 100,150);
+	Game.ctx.fillText("Go right = D", 100,200);
+	Game.ctx.fillText("Crouch = S", 100,250);
+	Game.ctx.fillText("Use = E", 100,300);
+	Game.ctx.fillText("Inventory = I", 100,350);
+	Game.ctx.fillText("Escape = Escape", 100,400);
 	button(400, 600, 480, 100, "Back", "yellow", function(){scene.at = "menue"})
 }
 
