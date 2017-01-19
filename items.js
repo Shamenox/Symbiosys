@@ -1,13 +1,11 @@
-var item = {};
+﻿var item = {};
 function setupItems(){
 	item.bar = {};
 	item.bar.extended = false;
 	item.bar.slot = [];
 	item.bar.act = function(){
-	console.log(item.bar.extended);
 		if (triggerReact(key.i && !item.bar.extended)) item.bar.extended = true;
 		if (triggerReact(key.i && item.bar.extended)) item.bar.extended = false;
-		console.log(item.bar.extended);
 		if (mode === "adventure"){
 			if (!item.bar.extended) {
 				Game.ctx.drawImage(image.inventory,0,660);

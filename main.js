@@ -12,10 +12,6 @@ var use = "false";
 var groundlevel = 220;
 var mode = "adventure";
 var nsfw = false;
-var event = {
-	MopBeforeLeaving : false,
-	getBirdfood : false
-};
 
 function setupSkins(){
 	createSkin("kiiro_main");
@@ -43,6 +39,8 @@ window.onload = function() {
 	loadImages();
 	loadAudio();
 	setupSkins();
+	setupEvents();
+	console.log(event);
 	setupPlayer1();
 	setupNpcs();
 	setupItems();
@@ -57,6 +55,7 @@ window.onload = function() {
 function draw() {
 	Game.ctx.drawImage(background, 0, 0);
 	scene.act();
+	event.check();
 	physik();
 	if (mode !== "interface") Game.ctx.fillText("Version 0.256", 1140, 710);
 	Game.ctx.drawImage(player1.skin, player1.x, player1.y, 220 * scale, 440 * scale);

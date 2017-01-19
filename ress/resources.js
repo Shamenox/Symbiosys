@@ -1,4 +1,4 @@
-var resources = {
+﻿var resources = {
     "cursor": "ress/cursor.png",
     "blank": "ress/blank.png",
     "whitescreen": "ress/whitescreen.png",

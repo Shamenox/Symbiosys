@@ -1,4 +1,4 @@
-var npc = {};
+﻿var npc = {};
 function setupNpcs(){
 	npc.scp173 = { setup : false};
 	npc.scp173.spawn = function(at){

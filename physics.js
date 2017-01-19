@@ -34,11 +34,9 @@ function physik() {
 			}
 		}
 		if (player1.y < groundlevel) player1.vy -= 4, player1.step = 11;
-		if (player1.vx !== 0 && !next["walking"]) {
-			if (player1.step < 10) player1.step +=1;
+		if (player1.vx !== 0) {
 			if (player1.step === 10) player1.step = 1;
-			setTimeout(steppon,100);
-			next["walking"] = true;
+			setInterval(() => player1.step++,100);
 		}
 		if (player1.vx === 0 && player1.step !== 11) player1.step = 0;
 		if (player1.dir === "right") player1.skin = skin[clothes].r[player1.step];
@@ -55,10 +53,6 @@ function physik() {
 		}
     if (use === "black") background = image.blackscreen;
 	if (mode === "interface") player1.skin = image.blank;
-}
-
-function steppon(){
-	next["walking"] = false;
 }
 
 function normalize(target) {

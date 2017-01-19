@@ -1,4 +1,4 @@
-var key = {
+﻿var key = {
 	w : false,
 	a : false,
 	s : false,
