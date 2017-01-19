@@ -341,6 +341,7 @@ createScene({ name: "livingroom",
 		gamemode: "adventure"});
 scene.livingroom.events = function() {
 	door(700,"home_downstairs2",750,"Leave");
+	item.chips.place(450,560);
 }
 
 createScene({ name: "home_basement",

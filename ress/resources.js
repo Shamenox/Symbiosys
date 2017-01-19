@@ -101,5 +101,9 @@ var resources = {
 	"scp1730l": "ress/scp173/0l.png",
 	"scp1730r": "ress/scp173/0r.png",
 	"home_basement": "ress/home_basement.png",
-	"inventory" : "ress/inventory.png"
+	"inventory" : "ress/inventory.png",
+	"inventory_blank" : "ress/inventory_blank.png",
+	"inventory_arrow" : "ress/inventory_arrow.png",
+	"inventory_selected" : "ress/inventory_selected.png",
+	"chips" : "ress/chips.png"
 }
