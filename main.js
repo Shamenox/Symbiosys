@@ -1,4 +1,4 @@
-﻿var Game = {};
+﻿var Game = {event : {}};
 
 // Setup
 var player1 = {};
@@ -55,7 +55,7 @@ window.onload = function() {
 function draw() {
 	Game.ctx.drawImage(background, 0, 0);
 	scene.act();
-	event.check();
+	Game.event.check();
 	physik();
 	if (mode !== "interface") Game.ctx.fillText("Version 0.256", 1140, 710);
 	Game.ctx.drawImage(player1.skin, player1.x, player1.y, 220 * scale, 440 * scale);

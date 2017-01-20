@@ -1,9 +1,8 @@
-﻿var event = {};
-function setupEvents(){
-	event.items = [];
-	event.check = function(){
-		for (i = 0; i < event.length; i++){
-			event.items[i].check();
+﻿function setupEvents(){
+	Game.event.items = [];
+	Game.event.check = function(){
+		for (i = 0; i < Game.event.length; i++){
+			Game.event.items[i].check();
 		}
 	}
 }
@@ -18,5 +17,7 @@ function createEvent(declaration, trigger, action){
 		if (action !== undefined){
 			neuesEvent.act() = action;
 		}
-		event.items[event.length] = neuesEvent;
-	}
+		Game.event.items[event.length] = neuesEvent;
+}
+
+createEvent(guitar_before_leaving, function(){});

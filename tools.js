@@ -53,8 +53,10 @@ function createSkin(declaration){
 	console.log(skin[declaration]);
 }
 
-function unlock(){
-    event.MopBeforeLeaving = true;
+function unlockEvents(){
+    for (i = 0;i < Game.event.items.length; i++) {
+		Game.event.itmes.triggered = true;
+    }
 }
 
 function unsafeforWork(){

@@ -121,7 +121,7 @@ createScene({ name: "kiirosroom",
 		scale: 1,
 		gamemode: "adventure"});
 scene.kiirosroom.events = function() {
-	door(0,"home_upstairs1",700,"Leave",event.MopBeforeLeaving,"Wait! I wanted to try out that cool song on guitar.");
+	door(0,"home_upstairs1",700,"Leave",Game.event.guitar_before_leaving,"Wait! I wanted to try out that cool song on guitar.");
 	door(300,"desktop",-200,"Use");
 	door(580,"closet",-200,"Closet");
     if (player1.x > 640 && player1.x < 840) {
@@ -306,7 +306,7 @@ scene.home_downstairs1.events = function() {
     stairs(560, "up", "home_upstairs1", 400);
 	npc.riyu.spawn(300, "conversation1");
 	door(800,"home_kitchen","locked","Kitchen");
-	door(1040,"frontyard",0,"Leave",event.getBirdfood,"I first need to gather", "something to feed to", "beloved crow friends.");
+	door(1040,"frontyard",0,"Leave",Game.vent.getBirdfood,"I first need to gather", "something to feed to", "beloved crow friends.");
 }
 
 createScene({ name: "home_downstairs2",
