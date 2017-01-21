@@ -3,7 +3,9 @@
     max = Math.max.apply(Math, [a, b]);
   return this > min && this < max;
 }
-
+function checkCrash(){
+console.log(player1.x, clothes, player1.step, state, Game.event.items);
+}
 function button(posx, posy, width, height, tag, colour, action){
 	var textY = parseInt(Game.ctx.font.split('p')[0]) + posy + 0.4*((height - 2*Game.ctx.lineWidth) - parseInt(Game.ctx.font.split('p')[0]));
 	Game.ctx.fillStyle = colour;
@@ -16,14 +18,6 @@ function button(posx, posy, width, height, tag, colour, action){
 	}
 	Game.ctx.fillStyle = "black";
 	Game.ctx.fillText(tag, posx + ((width - Game.ctx.measureText(tag).width)*0.5), textY);
-}
-
-function createSprite(path,x,y){
-    var content = {
-        x: x,
-        y: y,
-    };
-    return content;
 }
 
 function createSkin(declaration){
@@ -53,24 +47,18 @@ function createSkin(declaration){
 	console.log(skin[declaration]);
 }
 
-function unlockEvents(){
-    for (i = 0;i < Game.event.items.length; i++) {
-		Game.event.itmes.triggered = true;
-    }
-}
-
 function unsafeforWork(){
 	var layer = 0;
 	if (layer === 5 ) nsfw = true;
 }
 
-function react(){
-	next["reaction"] = false;
-}
 function triggerReact(trigger){
+	function react(){
+	next[toString(trigger)] = false;
+	}
 	if (trigger){
 		if (next["reaction"] === false || next["reaction"] === undefined){
-		next["reaction"] = true;
+		next[toString(trigger)] = true;
 		setTimeout(react,500);
 		return true;
 		}

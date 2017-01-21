@@ -34,11 +34,14 @@ function physik() {
 			}
 		}
 		if (player1.y < groundlevel) player1.vy -= 4, player1.step = 11;
-		if (player1.vx !== 0) {
+		if (triggerReact(player1.vx !== 0)) {
 			if (player1.step === 10) player1.step = 1;
-			setInterval(() => player1.step++,100);
+			player1.step +=1;
+			//var stepID =setInterval(() => player1.step++,100);
 		}
-		if (player1.vx === 0 && player1.step !== 11) player1.step = 0;
+		if (player1.vx === 0){
+			if (player1.step !== 11) player1.step = 0;
+		}
 		if (player1.dir === "right") player1.skin = skin[clothes].r[player1.step];
 		if (player1.dir === "left") player1.skin = skin[clothes].l[player1.step];
 
@@ -108,12 +111,10 @@ function door(pos,to,at,tag,trigger,alt1,alt2,alt3){
 			if (trigger === null || trigger === undefined || trigger === true) use = "enter";
 			if (trigger === false) use = "failed";
 		}
-        if (use === "enter" && !next[1]) {
+        if (triggerReact(use === "true")) {
             scene.at = to;
             player1.x = at;
 			player1.y = groundlevel;
-			next[1] = true;
-            setTimeout(normalize,500);
         }
 		if (use === "locked"){
 		Game.ctx.fillText("Its locked?...", pos, groundlevel);
