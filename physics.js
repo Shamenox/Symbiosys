@@ -2,7 +2,7 @@
 function physik() {
     player1.y -= player1.vy;
     player1.x += player1.vx;
-	if (key.e) use = "true";
+	if (key.e && use === "false") use = "true";
 	if (!key.e && use === "true") use = "false";
 
 	if (mode === "adventure"){

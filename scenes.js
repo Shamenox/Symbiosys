@@ -139,14 +139,14 @@ scene.kiirosroom.events = function() {
     if (player1.x > 940 && player1.x < 1050) {
         if (use === "false")Game.ctx.fillText("Play(E)", 1050, 220);
         if (use === "true") {
+			triggerEvent("MOP");
             use = "guitar";
             audio.guitar1.play();
+			changeSkin("kiiro_guitar");
             setTimeout(normalize, 17000,"skin");
         }
     }
 	if (use === "guitar") {
-		triggerEvent("MOP");
-		changeSkin("kiiro_guitar");
 		Game.ctx.drawImage(image.overlay_guitar, 1092, 75);
 	}
     if (player1.x > 1050)Game.ctx.fillText("Maybe I could go to the park...", 900, 220);

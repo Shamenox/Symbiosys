@@ -7,6 +7,11 @@
 		if (Game.event[nach].triggered) return true;
 		return false;
 	}
+createEvent("crowfood", function(){
+	if (item.chips.quantity > 0) return true;
+	return false;
+	});
+}
 function createEvent(declaration, trigger){
 		var neuesEvent = {};
 		neuesEvent.triggered = false;
@@ -15,9 +20,4 @@ function createEvent(declaration, trigger){
 }
 function triggerEvent(declaration){
 	createEvent(declaration, function(){return true});
-}
-createEvent("crowfood", function(){
-	if (item.chips.quantity > 0) return true;
-	return false;
-	});
 }
