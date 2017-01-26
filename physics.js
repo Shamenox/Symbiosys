@@ -6,7 +6,7 @@ function physik() {
 	if (!key.e && use === "true") use = "false";
 
 	if (mode === "adventure"){
-		if (triggerReact(key.w && player1.y === groundlevel)) player1.vy = 30 * scale, player1.y -= 40;
+		if (intervalReact(key.w && player1.y === groundlevel)) player1.vy = 30 * scale, player1.y -= 40;
 		if (key.s){
 			player1.step = 11;
 			if (player1.y === groundlevel) player1.y = groundlevel + 100*scale;
@@ -34,9 +34,9 @@ function physik() {
 			}
 		}
 		if (player1.y < groundlevel) player1.vy -= 4, player1.step = 11;
-		if (triggerReact(player1.vx !== 0)) {
-			if (player1.step === 10) player1.step = 1;
-			player1.step +=1;
+		if (intervalReact(player1.vx !== 0, 100, "isWalkingOn")) {
+			if (player1.step === 10) player1.step = 0;
+			if (player1.step < 10) player1.step +=1;
 			//var stepID =setInterval(() => player1.step++,100);
 		}
 		if (player1.vx === 0){
@@ -69,7 +69,6 @@ function normalize(target) {
 
 function fadeout() {
     use = "black";
-	console.log(use);
     changeSkin("blank");
     setTimeout(normalize, 1000,"skin");
 }
@@ -105,16 +104,17 @@ function talk(text, turn) {
 	
 function door(pos,to,at,tag,trigger,alt1,alt2,alt3){
     if (player1.x.between(pos - 80*scale,pos + 80*scale)) {
-        if (use === "false")Game.ctx.fillText(tag+"(E)", pos, groundlevel);
-		if (use === "true" && at === "locked") use = "locked";
-        if (use === "true"){
-			if (trigger === null || trigger === undefined || trigger === true) use = "enter";
-			if (trigger === false) use = "failed";
+        if (use === "false") Game.ctx.fillText(tag+"(E)", pos, groundlevel);
+        if (intervalReact(use === "true", 500, "transitDelay")){
+			if (at === "locked") use = "locked";
+			if (trigger === undefined && alt1 === undefined || trigger) use = "enter";
+			if (trigger !== true && alt1 !== undefined) use = "failed";
 		}
-        if (triggerReact(use === "true")) {
+        if (use === "enter") {
             scene.at = to;
             player1.x = at;
 			player1.y = groundlevel;
+			use === "false";
         }
 		if (use === "locked"){
 		Game.ctx.fillText("Its locked?...", pos, groundlevel);
@@ -126,7 +126,6 @@ function door(pos,to,at,tag,trigger,alt1,alt2,alt3){
 		if (alt3 !== undefined)Game.ctx.fillText(alt3, pos, groundlevel);
         setTimeout(normalize, 3000);
 		}
-		if (use === "true") use = "false";
     }
 }
 

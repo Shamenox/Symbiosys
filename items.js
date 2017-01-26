@@ -4,8 +4,8 @@ function setupItems(){
 	item.bar.extended = false;
 	item.bar.slot = [];
 	item.bar.act = function(){
-		if (triggerReact(key.i && !item.bar.extended)) item.bar.extended = true;
-		if (triggerReact(key.i && item.bar.extended)) item.bar.extended = false;
+		if (intervalReact(key.i && !item.bar.extended)) item.bar.extended = true;
+		if (intervalReact(key.i && item.bar.extended)) item.bar.extended = false;
 		if (mode === "adventure"){
 			if (!item.bar.extended) {
 				Game.ctx.drawImage(image.inventory,0,660);
@@ -33,7 +33,6 @@ function setupItems(){
 	function createItem(declaration, texture){
 		neuesItem = {};
 		neuesItem.skin = image[texture];
-		neuesItem.declaration = declaration;
 		neuesItem.quantity = 0;
 		neuesItem.pickedup = {};
 		neuesItem.place = function(x,y){

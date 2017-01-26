@@ -40,7 +40,6 @@ window.onload = function() {
 	loadAudio();
 	setupSkins();
 	setupEvents();
-	console.log(event);
 	setupPlayer1();
 	setupNpcs();
 	setupItems();
@@ -53,7 +52,7 @@ window.onload = function() {
 
 // Tatsaechliche Abbildung
 function draw() {
-	checkCrash();
+	console.log(use);
 	Game.ctx.drawImage(background, 0, 0);
 	scene.act();
 	physik();

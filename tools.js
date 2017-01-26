@@ -3,9 +3,7 @@
     max = Math.max.apply(Math, [a, b]);
   return this > min && this < max;
 }
-function checkCrash(){
-console.log(player1.x, clothes, player1.step, state, Game.event.items);
-}
+
 function button(posx, posy, width, height, tag, colour, action){
 	var textY = parseInt(Game.ctx.font.split('p')[0]) + posy + 0.4*((height - 2*Game.ctx.lineWidth) - parseInt(Game.ctx.font.split('p')[0]));
 	Game.ctx.fillStyle = colour;
@@ -52,14 +50,16 @@ function unsafeforWork(){
 	if (layer === 5 ) nsfw = true;
 }
 
-function triggerReact(trigger){
+function intervalReact(trigger, delay, ID){
+	if (delay === undefined) delay = 500;
+	if (ID === undefined) ID = "react";
 	function react(){
-	next[toString(trigger)] = false;
+	next[ID] = false;
 	}
 	if (trigger){
-		if (next["reaction"] === false || next["reaction"] === undefined){
-		next[toString(trigger)] = true;
-		setTimeout(react,500);
+		if (next[ID] === false || next[ID] === undefined){
+		next[ID] = true;
+		setTimeout(react,delay);
 		return true;
 		}
 	}

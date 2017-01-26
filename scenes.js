@@ -306,7 +306,7 @@ scene.home_downstairs1.events = function() {
     stairs(560, "up", "home_upstairs1", 400);
 	npc.riyu.spawn(300, "conversation1");
 	door(800,"home_kitchen","locked","Kitchen");
-	door(1040,"frontyard",0,"Leave",Game.event.check("Crowfood"),"I first need to gather", "something to feed to", "beloved crow friends.");
+	door(1040,"kiirosroom",0,"Leave",Game.event.check("crowfood"),"I first need to gather", "something to feed to", "beloved crow friends.");
 }
 
 createScene({ name: "home_downstairs2",
@@ -363,7 +363,6 @@ createScene({ name: "home_basement",
 scene.home_basement.events = function(){
 	portal(45, "home_downstairs2", 980);
 	npc.scp173.spawn(1000);
-	console.log(player1.x);
 }
 
 
