@@ -52,7 +52,6 @@ window.onload = function() {
 
 // Tatsaechliche Abbildung
 function draw() {
-console.log(use);
 	Game.ctx.drawImage(background, 0, 0);
 	scene.act();
 	physik();

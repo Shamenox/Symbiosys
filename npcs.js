@@ -10,9 +10,8 @@ function setupNpcs(){
 		neuerNpc.spawn = function(at){
 			if (this.spawned[scene.at] === undefined) this.x = at, this.spawned[scene.at] = true;
 			if (!this.framed){
-				console.log(this.skin, image[this.skin+"0l"]);
-				if (this.dir === "left") Game.ctx.drawImage(image[this.skin+"0l"], this.x, groundlevel - (image[this.skin+"0l"].naturalHeight * scale -440), image[this.skin+"l"].naturalWidth * scale, image[this.skin+"0l"].naturalHeight * scale);
-				if (this.dir === "right") Game.ctx.drawImage(image[this.skin+"0r"], this.x, groundlevel - (image[this.skin+"0r"].naturalHeight * scale -440), image[this.skin+"r"].naturalWidth * scale, image[this.skin+"0r"].naturalHeight * scale);
+				if (this.dir === "left") Game.ctx.drawImage(image[this.skin+"0l"], this.x, groundlevel + (image[this.skin+"0l"].naturalHeight * scale -440), image[this.skin+"0l"].naturalWidth * scale, image[this.skin+"0l"].naturalHeight * scale);
+				if (this.dir === "right") Game.ctx.drawImage(image[this.skin+"0r"], this.x, groundlevel + (image[this.skin+"0r"].naturalHeight * scale -440), image[this.skin+"0r"].naturalWidth * scale, image[this.skin+"0r"].naturalHeight * scale);
 			}
 			if (this.behaviour !== undefined) this.behaviour();
 		}
