@@ -91,12 +91,13 @@ function changeClothes(to){
         }
     }
 
-function delay() {
-    state += 1;
-    if (!next[state]) normalize();
-}
+
 
 function talk(text, turn) {
+	function delay() {
+    state += 1;
+    if (!next[state]) normalize();
+	}
     if (turn === 1 && state === 0) state = 1;
     if (state === turn)Game.ctx.fillText(text, player1.x, groundlevel);
     if (next[turn] !== true) setTimeout(delay, 2000 * turn), next[turn] = true;
@@ -111,10 +112,10 @@ function door(pos,to,at,tag,trigger,alt1,alt2,alt3){
 			if (trigger !== true && alt1 !== undefined) use = "failed";
 		}
         if (use === "enter") {
+			use = "false";
             scene.at = to;
             player1.x = at;
 			player1.y = groundlevel;
-			use === "false";
         }
 		if (use === "locked"){
 		Game.ctx.fillText("Its locked?...", pos, groundlevel);

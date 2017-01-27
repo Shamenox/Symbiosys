@@ -19,7 +19,7 @@ function setupItems(){
 				for (i = 0; i<8; i++){
 					if (cursor.x.between(40+155*i,160+155*i) && cursor.y.between(550,710)) Game.ctx.drawImage(image.inventory_selected,40+155*i,550);
 					if (item.bar.slot[i] !== undefined) Game.ctx.drawImage(item.bar.slot[i].skin,40+110*i,575, 120, 120);
-					if (item.bar.slot[i] !== undefined && cursor.x.between(40+155*i,160+155*i) && cursor.y.between(550,710)) Game.ctx.fillText(item.bar.slot[i].declaration, cursor.x, cursor.y - 20);
+					if (item.bar.slot[i] !== undefined && cursor.x.between(40+155*i,160+155*i) && cursor.y.between(550,710)) Game.ctx.fillText(item.bar.slot[i].tag, cursor.x, cursor.y - 20);
 				}
 				Game.ctx.drawImage(image.inventory,0,465);
 				if (cursor.x.between(10,250) && cursor.y.between(470,535)){
@@ -32,14 +32,15 @@ function setupItems(){
 	
 	function createItem(declaration, texture){
 		neuesItem = {};
+		neuesItem.tag = declaration
 		neuesItem.skin = image[texture];
 		neuesItem.quantity = 0;
 		neuesItem.pickedup = {};
 		neuesItem.place = function(x,y){
 			if (this.pickedup[scene.at] === undefined) {
-				Game.ctx.drawImage(this.skin, x, y);
+				Game.ctx.drawImage(this.skin, x, y, this.skin.naturalHeight * scale, this.skin.naturalWidth * scale);
 				if (player1.x.between(x + 50*scale, x - 50*scale)) {
-					Game.ctx.fillText("Pick up " + this.declaration +"(E)", x, groundlevel);
+					Game.ctx.fillText("Pick up " + this.tag +"(E)", x, groundlevel);
 					if (key.e) {
 						audio.cloth.play();
 						this.quantity += 1;

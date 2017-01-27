@@ -1,5 +1,27 @@
 ﻿var npc = {};
 function setupNpcs(){
+	function createNpc(texture){
+	neuerNpc = {};
+	neuerNpc.skin = texture;
+	neuerNpc.spawned = [];
+	neuerNpc.dir = right;
+	if (skin[texture] !== undefined) neuerNpc.framed = true;
+	if (skin[texture] === undefined) neuerNpc.framed = true;
+	neuerSkin.spawn = function(at){
+		if (this.spawned[scene.at] === undefined) this.x = at, this.spawned[scene.at] = true;
+		if (this.dir === "left") Game.ctx.drawImage(image.scp1730l, npc.scp173.x, groundlevel - 50*scale, 220*scale, 440*scale);
+
+		if (npc.scp173.dir === "right"){
+			if (player1.dir === "right") npc.scp173.x +=40, audio.concrete.play();
+			Game.ctx.drawImage(image.scp1730r, npc.scp173.x, groundlevel - 50*scale, 220*scale, 440*scale);
+		}
+		if (player1.x.between(npc.scp173.x +5 , npc.scp173.x -5)) die(), npc.scp173.setup === false;
+	}
+	
+	
+		
+	}
+	
 	npc.scp173 = { setup : false};
 	npc.scp173.spawn = function(at){
 		if (!npc.scp173.setup) npc.scp173.x = at, npc.scp173.setup = true;
