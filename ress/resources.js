@@ -105,5 +105,6 @@
 	"inventory_blank" : "ress/inventory_blank.png",
 	"inventory_arrow" : "ress/inventory_arrow.png",
 	"inventory_selected" : "ress/inventory_selected.png",
-	"chips" : "ress/chips.png"
+	"chips" : "ress/chips.png",
+	"home_upstairs1_gelaender" : "ress/home_ups1_staircase.png"
 }

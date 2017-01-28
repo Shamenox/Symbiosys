@@ -252,6 +252,7 @@ scene.home_upstairs1.events = function() {
     Game.ctx.drawImage(image.midori0r, 0, groundlevel, scale * 220, scale * 440);
 	stairs(400, "down", "home_downstairs1", 600)
 	door(790,"kiirosroom",0,"Enter");
+	displayOverlay(image.home_upstairs1_gelaender, 0, 0);
     if (player1.x > 10 && player1.x < 180) {
         if (use === "false") Game.ctx.fillText("Enter(E)", 120, groundlevel);
         if (use === "true") use = "talk";
