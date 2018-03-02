@@ -305,8 +305,8 @@ createScene({ name: "home_downstairs1",
 		gamemode: "adventure"});
 scene.home_downstairs1.events = function() {
     stairs(560, "up", "home_upstairs1", 400);
-	npc.riyu.spawn(300, "conversation1");
-	door(800,"home_kitchen","locked","Kitchen");
+	// npc.riyu.spawn(300, "conversation1");
+	// door(800,"home_kitchen","locked","Kitchen");
 	door(1040,"kiirosroom",0,"Leave",Game.event.check("crowfood"),"I first need to gather", "something to feed to", "beloved crow friends.");
 }
 
